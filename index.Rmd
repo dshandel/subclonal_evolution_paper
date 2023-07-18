@@ -1,6 +1,6 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAME HERE"
+title: "Pre-existing Radioresistant Subclones Determine Radioresistance in Rectal Cancer Organoids"
+author: "Daan Andel"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
