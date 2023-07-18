@@ -10,9 +10,10 @@ site: bookdown::bookdown_site
 knitr::opts_chunk$set(echo = F)
 ```
 
-# Radiation response and clinical data
+# In vitro radiation response and clinical data
 
-```{r libraries and sources, echo = T, message=FALSE, warning=FALSE}
+## Progression-free survival
+```{r libraries and sources for progression-free survival analysis, echo = T, message=FALSE, warning=FALSE}
 # Libraries and sources
 library(readxl)
 library(tidyverse)
@@ -24,8 +25,7 @@ library(survMisc)
 library(cowplot)
 ```
 
-## Progression-free survival
-```{r wrangle, echo = T, message=FALSE, warning=FALSE}
+```{r wrangle for Progression-free survival, echo = T, message=FALSE, warning=FALSE}
 ########
 # Data #
 ########
@@ -36,12 +36,6 @@ surg_surv <- as.data.frame(read_excel("../cna_analysis/data/clinical_and_dr/data
 # Loading progression data from time of surgery
 surg_prog <- as.data.frame(read_excel("../cna_analysis/data/clinical_and_dr/data_survival_progression.xlsx", 
                         sheet = "surg_prog"))
-###########
-# Wrangle #
-###########
-# Ommiting rows with NAs
-# surg_surv <- na.omit(surg_surv)
-# surg_prog <- na.omit(surg_prog)
 
 #######
 # Run #
@@ -66,7 +60,7 @@ surv_median(surg_prog_fit)[1,2]
 
 ```
 
-```{r plot, echo = T, message=FALSE, warning=FALSE}
+```{r plot Progression-free survival, echo = T, message=FALSE, warning=FALSE}
 ########
 # Plot #
 ########
@@ -105,4 +99,403 @@ prog_p$plot <- prog_p$plot +
 
 prog_p 
 
+```
+
+## In vitro dose-response  
+### Representative plot
+
+```{r libraries and sources for in vitro dose-response, echo = T, message=FALSE, warning=FALSE}
+# Libraries and sources
+library(tidyverse) # for wrangling data
+library(readxl) # for reading excel files
+library(DescTools) # for computing AUCs with AUC() function)
+library(drc) # for fitting dose response 
+library(cowplot)
+library(wesanderson)
+source('R/auc_rad.R')
+source('R/fitter_rad.R')
+source('R/ic50_rad.R')
+source('R/relativize_dr.R')
+```
+
+```{r relativize for in vitro dose-response, echo = T, message=FALSE, warning=FALSE}
+################
+# Loading data #
+################
+d <- data.frame(read_excel('../cna_analysis/data/clinical_and_dr/resistancy_organoids.xlsx'))
+
+# remove fluke experiment (can't be fitted by the drc package in metricsandfits.R)
+d <- subset(d, expcode != 'cva0028')
+
+# remove dose 1, 10,12
+d <- subset(d, dose %in% c(0,2,4,6,8))
+
+# only include organoids that were not radiated
+d <- subset(d, rec_rad == 0)
+
+##############
+# Relativize #
+##############
+# Relativizing the data
+
+# split per experiment
+per_exp <- split(d, f = d$expcode, drop = TRUE)
+
+# apply relative function to every instance in per_exp
+rel_vector_unrad <- lapply(per_exp, relative, rad = F)
+
+# join the dataframes togheter
+d_nonrad = do.call(rbind, rel_vector_unrad)
+
+#remove rownames
+rownames(d_nonrad) <- NULL
+
+# pool d_rad and d_nonrad, if not possible, make d d_nonrad
+
+# try to bind d_rad and d_nonrad. If d_rad is empty (this is the case when
+# rec_rad does not have ones, make d the same as d_nonrad)
+d <- d_nonrad
+```
+
+```{r fitting and computing metrics for in vitro dose-response, echo = T, message=FALSE, warning=FALSE}
+################
+# Loading data #
+################
+load("../cna_analysis/rda/clinical_and_dr/wrangled-data.rda") # load the wrangled data, data is saved under 'd'
+
+# defining experiment number for reference
+exp_numb <- unique(d$expcode)
+exp_numb <- paste(unlist(exp_numb), collapse='')
+
+##################
+### Metric AUC ###
+##################
+# split per experiment
+per_exp <- split(d, f = d$expcode, drop = TRUE)
+# apply relative function to every instance in per_exp
+AUC_vector <- lapply(per_exp, AUC_fun)
+
+# join the dataframes togheter
+AUC = do.call(rbind, AUC_vector)
+
+# remove rownames
+rownames(AUC) <- NULL
+
+#######
+# Fit #
+#######
+# apply fit function to every instance in per_exp
+fit_vector <- lapply(per_exp, fitter)
+
+# join the dataframes toghether
+fit = do.call(rbind, fit_vector)
+
+# remove rownames
+rownames(fit) <- NULL
+
+fit$rec_rad = 0 
+
+# remove rownames
+rownames(fit) <- NULL
+
+##################
+# relative IC50s #
+##################
+## relative under curve for unrad
+# apply relative function to every instance in per_exp
+IC50_vector <- lapply(per_exp, IC50_fun, rad = 0)
+
+# join the dataframes togheter
+IC50= do.call(rbind, IC50_vector)
+
+metrics = cbind(AUC, IC50)
+
+metrics$rec_rad <- 0
+
+# compute mean of rel_AUC
+metrics_pooled <- metrics %>% group_by(cline) %>% summarise_at(vars(rel_AUC),
+                                                               funs(mean(., na.rm=TRUE)))
+
+
+metrics_pooled$expcode <- exp_numb
+
+# compute mean of rel_AUC
+metrics_pooled <- metrics %>% group_by(cline) %>% summarise_at(vars(rel_AUC),
+                                                               funs(mean(., na.rm=TRUE)))
+
+
+# summary statistics
+median(metrics$rel_AUC)
+min(metrics$rel_AUC)
+max(metrics$rel_AUC)
+```
+
+```{r plots for in vitro dose-response, echo = T, message=FALSE, warning=FALSE}
+########
+# Data #
+########
+load("../cna_analysis/rda/clinical_and_dr/wrangled-data.rda") # load the wrangled data, data is saved under 'd'
+load("../cna_analysis/rda/clinical_and_dr/fitted-data.rda") # load the wrangled data, data is saved under 'fit'
+load('../cna_analysis/rda/clinical_and_dr/metrics_data.rda') # load the metrics data
+
+###########
+# Wrangle #
+###########
+### define two dataframes, one from rad one without rad:
+
+fit <- subset(fit, rec_rad == 0)
+
+exp_numb <- unique(d$expcode)
+exp_numb <- paste(unlist(exp_numb), collapse='')
+
+# new data with doses. Note: lowest dose is not
+# log 0 but log('very small number') because otherwise this will hamper the scaling in ggplot later on.
+d$dose0 <- d$dose
+d$dose0[d$dose0 == 0] <- 0.00000001
+
+# representative expcodes
+# makeing helper column to extract representative expcodes
+d$cline_expcode <- paste0(d$cline, '_', d$expcode)
+fit$cline_expcode <- paste0(fit$cline, '_', fit$expcode)
+
+# subsetting
+cline_expcode_pick <-
+  c(
+    'HUB005_cva0025',
+    'HUB183_cva0025',
+    'HUB015_cva0023',
+    'HUB175_cva0024',
+    'HUB181I_cva0021',
+    'HUB197_cva0030',
+    'HUB106_cva0020',
+    'HUB062_cva0023',
+    'HUB112_cva0112')
+    
+d <- subset(d, cline_expcode %in% cline_expcode_pick)
+
+fit <- subset(fit, cline_expcode %in% cline_expcode_pick)
+
+# add resistantcy group for colour coding
+resistant <- c('HUB005', 'HUB183', 'HUB015')
+sensitive <- c('HUB197', 'HUB106', 'HUB062')
+
+d$resistancy_group <-
+  ifelse(
+    d$cline %in% resistant,
+    'Resistant',
+    ifelse(d$cline %in% sensitive, 'Sensitive', 'Intermediate')
+  )
+
+fit$resistancy_group <-
+  ifelse(
+    fit$cline %in% resistant,
+    'Resistant',
+    ifelse(fit$cline %in% sensitive, 'Sensitive', 'Intermediate')
+  )
+
+# Make cline a factor and specify order by decreasing AUC mean
+d$cline <- factor(d$cline, levels = c('HUB005', 'HUB183', 'HUB015', 
+                                      'HUB112', 'HUB175', 'HUB181I', 
+                                      'HUB106', 'HUB197', 'HUB062'))
+
+d$resistancy_group <- factor(d$resistancy_group, levels = c('Resistant', 'Intermediate', 'Sensitive'))
+
+ggplot(NULL, aes(x = dose0, y = relative_mean, group = cline, col = resistancy_group)) +
+  geom_point(data= d,
+             size =3, aes(shape = cline)) +
+  geom_errorbar(data = d,
+                aes(ymin=relative_mean-relative_sem,ymax=relative_mean+relative_sem),
+                width=0.1) +
+  geom_line(data = d) + 
+  # geom_line(data=fit, aes(x=dose, y=pred),
+  #           size = 1) + 
+  # adding log x-axis
+  coord_trans(#x="log10", 
+    xlim = c(0.00000001, 8), ylim = c(0, 1.1)) +
+  scale_x_continuous(breaks = c(0, 2,4,6,8)) + 
+  scale_y_continuous(expand = c(0,0)) + 
+  theme_cowplot() + 
+  ylab('Normalized viability') + 
+  xlab('Dose (Gy)') + 
+  theme(
+    legend.title = element_blank(),
+    aspect.ratio = 5 / 3) + 
+  scale_shape_manual(values=seq(0,8)) + 
+  scale_colour_manual(
+    values = c(
+      Resistant = '#DE3163',
+      Sensitive = '#5090CD',
+      Intermediate = 'grey75'
+    ),
+    guide = guide_legend(override.aes = list(
+      linetype = c(rep("blank", length(
+        unique(d$resistancy_group)
+      ))),
+      shape = c(rep(19, length(
+        unique(d$resistancy_group)
+      )))
+    ))
+  ) 
+
+
+```
+
+### rAUC across multiple experiments
+```{r plot metrics plot in vitro dose-response, echo = T, message=FALSE, warning=FALSE}
+########
+# Data #
+########
+load('../cna_analysis/rda/clinical_and_dr/metrics_data.rda') # load the wrangled data, data is saved under 'metrics'
+
+exp_numb <- unique(metrics$expcode)
+exp_numb <- paste(unlist(exp_numb), collapse = '')
+
+###########
+# Wrangle #
+###########
+# Make cline a factor and specify order by decreasing AUC mean
+metrics$cline <- factor(
+  metrics$cline,
+  levels = metrics %>% group_by(cline) %>% summarize(mean_auc = mean(rel_AUC)) %>% arrange(-mean_auc) %>% pull(cline)
+)
+
+# add resistantcy group for colour coding
+resistant <- c('HUB005', 'HUB183', 'HUB015')
+sensitive <- c('HUB197', 'HUB106', 'HUB062')
+
+metrics$resistancy_group <-
+  ifelse(
+    metrics$cline %in% resistant,
+    'Resistant',
+    ifelse(metrics$cline %in% sensitive, 'Sensitive', 'Intermediate')
+  )
+
+# changing order of resistancy_group
+metrics$resistancy_group <- factor(metrics$resistancy_group, levels = c("Resistant", "Intermediate", "Sensitive"))
+
+########
+# Plot #
+########
+
+ggplot(metrics, aes(x = cline, y = rel_AUC, group = cline)) +
+  geom_boxplot(aes(fill = resistancy_group)) +
+  geom_jitter(height = 0,
+              width = 0.1,
+              size = 2) +
+  theme_cowplot() +
+  scale_fill_manual(
+    values = c(
+      Resistant = '#DE3163',
+      Sensitive = '#5090CD',
+      Intermediate = 'grey75'
+    ),
+    guide = guide_legend(override.aes = list(
+      linetype = c(rep("blank", length(
+        unique(metrics$resistancy_group)
+      ))),
+      shape = c(rep(19, length(
+        unique(metrics$resistancy_group)
+      )))
+    ))
+  ) +
+  xlab('') +
+  ylab('Relative AUC') +
+  theme(
+    legend.title = element_blank(),
+    aspect.ratio = 5 / 3,
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  ) +
+  coord_cartesian(clip = 'off') + 
+  scale_y_continuous(limits = c(0,1))
+```
+
+### Flow cytometry-based measurement of (apoptotic) cells with sub-G1 DNA content 
+```{r wrangle and plot sub-G1, echo = T, message=FALSE, warning=FALSE}
+
+###########
+# Wrangle #
+###########
+d <-
+  data.frame(read_excel("../cna_analysis/data/clinical_and_dr/nicoletti_data.xlsx"))
+
+# defining experiment number for referenc
+exp_numb <- unique(d$expcode)
+exp_numb <- paste(unlist(exp_numb), collapse = '')
+
+# defining apoptosis percentage
+d$apop_perc <- d$subg1 / d$singlets * 100
+
+d_zero <- d %>% group_by(cline, expcode) %>% arrange(cline, expcode) %>% filter(dose == 0)
+d_five <- d %>% group_by(cline, expcode) %>% arrange(cline, expcode) %>% filter(dose == 5)
+
+df_fc_apop <- data.frame(
+  cline = d_zero$cline,
+  expcode = d_zero$expcode,
+  fc_apop = d_five$apop_perc / d_zero$apop_perc
+) %>%  group_by(cline) %>% summarize(mean_apop_fc = mean(fc_apop),
+                                     sd_apop_fc = sd(fc_apop))
+
+df_fc_apop$cline <- factor(df_fc_apop$cline, levels = c('HUB005', 'HUB183', 'HUB062', 'HUB106'))
+
+df_fc_apop
+
+
+########
+# Plot #
+########
+ggplot(df_fc_apop, aes(x= cline, y = mean_apop_fc, fill = cline)) + 
+  geom_bar(aes(group = cline), stat = 'identity',
+           position=position_dodge(),
+           col = 'black') + 
+  geom_linerange(aes(ymin=mean_apop_fc, ymax=mean_apop_fc + sd_apop_fc),
+                position=position_dodge(0.65), size = 1, 
+                alpha = 0.8) + 
+  theme_cowplot() + 
+  scale_fill_manual(
+    values = c(HUB181I = "#8491B4FF", 
+               HUB005 = "#E64B35FF", 
+               HUB062 = "#91D1C2FF", 
+               HUB015 = '#FADA5E',
+               HUB106 = "#3C5488FF", 
+               HUB183 = "#F39B7FFF", 
+               HUB175 = "#00A087FF",
+               HUB197 = 'grey')) + 
+  scale_y_continuous(expand = c(0,0,0.01,0)) + 
+  theme_cowplot() + 
+  ylab('Fold change (% apoptotic cells)') + 
+  xlab('') + 
+  guides(fill="none") + 
+  theme(
+    aspect.ratio = 5 / 3,
+    axis.text.x = element_text(angle = 45, hjust=1))
+
+```
+
+### Recovery statistics after 10 Gy radiation
+```{r recovery statistics after 10 Gy radiation, echo = T, message=FALSE, warning=FALSE}
+########
+# Data #
+########
+df <- as.data.frame(read_excel("../cna_analysis/data/clinical_and_dr/ 10gy_recovery_data.xlsx"))
+
+###########
+# Wrangle #
+###########
+df_res <- subset(df, resistancy_group == 'Resistant')
+df_sens <- subset(df, resistancy_group == 'Sensitive')
+
+##############
+# Statistics #
+##############
+# Resistant
+mean_days_res <- mean(as.numeric(df_res$days_to_full_recovery), na.rm = T)
+mean_days_res
+sd_days_res <- sd(as.numeric(df_res$days_to_full_recovery), na.rm = T)
+sd_days_res
+
+# Sensitive
+mean_days_sens <- mean(as.numeric(df_sens$days_to_full_recovery), na.rm = T)
+mean_days_sens
+sd_days_sens <- sd(as.numeric(df_sens$days_to_full_recovery), na.rm = T)
+sd_days_sens
 ```
