@@ -1,29 +1,11 @@
 
-### Render the book (RStudio)
+## Pre-existing Radioresistant Subclones Determine Radioresistance in Rectal Cancer Organoids
 
-- [ ] 1. Install **bookdown** with `install.packages("bookdown")`. If you already have it, update to the most recent version.
+Contained within this repository are the scripts used in the manuscript titled "Breast Tumors Maintain a Reservoir of Subclonal Diversity During Expansion." 
 
-- [ ] 2. Render locally with `bookdown::render_book("index.Rmd")` or clicking the *Build book* button which should appear in the Build tab (in the same pane as Environment, History, Connections, ...).
+The scripts can be found in the folder labeled "R."
 
-- [ ] 3. Use `browseURL("docs/index.html")` to view your book locally (or just open `index.html` in a browser).
+For the reproduction of figures, follow link: https://dshandel.github.io/subclonal_evolution_paper/
 
-- [ ] 4. If it looks good, commit and push all changed files to GitHub. 
-
-(You will need to repeat steps 2 and 4 every time you wish to update the book online.)
-
-### Edit README	(GitHub or RStudio)
-
-Once you've completed these steps, delete the content of this **README** and add a short description of your project with a link to the book URL. It would be appreciated if you add the following to the end:	
-
-*This repo was initially generated from a bookdown template available here: https://github.com/jtr13/bookdown-template.*
-
-(And starring the repo would be nice too!)
-
-### Demo Video
-
-A demo video showing how to create a **bookdown book** following these instructions: http://bit.ly/fiveminutebookdown
-
-### Additional features
-
-Please consult the official guide to **bookdown**: https://bookdown.org/yihui/bookdown
+However, the raw datasets have been deposited under [DEPOSITORY_NAME]. If you require access to the processed datasets, kindly get in touch with the corresponding author.
 
