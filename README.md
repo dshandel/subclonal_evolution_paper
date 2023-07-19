@@ -1,6 +1,6 @@
-## Pre-existing Radioresistant Subclones Determine Radioresistance in Rectal Cancer Organoids
+## Pre-existing Subclones Determine Radioresistance in Rectal Cancer Organoids
 
-Contained within this repository are the scripts used in the manuscript titled "Breast Tumors Maintain a Reservoir of Subclonal Diversity During Expansion." 
+Contained within this repository are the scripts used in the manuscript titled "Pre-existing Subclones Determine Radioresistance in Rectal Cancer Organoids" 
 
 The scripts can be found in the folder labeled "R."
 

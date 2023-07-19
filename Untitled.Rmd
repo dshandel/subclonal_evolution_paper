@@ -1,0 +1,11 @@
+## Test
+
+``{r test, echo = T, message=FALSE, warning=FALSE}
+########
+# Data #
+########
+load('../cna_analysis/rda/subclonal_dynamics/man_select_files_edivisive.rda' )
+
+
+
+```

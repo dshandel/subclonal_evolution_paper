@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = F)
 # In vitro radiation response and clinical data
 
 ## Progression-free survival
+
 ```{r libraries and sources for progression-free survival analysis, echo = T, message=FALSE, warning=FALSE}
 # Libraries and sources
 library(readxl)
@@ -101,9 +102,7 @@ prog_p
 
 ```
 
-## In vitro dose-response  
-### Representative plot
-
+## In vitro dose-response 
 ```{r libraries and sources for in vitro dose-response, echo = T, message=FALSE, warning=FALSE}
 # Libraries and sources
 library(tidyverse) # for wrangling data
@@ -117,6 +116,7 @@ source('R/fitter_rad.R')
 source('R/ic50_rad.R')
 source('R/relativize_dr.R')
 ```
+### Dose-response plot
 
 ```{r relativize for in vitro dose-response, echo = T, message=FALSE, warning=FALSE}
 ################

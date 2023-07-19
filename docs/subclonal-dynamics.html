@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 Subclonal dynamics | Pre-existing Radioresistant Subclones Determine Radioresistance in Rectal Cancer Organoids</title>
   <meta name="description" content="2 Subclonal dynamics | Pre-existing Radioresistant Subclones Determine Radioresistance in Rectal Cancer Organoids" />
-  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 Subclonal dynamics | Pre-existing Radioresistant Subclones Determine Radioresistance in Rectal Cancer Organoids" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Daan Andel" />
 
 
-<meta name="date" content="2023-07-18" />
+<meta name="date" content="2023-07-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -119,6 +119,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -136,13 +140,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Subclonal Evolution Paper</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Radiation response and clinical data</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> In vitro radiation response and clinical data</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#progression-free-survival"><i class="fa fa-check"></i><b>1.1</b> Progression-free survival</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#in-vitro-dose-response"><i class="fa fa-check"></i><b>1.2</b> In vitro dose-response</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#representative-plot"><i class="fa fa-check"></i><b>1.2.1</b> Representative plot</a></li>
+<li class="chapter" data-level="1.2.2" data-path="index.html"><a href="index.html#rauc-across-multiple-experiments"><i class="fa fa-check"></i><b>1.2.2</b> rAUC across multiple experiments</a></li>
+<li class="chapter" data-level="1.2.3" data-path="index.html"><a href="index.html#flow-cytometry-based-measurement-of-apoptotic-cells-with-sub-g1-dna-content"><i class="fa fa-check"></i><b>1.2.3</b> Flow cytometry-based measurement of (apoptotic) cells with sub-G1 DNA content</a></li>
+<li class="chapter" data-level="1.2.4" data-path="index.html"><a href="index.html#recovery-statistics-after-10-gy-radiation"><i class="fa fa-check"></i><b>1.2.4</b> Recovery statistics after 10 Gy radiation</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html"><i class="fa fa-check"></i><b>2</b> Subclonal dynamics</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html"><i class="fa fa-check"></i><b>2</b> Subclonal dynamics</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#aneufinder-run"><i class="fa fa-check"></i><b>2.1</b> AneuFinder Run</a></li>
+<li class="chapter" data-level="2.2" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#quality-selection"><i class="fa fa-check"></i><b>2.2</b> Quality selection</a></li>
+<li class="chapter" data-level="2.3" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#summary-statistics-of-copy-number-alterations"><i class="fa fa-check"></i><b>2.3</b> Summary statistics of copy number alterations</a></li>
+<li class="chapter" data-level="2.4" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#pca-and-k-means-plots"><i class="fa fa-check"></i><b>2.4</b> PCA and K-means plots</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html"><i class="fa fa-check"></i><b>3</b> Copy number analyses</a></li>
-<li class="chapter" data-level="4" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html"><i class="fa fa-check"></i><b>4</b> Copy number pattern analyses</a></li>
+<li class="chapter" data-level="4" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html"><i class="fa fa-check"></i><b>4</b> Copy number pattern analyses</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html#test"><i class="fa fa-check"></i><b>4.1</b> Test</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -164,7 +184,731 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="subclonal-dynamics" class="section level1 hasAnchor" number="2">
 <h1><span class="header-section-number">2</span> Subclonal dynamics<a href="subclonal-dynamics.html#subclonal-dynamics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="subclonal-dynamics.html#cb1-1" tabindex="-1"></a><span class="co"># Libraries and sources</span></span>
+<span id="cb1-2"><a href="subclonal-dynamics.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="subclonal-dynamics.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(AneuFinder)</span>
+<span id="cb1-4"><a href="subclonal-dynamics.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(GenomeInfoDb)</span>
+<span id="cb1-5"><a href="subclonal-dynamics.html#cb1-5" tabindex="-1"></a><span class="fu">library</span>(BSgenome.Hsapiens.UCSC.hg38)</span>
+<span id="cb1-6"><a href="subclonal-dynamics.html#cb1-6" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb1-7"><a href="subclonal-dynamics.html#cb1-7" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&#39;R/plot_pca_kmeans.R&#39;</span>)</span>
+<span id="cb1-8"><a href="subclonal-dynamics.html#cb1-8" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&#39;R/quality_functions.R&#39;</span>)</span>
+<span id="cb1-9"><a href="subclonal-dynamics.html#cb1-9" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&#39;R/quality_functions.R&#39;</span>)</span></code></pre></div>
+<div id="aneufinder-run" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> AneuFinder Run<a href="subclonal-dynamics.html#aneufinder-run" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="subclonal-dynamics.html#cb2-1" tabindex="-1"></a><span class="do">###########</span></span>
+<span id="cb2-2"><a href="subclonal-dynamics.html#cb2-2" tabindex="-1"></a><span class="co"># Folders #</span></span>
+<span id="cb2-3"><a href="subclonal-dynamics.html#cb2-3" tabindex="-1"></a><span class="do">###########</span></span>
+<span id="cb2-4"><a href="subclonal-dynamics.html#cb2-4" tabindex="-1"></a><span class="co"># define bamdirectory</span></span>
+<span id="cb2-5"><a href="subclonal-dynamics.html#cb2-5" tabindex="-1"></a>bamDirectory <span class="ot">&lt;-</span> <span class="st">&quot;../cna_analysis/data/subclonal_dynamics/single_cell_bams&quot;</span></span>
+<span id="cb2-6"><a href="subclonal-dynamics.html#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="subclonal-dynamics.html#cb2-7" tabindex="-1"></a><span class="co"># generates novel directories from bam-file directory to store analysis files</span></span>
+<span id="cb2-8"><a href="subclonal-dynamics.html#cb2-8" tabindex="-1"></a>inputdirs <span class="ot">&lt;-</span> <span class="fu">list.dirs</span>(bamDirectory, <span class="at">recursive =</span> F)</span>
+<span id="cb2-9"><a href="subclonal-dynamics.html#cb2-9" tabindex="-1"></a>outputdirs <span class="ot">&lt;-</span> <span class="fu">list.dirs</span>(bamDirectory, <span class="at">full.names =</span> F, <span class="at">recursive =</span> F)</span>
+<span id="cb2-10"><a href="subclonal-dynamics.html#cb2-10" tabindex="-1"></a>outputdirs <span class="ot">&lt;-</span></span>
+<span id="cb2-11"><a href="subclonal-dynamics.html#cb2-11" tabindex="-1"></a>  <span class="fu">paste0</span>(<span class="st">&quot;rda/subclonal_dynamics/standard_aneufinder_output_pairedend_5kb/&quot;</span>, outputdirs)</span>
+<span id="cb2-12"><a href="subclonal-dynamics.html#cb2-12" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="subclonal-dynamics.html#cb2-13" tabindex="-1"></a><span class="co"># define location for correction:</span></span>
+<span id="cb2-14"><a href="subclonal-dynamics.html#cb2-14" tabindex="-1"></a>mappability <span class="ot">&lt;-</span></span>
+<span id="cb2-15"><a href="subclonal-dynamics.html#cb2-15" tabindex="-1"></a>  <span class="st">&quot;data/subclonal_dynamics/correctionfiles/bothlymphsdiploidref.bed&quot;</span></span>
+<span id="cb2-16"><a href="subclonal-dynamics.html#cb2-16" tabindex="-1"></a>blacklist <span class="ot">&lt;-</span></span>
+<span id="cb2-17"><a href="subclonal-dynamics.html#cb2-17" tabindex="-1"></a>  <span class="st">&quot;data/subclonal_dynamics/correctionfiles/GRCh38_blacklist_bothlymphsdiploidref.bed&quot;</span></span>
+<span id="cb2-18"><a href="subclonal-dynamics.html#cb2-18" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="subclonal-dynamics.html#cb2-19" tabindex="-1"></a><span class="co"># creating a results folder in the working directory names &#39;result&#39;</span></span>
+<span id="cb2-20"><a href="subclonal-dynamics.html#cb2-20" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path =</span> <span class="st">&#39;rda/subclonal_dynamics/standard_aneufinder_output_pairedend_5kb&#39;</span>)</span>
+<span id="cb2-21"><a href="subclonal-dynamics.html#cb2-21" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="subclonal-dynamics.html#cb2-22" tabindex="-1"></a><span class="co"># creating folders for each plate in the standard_aneufinder_output folder.</span></span>
+<span id="cb2-23"><a href="subclonal-dynamics.html#cb2-23" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(outputdirs)) {</span>
+<span id="cb2-24"><a href="subclonal-dynamics.html#cb2-24" tabindex="-1"></a>  <span class="fu">dir.create</span>(<span class="at">path =</span>  outputdirs[i])</span>
+<span id="cb2-25"><a href="subclonal-dynamics.html#cb2-25" tabindex="-1"></a>}</span>
+<span id="cb2-26"><a href="subclonal-dynamics.html#cb2-26" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="subclonal-dynamics.html#cb2-27" tabindex="-1"></a><span class="do">#######</span></span>
+<span id="cb2-28"><a href="subclonal-dynamics.html#cb2-28" tabindex="-1"></a><span class="co"># Run #</span></span>
+<span id="cb2-29"><a href="subclonal-dynamics.html#cb2-29" tabindex="-1"></a><span class="do">#######</span></span>
+<span id="cb2-30"><a href="subclonal-dynamics.html#cb2-30" tabindex="-1"></a><span class="co"># iterates through bam-file directories and analyses results</span></span>
+<span id="cb2-31"><a href="subclonal-dynamics.html#cb2-31" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">4</span><span class="sc">:</span><span class="fu">length</span>(inputdirs)) {</span>
+<span id="cb2-32"><a href="subclonal-dynamics.html#cb2-32" tabindex="-1"></a>  BamFolder <span class="ot">&lt;-</span> <span class="fu">paste0</span>(inputdirs[i], <span class="st">&#39;/split_cells&#39;</span>)</span>
+<span id="cb2-33"><a href="subclonal-dynamics.html#cb2-33" tabindex="-1"></a>  <span class="fu">Aneufinder</span>(</span>
+<span id="cb2-34"><a href="subclonal-dynamics.html#cb2-34" tabindex="-1"></a>    <span class="co"># specifying input and outputfolder</span></span>
+<span id="cb2-35"><a href="subclonal-dynamics.html#cb2-35" tabindex="-1"></a>    <span class="at">inputfolder =</span> BamFolder,</span>
+<span id="cb2-36"><a href="subclonal-dynamics.html#cb2-36" tabindex="-1"></a>    <span class="at">outputfolder =</span> outputdirs[i],</span>
+<span id="cb2-37"><a href="subclonal-dynamics.html#cb2-37" tabindex="-1"></a>    </span>
+<span id="cb2-38"><a href="subclonal-dynamics.html#cb2-38" tabindex="-1"></a>    <span class="co"># general settings</span></span>
+<span id="cb2-39"><a href="subclonal-dynamics.html#cb2-39" tabindex="-1"></a>    <span class="at">numCPU  =</span>  <span class="dv">10</span>,</span>
+<span id="cb2-40"><a href="subclonal-dynamics.html#cb2-40" tabindex="-1"></a>    <span class="at">reuse.existing.files  =</span>  <span class="cn">TRUE</span>,</span>
+<span id="cb2-41"><a href="subclonal-dynamics.html#cb2-41" tabindex="-1"></a>    </span>
+<span id="cb2-42"><a href="subclonal-dynamics.html#cb2-42" tabindex="-1"></a>    <span class="co"># specifying binning options</span></span>
+<span id="cb2-43"><a href="subclonal-dynamics.html#cb2-43" tabindex="-1"></a>    <span class="at">binsizes  =</span>  <span class="fl">5e+05</span>, <span class="co"># 500000</span></span>
+<span id="cb2-44"><a href="subclonal-dynamics.html#cb2-44" tabindex="-1"></a>    <span class="at">stepsizes =</span> <span class="fl">5e+05</span>,</span>
+<span id="cb2-45"><a href="subclonal-dynamics.html#cb2-45" tabindex="-1"></a>    <span class="at">variable.width.reference =</span> mappability,</span>
+<span id="cb2-46"><a href="subclonal-dynamics.html#cb2-46" tabindex="-1"></a>    <span class="at">reads.per.bin  =</span>  <span class="cn">NULL</span>,</span>
+<span id="cb2-47"><a href="subclonal-dynamics.html#cb2-47" tabindex="-1"></a>    <span class="at">pairedEndReads  =</span>  T,</span>
+<span id="cb2-48"><a href="subclonal-dynamics.html#cb2-48" tabindex="-1"></a>    <span class="at">assembly =</span> <span class="st">&#39;hg38&#39;</span>,</span>
+<span id="cb2-49"><a href="subclonal-dynamics.html#cb2-49" tabindex="-1"></a>    <span class="at">chromosomes  =</span>  <span class="fu">c</span>(</span>
+<span id="cb2-50"><a href="subclonal-dynamics.html#cb2-50" tabindex="-1"></a>      <span class="st">&#39;1&#39;</span>,</span>
+<span id="cb2-51"><a href="subclonal-dynamics.html#cb2-51" tabindex="-1"></a>      <span class="st">&#39;2&#39;</span>,</span>
+<span id="cb2-52"><a href="subclonal-dynamics.html#cb2-52" tabindex="-1"></a>      <span class="st">&#39;3&#39;</span>,</span>
+<span id="cb2-53"><a href="subclonal-dynamics.html#cb2-53" tabindex="-1"></a>      <span class="st">&#39;4&#39;</span>,</span>
+<span id="cb2-54"><a href="subclonal-dynamics.html#cb2-54" tabindex="-1"></a>      <span class="st">&#39;5&#39;</span>,</span>
+<span id="cb2-55"><a href="subclonal-dynamics.html#cb2-55" tabindex="-1"></a>      <span class="st">&#39;6&#39;</span>,</span>
+<span id="cb2-56"><a href="subclonal-dynamics.html#cb2-56" tabindex="-1"></a>      <span class="st">&#39;7&#39;</span>,</span>
+<span id="cb2-57"><a href="subclonal-dynamics.html#cb2-57" tabindex="-1"></a>      <span class="st">&#39;8&#39;</span>,</span>
+<span id="cb2-58"><a href="subclonal-dynamics.html#cb2-58" tabindex="-1"></a>      <span class="st">&#39;9&#39;</span>,</span>
+<span id="cb2-59"><a href="subclonal-dynamics.html#cb2-59" tabindex="-1"></a>      <span class="st">&#39;10&#39;</span>,</span>
+<span id="cb2-60"><a href="subclonal-dynamics.html#cb2-60" tabindex="-1"></a>      <span class="st">&#39;11&#39;</span>,</span>
+<span id="cb2-61"><a href="subclonal-dynamics.html#cb2-61" tabindex="-1"></a>      <span class="st">&#39;12&#39;</span>,</span>
+<span id="cb2-62"><a href="subclonal-dynamics.html#cb2-62" tabindex="-1"></a>      <span class="st">&#39;13&#39;</span>,</span>
+<span id="cb2-63"><a href="subclonal-dynamics.html#cb2-63" tabindex="-1"></a>      <span class="st">&#39;14&#39;</span>,</span>
+<span id="cb2-64"><a href="subclonal-dynamics.html#cb2-64" tabindex="-1"></a>      <span class="st">&#39;15&#39;</span>,</span>
+<span id="cb2-65"><a href="subclonal-dynamics.html#cb2-65" tabindex="-1"></a>      <span class="st">&#39;16&#39;</span>,</span>
+<span id="cb2-66"><a href="subclonal-dynamics.html#cb2-66" tabindex="-1"></a>      <span class="st">&#39;17&#39;</span>,</span>
+<span id="cb2-67"><a href="subclonal-dynamics.html#cb2-67" tabindex="-1"></a>      <span class="st">&#39;18&#39;</span>,</span>
+<span id="cb2-68"><a href="subclonal-dynamics.html#cb2-68" tabindex="-1"></a>      <span class="st">&#39;19&#39;</span>,</span>
+<span id="cb2-69"><a href="subclonal-dynamics.html#cb2-69" tabindex="-1"></a>      <span class="st">&#39;20&#39;</span>,</span>
+<span id="cb2-70"><a href="subclonal-dynamics.html#cb2-70" tabindex="-1"></a>      <span class="st">&#39;21&#39;</span>,</span>
+<span id="cb2-71"><a href="subclonal-dynamics.html#cb2-71" tabindex="-1"></a>      <span class="st">&#39;22&#39;</span>,</span>
+<span id="cb2-72"><a href="subclonal-dynamics.html#cb2-72" tabindex="-1"></a>      <span class="st">&#39;X&#39;</span></span>
+<span id="cb2-73"><a href="subclonal-dynamics.html#cb2-73" tabindex="-1"></a>    ),</span>
+<span id="cb2-74"><a href="subclonal-dynamics.html#cb2-74" tabindex="-1"></a>    <span class="at">remove.duplicate.reads  =</span>  F,</span>
+<span id="cb2-75"><a href="subclonal-dynamics.html#cb2-75" tabindex="-1"></a>    <span class="at">min.mapq  =</span>  <span class="dv">10</span>,</span>
+<span id="cb2-76"><a href="subclonal-dynamics.html#cb2-76" tabindex="-1"></a>    <span class="at">blacklist =</span> blacklist,</span>
+<span id="cb2-77"><a href="subclonal-dynamics.html#cb2-77" tabindex="-1"></a>    <span class="at">reads.store =</span> T,</span>
+<span id="cb2-78"><a href="subclonal-dynamics.html#cb2-78" tabindex="-1"></a>    <span class="at">use.bamsignals =</span> F,</span>
+<span id="cb2-79"><a href="subclonal-dynamics.html#cb2-79" tabindex="-1"></a>    </span>
+<span id="cb2-80"><a href="subclonal-dynamics.html#cb2-80" tabindex="-1"></a>    <span class="co"># specifying correction options</span></span>
+<span id="cb2-81"><a href="subclonal-dynamics.html#cb2-81" tabindex="-1"></a>    <span class="at">correction.method =</span> <span class="st">&#39;GC&#39;</span>,</span>
+<span id="cb2-82"><a href="subclonal-dynamics.html#cb2-82" tabindex="-1"></a>    <span class="at">GC.BSgenome  =</span>  BSgenome.Hsapiens.UCSC.hg38,</span>
+<span id="cb2-83"><a href="subclonal-dynamics.html#cb2-83" tabindex="-1"></a>    <span class="co">#mappability.reference = NULL,</span></span>
+<span id="cb2-84"><a href="subclonal-dynamics.html#cb2-84" tabindex="-1"></a>    </span>
+<span id="cb2-85"><a href="subclonal-dynamics.html#cb2-85" tabindex="-1"></a>    <span class="co">#specofying model options</span></span>
+<span id="cb2-86"><a href="subclonal-dynamics.html#cb2-86" tabindex="-1"></a>    <span class="at">method  =</span>  <span class="fu">c</span>(<span class="st">&#39;edivisive&#39;</span>),</span>
+<span id="cb2-87"><a href="subclonal-dynamics.html#cb2-87" tabindex="-1"></a>    <span class="at">eps =</span> <span class="fl">0.1</span>,</span>
+<span id="cb2-88"><a href="subclonal-dynamics.html#cb2-88" tabindex="-1"></a>    <span class="at">max.time =</span> <span class="dv">60</span>,</span>
+<span id="cb2-89"><a href="subclonal-dynamics.html#cb2-89" tabindex="-1"></a>    <span class="at">max.iter =</span> <span class="sc">-</span><span class="dv">1</span>,</span>
+<span id="cb2-90"><a href="subclonal-dynamics.html#cb2-90" tabindex="-1"></a>    <span class="at">num.trials =</span> <span class="dv">15</span>,</span>
+<span id="cb2-91"><a href="subclonal-dynamics.html#cb2-91" tabindex="-1"></a>    </span>
+<span id="cb2-92"><a href="subclonal-dynamics.html#cb2-92" tabindex="-1"></a>    <span class="at">states  =</span>  <span class="fu">c</span>(</span>
+<span id="cb2-93"><a href="subclonal-dynamics.html#cb2-93" tabindex="-1"></a>      <span class="st">&#39;zero-inflation&#39;</span>,</span>
+<span id="cb2-94"><a href="subclonal-dynamics.html#cb2-94" tabindex="-1"></a>      <span class="st">&#39;0-somy&#39;</span>,</span>
+<span id="cb2-95"><a href="subclonal-dynamics.html#cb2-95" tabindex="-1"></a>      <span class="st">&#39;1-somy&#39;</span>,</span>
+<span id="cb2-96"><a href="subclonal-dynamics.html#cb2-96" tabindex="-1"></a>      <span class="st">&#39;2-somy&#39;</span>,</span>
+<span id="cb2-97"><a href="subclonal-dynamics.html#cb2-97" tabindex="-1"></a>      <span class="st">&#39;3-somy&#39;</span>,</span>
+<span id="cb2-98"><a href="subclonal-dynamics.html#cb2-98" tabindex="-1"></a>      <span class="st">&#39;4-somy&#39;</span>,</span>
+<span id="cb2-99"><a href="subclonal-dynamics.html#cb2-99" tabindex="-1"></a>      <span class="st">&#39;5-somy&#39;</span>,</span>
+<span id="cb2-100"><a href="subclonal-dynamics.html#cb2-100" tabindex="-1"></a>      <span class="st">&#39;6-somy&#39;</span>,</span>
+<span id="cb2-101"><a href="subclonal-dynamics.html#cb2-101" tabindex="-1"></a>      <span class="st">&#39;7-somy&#39;</span>,</span>
+<span id="cb2-102"><a href="subclonal-dynamics.html#cb2-102" tabindex="-1"></a>      <span class="st">&#39;8-somy&#39;</span>,</span>
+<span id="cb2-103"><a href="subclonal-dynamics.html#cb2-103" tabindex="-1"></a>      <span class="st">&#39;9-somy&#39;</span>,</span>
+<span id="cb2-104"><a href="subclonal-dynamics.html#cb2-104" tabindex="-1"></a>      <span class="st">&#39;+10-somy&#39;</span></span>
+<span id="cb2-105"><a href="subclonal-dynamics.html#cb2-105" tabindex="-1"></a>    ),</span>
+<span id="cb2-106"><a href="subclonal-dynamics.html#cb2-106" tabindex="-1"></a>    <span class="co">#most.frequent.state  =  &#39;2-somy&#39;, # maybe this should be changed given some organoids seem triploid.</span></span>
+<span id="cb2-107"><a href="subclonal-dynamics.html#cb2-107" tabindex="-1"></a>    <span class="co">#most.frequent.state.strandseq  =  &#39;1-somy&#39;,</span></span>
+<span id="cb2-108"><a href="subclonal-dynamics.html#cb2-108" tabindex="-1"></a>    </span>
+<span id="cb2-109"><a href="subclonal-dynamics.html#cb2-109" tabindex="-1"></a>    <span class="co">#specifying how to detect sister chromatid exchanges</span></span>
+<span id="cb2-110"><a href="subclonal-dynamics.html#cb2-110" tabindex="-1"></a>    <span class="co">#resolution = c(3,6),</span></span>
+<span id="cb2-111"><a href="subclonal-dynamics.html#cb2-111" tabindex="-1"></a>    <span class="co">#min.segwidth  =  4,</span></span>
+<span id="cb2-112"><a href="subclonal-dynamics.html#cb2-112" tabindex="-1"></a>    <span class="co">#bw  =  4e+06,</span></span>
+<span id="cb2-113"><a href="subclonal-dynamics.html#cb2-113" tabindex="-1"></a>    <span class="co">#pval  =  0.05,</span></span>
+<span id="cb2-114"><a href="subclonal-dynamics.html#cb2-114" tabindex="-1"></a>    </span>
+<span id="cb2-115"><a href="subclonal-dynamics.html#cb2-115" tabindex="-1"></a>    <span class="co"># plotting options</span></span>
+<span id="cb2-116"><a href="subclonal-dynamics.html#cb2-116" tabindex="-1"></a>    <span class="at">cluster.plots =</span> T</span>
+<span id="cb2-117"><a href="subclonal-dynamics.html#cb2-117" tabindex="-1"></a>  )</span>
+<span id="cb2-118"><a href="subclonal-dynamics.html#cb2-118" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="quality-selection" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Quality selection<a href="subclonal-dynamics.html#quality-selection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="subclonal-dynamics.html#cb3-1" tabindex="-1"></a><span class="do">###############</span></span>
+<span id="cb3-2"><a href="subclonal-dynamics.html#cb3-2" tabindex="-1"></a><span class="co"># Description #</span></span>
+<span id="cb3-3"><a href="subclonal-dynamics.html#cb3-3" tabindex="-1"></a><span class="do">###############</span></span>
+<span id="cb3-4"><a href="subclonal-dynamics.html#cb3-4" tabindex="-1"></a><span class="co"># Single cell karyotyping is inherently noisy data. This script runs</span></span>
+<span id="cb3-5"><a href="subclonal-dynamics.html#cb3-5" tabindex="-1"></a><span class="co"># some of the in-build quality checks provided by AneuFinder</span></span>
+<span id="cb3-6"><a href="subclonal-dynamics.html#cb3-6" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="subclonal-dynamics.html#cb3-7" tabindex="-1"></a><span class="do">#########</span></span>
+<span id="cb3-8"><a href="subclonal-dynamics.html#cb3-8" tabindex="-1"></a><span class="co"># Paths #</span></span>
+<span id="cb3-9"><a href="subclonal-dynamics.html#cb3-9" tabindex="-1"></a><span class="do">#########</span></span>
+<span id="cb3-10"><a href="subclonal-dynamics.html#cb3-10" tabindex="-1"></a><span class="co">#  defining rdabasedirectory</span></span>
+<span id="cb3-11"><a href="subclonal-dynamics.html#cb3-11" tabindex="-1"></a>rdaBaseDirectory <span class="ot">&lt;-</span></span>
+<span id="cb3-12"><a href="subclonal-dynamics.html#cb3-12" tabindex="-1"></a>  <span class="st">&quot;../cna_analysis/rda/subclonal_dynamics/standard_aneufinder_output_pairedend_5kb&quot;</span></span>
+<span id="cb3-13"><a href="subclonal-dynamics.html#cb3-13" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="subclonal-dynamics.html#cb3-14" tabindex="-1"></a><span class="co"># list all folders within base directory (each folder contains folders the AneuFinder output: MODELS, plots etc..)</span></span>
+<span id="cb3-15"><a href="subclonal-dynamics.html#cb3-15" tabindex="-1"></a><span class="co"># the files we need are in the MODELS folder</span></span>
+<span id="cb3-16"><a href="subclonal-dynamics.html#cb3-16" tabindex="-1"></a>inputdirs <span class="ot">&lt;-</span> <span class="fu">list.dirs</span>(rdaBaseDirectory, <span class="at">recursive =</span> F)</span>
+<span id="cb3-17"><a href="subclonal-dynamics.html#cb3-17" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="subclonal-dynamics.html#cb3-18" tabindex="-1"></a><span class="co"># define the model we want to use (this can be &#39;dnacopy, edivisive, or HMM&#39;)</span></span>
+<span id="cb3-19"><a href="subclonal-dynamics.html#cb3-19" tabindex="-1"></a>model <span class="ot">=</span> <span class="st">&#39;edivisive&#39;</span></span>
+<span id="cb3-20"><a href="subclonal-dynamics.html#cb3-20" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="subclonal-dynamics.html#cb3-21" tabindex="-1"></a>modeldirs <span class="ot">&lt;-</span> <span class="fu">list.dirs</span>(rdaBaseDirectory, <span class="at">recursive =</span> F)</span>
+<span id="cb3-22"><a href="subclonal-dynamics.html#cb3-22" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="subclonal-dynamics.html#cb3-23" tabindex="-1"></a><span class="do">#######</span></span>
+<span id="cb3-24"><a href="subclonal-dynamics.html#cb3-24" tabindex="-1"></a><span class="co"># Run #</span></span>
+<span id="cb3-25"><a href="subclonal-dynamics.html#cb3-25" tabindex="-1"></a><span class="do">#######</span></span>
+<span id="cb3-26"><a href="subclonal-dynamics.html#cb3-26" tabindex="-1"></a><span class="co"># run for edivisive</span></span>
+<span id="cb3-27"><a href="subclonal-dynamics.html#cb3-27" tabindex="-1"></a>cl_list_edivisive <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb3-28"><a href="subclonal-dynamics.html#cb3-28" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="subclonal-dynamics.html#cb3-29" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(inputdirs))) {</span>
+<span id="cb3-30"><a href="subclonal-dynamics.html#cb3-30" tabindex="-1"></a>  <span class="co"># function</span></span>
+<span id="cb3-31"><a href="subclonal-dynamics.html#cb3-31" tabindex="-1"></a>  cl_list_edivisive[[<span class="fu">paste0</span>(<span class="st">&#39;kra&#39;</span>, <span class="fu">str_extract</span>(<span class="at">pattern =</span> <span class="st">&#39;</span><span class="sc">\\</span><span class="st">d{3}&#39;</span>, inputdirs[i]))]] <span class="ot">&lt;-</span></span>
+<span id="cb3-32"><a href="subclonal-dynamics.html#cb3-32" tabindex="-1"></a>    <span class="fu">quality_check</span>(<span class="at">inputdir =</span> inputdirs[i], <span class="at">model =</span> <span class="st">&#39;edivisive&#39;</span>)</span>
+<span id="cb3-33"><a href="subclonal-dynamics.html#cb3-33" tabindex="-1"></a>  </span>
+<span id="cb3-34"><a href="subclonal-dynamics.html#cb3-34" tabindex="-1"></a>}</span>
+<span id="cb3-35"><a href="subclonal-dynamics.html#cb3-35" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="subclonal-dynamics.html#cb3-36" tabindex="-1"></a><span class="do">########</span></span>
+<span id="cb3-37"><a href="subclonal-dynamics.html#cb3-37" tabindex="-1"></a><span class="co"># Save #</span></span>
+<span id="cb3-38"><a href="subclonal-dynamics.html#cb3-38" tabindex="-1"></a><span class="do">########</span></span>
+<span id="cb3-39"><a href="subclonal-dynamics.html#cb3-39" tabindex="-1"></a><span class="fu">save</span>(cl_list_edivisive, <span class="at">file =</span> <span class="st">&#39;../cna_analysis/rda/subclonal_dynamics/cl_list_edivisive_paired.rda&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="subclonal-dynamics.html#cb4-1" tabindex="-1"></a><span class="do">########</span></span>
+<span id="cb4-2"><a href="subclonal-dynamics.html#cb4-2" tabindex="-1"></a><span class="co"># Data #</span></span>
+<span id="cb4-3"><a href="subclonal-dynamics.html#cb4-3" tabindex="-1"></a><span class="do">########</span></span>
+<span id="cb4-4"><a href="subclonal-dynamics.html#cb4-4" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&#39;../cna_analysis/rda/subclonal_dynamics/cl_list_edivisive_paired.rda&#39;</span>)</span>
+<span id="cb4-5"><a href="subclonal-dynamics.html#cb4-5" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="subclonal-dynamics.html#cb4-6" tabindex="-1"></a><span class="do">#################</span></span>
+<span id="cb4-7"><a href="subclonal-dynamics.html#cb4-7" tabindex="-1"></a><span class="co"># Quality check #</span></span>
+<span id="cb4-8"><a href="subclonal-dynamics.html#cb4-8" tabindex="-1"></a><span class="do">#################</span></span>
+<span id="cb4-9"><a href="subclonal-dynamics.html#cb4-9" tabindex="-1"></a>qual_summary <span class="ot">&lt;-</span> <span class="fu">lapply</span>(cl_list_edivisive, check_quality)</span>
+<span id="cb4-10"><a href="subclonal-dynamics.html#cb4-10" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="subclonal-dynamics.html#cb4-11" tabindex="-1"></a><span class="do">#######</span></span>
+<span id="cb4-12"><a href="subclonal-dynamics.html#cb4-12" tabindex="-1"></a><span class="co"># Run #</span></span>
+<span id="cb4-13"><a href="subclonal-dynamics.html#cb4-13" tabindex="-1"></a><span class="do">#######</span></span>
+<span id="cb4-14"><a href="subclonal-dynamics.html#cb4-14" tabindex="-1"></a>select_files_edivisive <span class="ot">&lt;-</span></span>
+<span id="cb4-15"><a href="subclonal-dynamics.html#cb4-15" tabindex="-1"></a>  <span class="fu">lapply</span>(cl_list_edivisive,</span>
+<span id="cb4-16"><a href="subclonal-dynamics.html#cb4-16" tabindex="-1"></a>         quality_select,</span>
+<span id="cb4-17"><a href="subclonal-dynamics.html#cb4-17" tabindex="-1"></a>         <span class="at">spik =</span> <span class="fl">0.7</span>,</span>
+<span id="cb4-18"><a href="subclonal-dynamics.html#cb4-18" tabindex="-1"></a>         <span class="at">bhat =</span> <span class="dv">0</span>)</span>
+<span id="cb4-19"><a href="subclonal-dynamics.html#cb4-19" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="subclonal-dynamics.html#cb4-20" tabindex="-1"></a><span class="do">########</span></span>
+<span id="cb4-21"><a href="subclonal-dynamics.html#cb4-21" tabindex="-1"></a><span class="co"># Save #</span></span>
+<span id="cb4-22"><a href="subclonal-dynamics.html#cb4-22" tabindex="-1"></a><span class="do">########</span></span>
+<span id="cb4-23"><a href="subclonal-dynamics.html#cb4-23" tabindex="-1"></a><span class="fu">save</span>(select_files_edivisive, <span class="at">file =</span> <span class="st">&#39;../cna_analysis/rda/subclonal_dynamics/select_files_edivisive.rda&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="subclonal-dynamics.html#cb5-1" tabindex="-1"></a><span class="do">###############</span></span>
+<span id="cb5-2"><a href="subclonal-dynamics.html#cb5-2" tabindex="-1"></a><span class="co"># Description #</span></span>
+<span id="cb5-3"><a href="subclonal-dynamics.html#cb5-3" tabindex="-1"></a><span class="do">###############</span></span>
+<span id="cb5-4"><a href="subclonal-dynamics.html#cb5-4" tabindex="-1"></a><span class="co"># After AneuFinder&#39;s inbuild quaility selection, there are still some evident </span></span>
+<span id="cb5-5"><a href="subclonal-dynamics.html#cb5-5" tabindex="-1"></a><span class="co"># noisy single cells, that appear on the heatmap as if having very high and </span></span>
+<span id="cb5-6"><a href="subclonal-dynamics.html#cb5-6" tabindex="-1"></a><span class="co"># unstructured ploidy. These single cell&#39;s will be removed manually here. The cells</span></span>
+<span id="cb5-7"><a href="subclonal-dynamics.html#cb5-7" tabindex="-1"></a><span class="co"># were selected by inspecting standard AneuFinder heatmaps on the post-quality</span></span>
+<span id="cb5-8"><a href="subclonal-dynamics.html#cb5-8" tabindex="-1"></a><span class="co"># selected files (code not shown).</span></span>
+<span id="cb5-9"><a href="subclonal-dynamics.html#cb5-9" tabindex="-1"></a><span class="do">########</span></span>
+<span id="cb5-10"><a href="subclonal-dynamics.html#cb5-10" tabindex="-1"></a><span class="co"># Data #</span></span>
+<span id="cb5-11"><a href="subclonal-dynamics.html#cb5-11" tabindex="-1"></a><span class="do">########</span></span>
+<span id="cb5-12"><a href="subclonal-dynamics.html#cb5-12" tabindex="-1"></a><span class="co"># loading files after quality selection</span></span>
+<span id="cb5-13"><a href="subclonal-dynamics.html#cb5-13" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&#39;../cna_analysis/rda/subclonal_dynamics/select_files_edivisive.rda&#39;</span>)</span>
+<span id="cb5-14"><a href="subclonal-dynamics.html#cb5-14" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="subclonal-dynamics.html#cb5-15" tabindex="-1"></a><span class="do">##########</span></span>
+<span id="cb5-16"><a href="subclonal-dynamics.html#cb5-16" tabindex="-1"></a><span class="co"># Select #</span></span>
+<span id="cb5-17"><a href="subclonal-dynamics.html#cb5-17" tabindex="-1"></a><span class="do">##########</span></span>
+<span id="cb5-18"><a href="subclonal-dynamics.html#cb5-18" tabindex="-1"></a><span class="co"># removing karyotypes that are clearly artefacts. The karyotypes are </span></span>
+<span id="cb5-19"><a href="subclonal-dynamics.html#cb5-19" tabindex="-1"></a><span class="co"># selected based on the figures in figs -&gt; genomeheatmap_afterqc -&gt; edivisive</span></span>
+<span id="cb5-20"><a href="subclonal-dynamics.html#cb5-20" tabindex="-1"></a>kra003_remove <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">c</span>( <span class="dv">272</span>, <span class="dv">122</span>  , <span class="dv">33</span>  ,  <span class="dv">198</span>  ,  </span>
+<span id="cb5-21"><a href="subclonal-dynamics.html#cb5-21" tabindex="-1"></a>                                 <span class="dv">372</span>,  <span class="dv">116</span>  ,  <span class="dv">105</span> , <span class="dv">104</span>,  <span class="dv">175</span>  , </span>
+<span id="cb5-22"><a href="subclonal-dynamics.html#cb5-22" tabindex="-1"></a>                                 <span class="dv">341</span>  , <span class="dv">30</span>, <span class="dv">12</span>  ,  <span class="dv">280</span>  , <span class="dv">215</span>  , </span>
+<span id="cb5-23"><a href="subclonal-dynamics.html#cb5-23" tabindex="-1"></a>                                 <span class="dv">31</span>  ,  <span class="dv">139</span>  ,  <span class="dv">295</span> ,  <span class="dv">370</span>  ,  <span class="dv">337</span>  ,  </span>
+<span id="cb5-24"><a href="subclonal-dynamics.html#cb5-24" tabindex="-1"></a>                                 <span class="dv">307</span>  , <span class="dv">170</span>  ,<span class="dv">80</span>  ,  <span class="dv">357</span> , <span class="dv">34</span>, <span class="dv">21</span>  , <span class="dv">60</span>  ,  </span>
+<span id="cb5-25"><a href="subclonal-dynamics.html#cb5-25" tabindex="-1"></a>                                 <span class="dv">129</span>  , <span class="dv">318</span>  , <span class="dv">39</span> ,  <span class="dv">365</span>, </span>
+<span id="cb5-26"><a href="subclonal-dynamics.html#cb5-26" tabindex="-1"></a>                                 <span class="dv">113</span>  ,  <span class="dv">89</span>  , <span class="dv">4</span>  ,  <span class="dv">57</span> , <span class="dv">162</span>  ,  <span class="dv">20</span>  , </span>
+<span id="cb5-27"><a href="subclonal-dynamics.html#cb5-27" tabindex="-1"></a>                                 <span class="dv">135</span>  , <span class="dv">235</span>  , <span class="dv">377</span>  , <span class="dv">181</span> , <span class="dv">46</span>  , <span class="dv">84</span>  , </span>
+<span id="cb5-28"><a href="subclonal-dynamics.html#cb5-28" tabindex="-1"></a>                                 <span class="dv">186</span>  , <span class="dv">81</span>,  <span class="dv">257</span>  , <span class="dv">225</span>  , <span class="dv">191</span>  , <span class="dv">269</span>))</span>
+<span id="cb5-29"><a href="subclonal-dynamics.html#cb5-29" tabindex="-1"></a>  </span>
+<span id="cb5-30"><a href="subclonal-dynamics.html#cb5-30" tabindex="-1"></a>kra004_remove <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">266</span>, <span class="dv">251</span>, <span class="dv">375</span>, <span class="dv">256</span>, <span class="dv">303</span>, <span class="dv">179</span>, <span class="dv">160</span>, <span class="dv">290</span>, <span class="dv">368</span>, <span class="dv">28</span>, <span class="dv">334</span>, <span class="dv">211</span>, <span class="dv">261</span>, <span class="dv">58</span>, <span class="dv">133</span>, <span class="dv">115</span>, <span class="dv">161</span>, <span class="dv">20</span>, <span class="dv">162</span>, <span class="dv">112</span>, <span class="dv">314</span>, <span class="dv">181</span>, <span class="dv">264</span>, <span class="dv">268</span>, <span class="dv">268</span>, <span class="dv">30</span>, <span class="dv">127</span>, <span class="dv">98</span>, <span class="dv">191</span>, <span class="dv">383</span>,</span>
+<span id="cb5-31"><a href="subclonal-dynamics.html#cb5-31" tabindex="-1"></a>                                <span class="dv">232</span>, <span class="dv">104</span>, <span class="dv">350</span>, <span class="dv">163</span>, <span class="dv">377</span>, <span class="dv">323</span>, <span class="dv">333</span>, <span class="dv">224</span>, <span class="dv">242</span>, <span class="dv">184</span>, <span class="dv">244</span>, <span class="dv">277</span>, <span class="dv">102</span>, <span class="dv">21</span>, <span class="dv">93</span>, <span class="dv">149</span>, <span class="dv">101</span>, <span class="dv">332</span>, <span class="dv">188</span>, <span class="dv">225</span>, <span class="dv">135</span>))</span>
+<span id="cb5-32"><a href="subclonal-dynamics.html#cb5-32" tabindex="-1"></a>                                </span>
+<span id="cb5-33"><a href="subclonal-dynamics.html#cb5-33" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="subclonal-dynamics.html#cb5-34" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="subclonal-dynamics.html#cb5-35" tabindex="-1"></a>kra005_remove <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">89</span>, <span class="dv">159</span>, <span class="dv">61</span>, <span class="dv">155</span>, <span class="dv">146</span>, <span class="dv">141</span>, <span class="dv">30</span>, <span class="dv">174</span>, <span class="dv">95</span>, <span class="dv">262</span>, <span class="dv">264</span>,</span>
+<span id="cb5-36"><a href="subclonal-dynamics.html#cb5-36" tabindex="-1"></a>                                <span class="dv">48</span>, <span class="dv">152</span>, <span class="dv">103</span>, <span class="dv">92</span>, <span class="dv">116</span>,</span>
+<span id="cb5-37"><a href="subclonal-dynamics.html#cb5-37" tabindex="-1"></a>                                <span class="dv">297</span>, <span class="dv">333</span>))</span>
+<span id="cb5-38"><a href="subclonal-dynamics.html#cb5-38" tabindex="-1"></a></span>
+<span id="cb5-39"><a href="subclonal-dynamics.html#cb5-39" tabindex="-1"></a></span>
+<span id="cb5-40"><a href="subclonal-dynamics.html#cb5-40" tabindex="-1"></a></span>
+<span id="cb5-41"><a href="subclonal-dynamics.html#cb5-41" tabindex="-1"></a></span>
+<span id="cb5-42"><a href="subclonal-dynamics.html#cb5-42" tabindex="-1"></a>kra006_remove <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">380</span>, <span class="dv">176</span>, <span class="dv">328</span>, <span class="dv">255</span>, <span class="dv">4</span>,</span>
+<span id="cb5-43"><a href="subclonal-dynamics.html#cb5-43" tabindex="-1"></a>                                <span class="dv">60</span>, <span class="dv">264</span>, <span class="dv">111</span>, <span class="dv">173</span>))</span>
+<span id="cb5-44"><a href="subclonal-dynamics.html#cb5-44" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="subclonal-dynamics.html#cb5-45" tabindex="-1"></a></span>
+<span id="cb5-46"><a href="subclonal-dynamics.html#cb5-46" tabindex="-1"></a></span>
+<span id="cb5-47"><a href="subclonal-dynamics.html#cb5-47" tabindex="-1"></a></span>
+<span id="cb5-48"><a href="subclonal-dynamics.html#cb5-48" tabindex="-1"></a>kra007_remove <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">37</span>, <span class="dv">366</span>, <span class="dv">213</span>, <span class="dv">262</span>, <span class="dv">83</span>, <span class="dv">78</span>, <span class="dv">10</span>, </span>
+<span id="cb5-49"><a href="subclonal-dynamics.html#cb5-49" tabindex="-1"></a>                                <span class="dv">351</span>))</span>
+<span id="cb5-50"><a href="subclonal-dynamics.html#cb5-50" tabindex="-1"></a>                                </span>
+<span id="cb5-51"><a href="subclonal-dynamics.html#cb5-51" tabindex="-1"></a>                                <span class="do">## diploid subclone91, 363, 275))</span></span>
+<span id="cb5-52"><a href="subclonal-dynamics.html#cb5-52" tabindex="-1"></a></span>
+<span id="cb5-53"><a href="subclonal-dynamics.html#cb5-53" tabindex="-1"></a></span>
+<span id="cb5-54"><a href="subclonal-dynamics.html#cb5-54" tabindex="-1"></a>kra008_remove <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">70</span>, <span class="dv">143</span>, <span class="dv">77</span>, <span class="dv">144</span>, <span class="dv">146</span>, <span class="dv">189</span>, </span>
+<span id="cb5-55"><a href="subclonal-dynamics.html#cb5-55" tabindex="-1"></a>                                <span class="dv">35</span>, <span class="dv">170</span>, <span class="dv">30</span>, <span class="dv">119</span>, <span class="dv">65</span>, <span class="dv">51</span>, <span class="dv">107</span>, </span>
+<span id="cb5-56"><a href="subclonal-dynamics.html#cb5-56" tabindex="-1"></a>                                <span class="dv">362</span>, <span class="dv">58</span> ,<span class="dv">125</span>, <span class="dv">66</span> ,<span class="dv">210</span> ,<span class="dv">160</span> ,<span class="dv">186</span>, </span>
+<span id="cb5-57"><a href="subclonal-dynamics.html#cb5-57" tabindex="-1"></a>                                <span class="dv">102</span>, <span class="dv">37</span>, <span class="dv">226</span>, <span class="dv">183</span>, <span class="dv">59</span>, <span class="dv">159</span>, <span class="dv">46</span>, <span class="dv">87</span>, </span>
+<span id="cb5-58"><a href="subclonal-dynamics.html#cb5-58" tabindex="-1"></a>                                <span class="dv">118</span>, <span class="dv">285</span>, <span class="dv">69</span>, <span class="dv">109</span>))</span>
+<span id="cb5-59"><a href="subclonal-dynamics.html#cb5-59" tabindex="-1"></a>                                </span>
+<span id="cb5-60"><a href="subclonal-dynamics.html#cb5-60" tabindex="-1"></a>                                </span>
+<span id="cb5-61"><a href="subclonal-dynamics.html#cb5-61" tabindex="-1"></a>                                <span class="co"># diploid subclone</span></span>
+<span id="cb5-62"><a href="subclonal-dynamics.html#cb5-62" tabindex="-1"></a>                                <span class="co"># 287, 302, 212, 15, </span></span>
+<span id="cb5-63"><a href="subclonal-dynamics.html#cb5-63" tabindex="-1"></a>                                <span class="co"># 115, 166, 126, 17, 95, 231, 19, 104, </span></span>
+<span id="cb5-64"><a href="subclonal-dynamics.html#cb5-64" tabindex="-1"></a>                                <span class="co"># 86, 138, 105, 116, 81 ,130, 88, 61)) </span></span>
+<span id="cb5-65"><a href="subclonal-dynamics.html#cb5-65" tabindex="-1"></a></span>
+<span id="cb5-66"><a href="subclonal-dynamics.html#cb5-66" tabindex="-1"></a>kra009_remove <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">239</span>, <span class="dv">347</span>, <span class="dv">94</span>, <span class="dv">65</span>, <span class="dv">91</span>, </span>
+<span id="cb5-67"><a href="subclonal-dynamics.html#cb5-67" tabindex="-1"></a>                                <span class="dv">163</span>, <span class="dv">246</span>, <span class="dv">6</span> ,<span class="dv">116</span>, <span class="dv">330</span>, <span class="dv">126</span>, <span class="dv">76</span>, <span class="dv">54</span>, </span>
+<span id="cb5-68"><a href="subclonal-dynamics.html#cb5-68" tabindex="-1"></a>                                <span class="dv">57</span>, <span class="dv">107</span> ,<span class="dv">181</span>, <span class="dv">154</span>, <span class="dv">137</span>, <span class="dv">60</span>, <span class="dv">114</span>, <span class="dv">55</span>, </span>
+<span id="cb5-69"><a href="subclonal-dynamics.html#cb5-69" tabindex="-1"></a>                                <span class="dv">81</span>, <span class="dv">179</span>, <span class="dv">241</span>, <span class="dv">75</span>, <span class="dv">142</span>,</span>
+<span id="cb5-70"><a href="subclonal-dynamics.html#cb5-70" tabindex="-1"></a>                                <span class="dv">329</span>, <span class="dv">323</span>))</span>
+<span id="cb5-71"><a href="subclonal-dynamics.html#cb5-71" tabindex="-1"></a></span>
+<span id="cb5-72"><a href="subclonal-dynamics.html#cb5-72" tabindex="-1"></a></span>
+<span id="cb5-73"><a href="subclonal-dynamics.html#cb5-73" tabindex="-1"></a><span class="co"># diploid subclone kra009 74, 59, 375, 112, 92, 99, </span></span>
+<span id="cb5-74"><a href="subclonal-dynamics.html#cb5-74" tabindex="-1"></a><span class="co"># 105</span></span>
+<span id="cb5-75"><a href="subclonal-dynamics.html#cb5-75" tabindex="-1"></a></span>
+<span id="cb5-76"><a href="subclonal-dynamics.html#cb5-76" tabindex="-1"></a>kra010_remove <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">363</span>, <span class="dv">217</span>, <span class="dv">242</span>, <span class="dv">238</span>, <span class="dv">27</span>, <span class="dv">46</span>, <span class="dv">189</span>, <span class="dv">28</span>,</span>
+<span id="cb5-77"><a href="subclonal-dynamics.html#cb5-77" tabindex="-1"></a>                                   <span class="dv">216</span>, <span class="dv">84</span>, <span class="dv">234</span>, <span class="dv">71</span>, <span class="dv">95</span>, <span class="dv">60</span>, <span class="dv">86</span>, <span class="dv">181</span>, <span class="dv">172</span>,</span>
+<span id="cb5-78"><a href="subclonal-dynamics.html#cb5-78" tabindex="-1"></a>                                   <span class="dv">42</span>, <span class="dv">355</span>, <span class="dv">58</span>, <span class="dv">43</span>, <span class="dv">132</span>,</span>
+<span id="cb5-79"><a href="subclonal-dynamics.html#cb5-79" tabindex="-1"></a>                                   <span class="dv">262</span>, <span class="dv">176</span>, <span class="dv">143</span>,<span class="dv">311</span>, <span class="dv">203</span>, <span class="dv">297</span>,<span class="dv">307</span>, <span class="dv">3</span>, <span class="dv">227</span>,</span>
+<span id="cb5-80"><a href="subclonal-dynamics.html#cb5-80" tabindex="-1"></a>                                   <span class="dv">72</span>,</span>
+<span id="cb5-81"><a href="subclonal-dynamics.html#cb5-81" tabindex="-1"></a>                                   <span class="dv">177</span>, <span class="dv">115</span>, <span class="dv">54</span>, <span class="dv">258</span>))</span>
+<span id="cb5-82"><a href="subclonal-dynamics.html#cb5-82" tabindex="-1"></a></span>
+<span id="cb5-83"><a href="subclonal-dynamics.html#cb5-83" tabindex="-1"></a>kra022_remove <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">31</span>, <span class="dv">161</span>))</span>
+<span id="cb5-84"><a href="subclonal-dynamics.html#cb5-84" tabindex="-1"></a></span>
+<span id="cb5-85"><a href="subclonal-dynamics.html#cb5-85" tabindex="-1"></a><span class="co"># kra003_subclone&lt;- as.character(c(372, 173, 274, 108, 39, 289)) </span></span>
+<span id="cb5-86"><a href="subclonal-dynamics.html#cb5-86" tabindex="-1"></a></span>
+<span id="cb5-87"><a href="subclonal-dynamics.html#cb5-87" tabindex="-1"></a></span>
+<span id="cb5-88"><a href="subclonal-dynamics.html#cb5-88" tabindex="-1"></a>kra023_remove <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">96</span>, <span class="dv">199</span>, <span class="dv">246</span>, <span class="dv">135</span>, </span>
+<span id="cb5-89"><a href="subclonal-dynamics.html#cb5-89" tabindex="-1"></a>                                <span class="dv">104</span>,</span>
+<span id="cb5-90"><a href="subclonal-dynamics.html#cb5-90" tabindex="-1"></a>                                <span class="dv">5</span>))</span>
+<span id="cb5-91"><a href="subclonal-dynamics.html#cb5-91" tabindex="-1"></a></span>
+<span id="cb5-92"><a href="subclonal-dynamics.html#cb5-92" tabindex="-1"></a><span class="co"># kra004_subclone&lt;- as.character(c(92, 102, 252, 181,</span></span>
+<span id="cb5-93"><a href="subclonal-dynamics.html#cb5-93" tabindex="-1"></a><span class="co">#                                 264, 258, 290, 268) </span></span>
+<span id="cb5-94"><a href="subclonal-dynamics.html#cb5-94" tabindex="-1"></a></span>
+<span id="cb5-95"><a href="subclonal-dynamics.html#cb5-95" tabindex="-1"></a></span>
+<span id="cb5-96"><a href="subclonal-dynamics.html#cb5-96" tabindex="-1"></a></span>
+<span id="cb5-97"><a href="subclonal-dynamics.html#cb5-97" tabindex="-1"></a>kra024_remove <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">193</span>, <span class="dv">344</span>, <span class="dv">337</span>, <span class="dv">356</span>, </span>
+<span id="cb5-98"><a href="subclonal-dynamics.html#cb5-98" tabindex="-1"></a>                                <span class="dv">85</span>,<span class="dv">86</span>,<span class="dv">309</span>,<span class="dv">52</span>,</span>
+<span id="cb5-99"><a href="subclonal-dynamics.html#cb5-99" tabindex="-1"></a>                                <span class="dv">188</span>,<span class="dv">374</span>, <span class="dv">176</span>,<span class="dv">53</span>,</span>
+<span id="cb5-100"><a href="subclonal-dynamics.html#cb5-100" tabindex="-1"></a>                                <span class="dv">87</span>,<span class="dv">169</span>,<span class="dv">36</span>,<span class="dv">115</span>,</span>
+<span id="cb5-101"><a href="subclonal-dynamics.html#cb5-101" tabindex="-1"></a>                                <span class="dv">45</span>,<span class="dv">281</span>,<span class="dv">66</span>))</span>
+<span id="cb5-102"><a href="subclonal-dynamics.html#cb5-102" tabindex="-1"></a></span>
+<span id="cb5-103"><a href="subclonal-dynamics.html#cb5-103" tabindex="-1"></a><span class="co"># kra005_subclone &lt;- as.character(c(297, 92, 113, 103, </span></span>
+<span id="cb5-104"><a href="subclonal-dynamics.html#cb5-104" tabindex="-1"></a><span class="co">#                                   152, 48, 333))</span></span>
+<span id="cb5-105"><a href="subclonal-dynamics.html#cb5-105" tabindex="-1"></a></span>
+<span id="cb5-106"><a href="subclonal-dynamics.html#cb5-106" tabindex="-1"></a></span>
+<span id="cb5-107"><a href="subclonal-dynamics.html#cb5-107" tabindex="-1"></a>kra025_remove <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">141</span>, <span class="dv">257</span>,<span class="dv">85</span>,<span class="dv">183</span>,<span class="dv">127</span>))</span>
+<span id="cb5-108"><a href="subclonal-dynamics.html#cb5-108" tabindex="-1"></a></span>
+<span id="cb5-109"><a href="subclonal-dynamics.html#cb5-109" tabindex="-1"></a><span class="co"># kra006_subclone &lt;- as.character(c(380))</span></span>
+<span id="cb5-110"><a href="subclonal-dynamics.html#cb5-110" tabindex="-1"></a></span>
+<span id="cb5-111"><a href="subclonal-dynamics.html#cb5-111" tabindex="-1"></a></span>
+<span id="cb5-112"><a href="subclonal-dynamics.html#cb5-112" tabindex="-1"></a>kra026_remove <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">318</span>, <span class="dv">287</span>, <span class="dv">260</span>, <span class="dv">208</span>, </span>
+<span id="cb5-113"><a href="subclonal-dynamics.html#cb5-113" tabindex="-1"></a>                                <span class="dv">247</span>, <span class="dv">75</span>, <span class="dv">285</span>,</span>
+<span id="cb5-114"><a href="subclonal-dynamics.html#cb5-114" tabindex="-1"></a>                                <span class="dv">376</span>, <span class="dv">238</span>, <span class="dv">200</span>, <span class="dv">215</span>, <span class="dv">362</span>, <span class="dv">49</span>))</span>
+<span id="cb5-115"><a href="subclonal-dynamics.html#cb5-115" tabindex="-1"></a></span>
+<span id="cb5-116"><a href="subclonal-dynamics.html#cb5-116" tabindex="-1"></a><span class="co"># kra007_subclone &lt;- as.character(c(318, 292, 381, 319, </span></span>
+<span id="cb5-117"><a href="subclonal-dynamics.html#cb5-117" tabindex="-1"></a><span class="co">#                                   198, 208, 351, 353, </span></span>
+<span id="cb5-118"><a href="subclonal-dynamics.html#cb5-118" tabindex="-1"></a><span class="co">#                                   285, 379))</span></span>
+<span id="cb5-119"><a href="subclonal-dynamics.html#cb5-119" tabindex="-1"></a></span>
+<span id="cb5-120"><a href="subclonal-dynamics.html#cb5-120" tabindex="-1"></a>kra027_remove <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">339</span>, <span class="dv">375</span>, <span class="dv">141</span>, </span>
+<span id="cb5-121"><a href="subclonal-dynamics.html#cb5-121" tabindex="-1"></a>                                <span class="dv">126</span>, <span class="dv">346</span>, <span class="dv">204</span>, </span>
+<span id="cb5-122"><a href="subclonal-dynamics.html#cb5-122" tabindex="-1"></a>                                <span class="dv">69</span>, <span class="dv">343</span>, <span class="dv">377</span>, </span>
+<span id="cb5-123"><a href="subclonal-dynamics.html#cb5-123" tabindex="-1"></a>                                <span class="dv">364</span>, <span class="dv">298</span>, <span class="dv">79</span>))</span>
+<span id="cb5-124"><a href="subclonal-dynamics.html#cb5-124" tabindex="-1"></a></span>
+<span id="cb5-125"><a href="subclonal-dynamics.html#cb5-125" tabindex="-1"></a><span class="co"># kra008_subclone &lt;- as.character(c(69, 87, 60, 61, </span></span>
+<span id="cb5-126"><a href="subclonal-dynamics.html#cb5-126" tabindex="-1"></a><span class="co">#                                   143, 35, 241, 202))</span></span>
+<span id="cb5-127"><a href="subclonal-dynamics.html#cb5-127" tabindex="-1"></a></span>
+<span id="cb5-128"><a href="subclonal-dynamics.html#cb5-128" tabindex="-1"></a></span>
+<span id="cb5-129"><a href="subclonal-dynamics.html#cb5-129" tabindex="-1"></a>kra028_remove <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">37</span>, <span class="dv">178</span>, <span class="dv">167</span>, <span class="dv">225</span>, <span class="dv">125</span>, </span>
+<span id="cb5-130"><a href="subclonal-dynamics.html#cb5-130" tabindex="-1"></a>                                <span class="dv">90</span>, <span class="dv">249</span>, <span class="dv">50</span>,<span class="dv">66</span>, <span class="dv">327</span> ))</span>
+<span id="cb5-131"><a href="subclonal-dynamics.html#cb5-131" tabindex="-1"></a></span>
+<span id="cb5-132"><a href="subclonal-dynamics.html#cb5-132" tabindex="-1"></a><span class="co"># kra009_subclone1 &lt;- as.character(c(375))</span></span>
+<span id="cb5-133"><a href="subclonal-dynamics.html#cb5-133" tabindex="-1"></a></span>
+<span id="cb5-134"><a href="subclonal-dynamics.html#cb5-134" tabindex="-1"></a></span>
+<span id="cb5-135"><a href="subclonal-dynamics.html#cb5-135" tabindex="-1"></a></span>
+<span id="cb5-136"><a href="subclonal-dynamics.html#cb5-136" tabindex="-1"></a>kra029_remove <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">14</span>, <span class="dv">277</span>, <span class="dv">353</span>, <span class="dv">203</span>,</span>
+<span id="cb5-137"><a href="subclonal-dynamics.html#cb5-137" tabindex="-1"></a>                                <span class="dv">137</span></span>
+<span id="cb5-138"><a href="subclonal-dynamics.html#cb5-138" tabindex="-1"></a>))</span>
+<span id="cb5-139"><a href="subclonal-dynamics.html#cb5-139" tabindex="-1"></a></span>
+<span id="cb5-140"><a href="subclonal-dynamics.html#cb5-140" tabindex="-1"></a></span>
+<span id="cb5-141"><a href="subclonal-dynamics.html#cb5-141" tabindex="-1"></a>kra030_remove <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">341</span>,</span>
+<span id="cb5-142"><a href="subclonal-dynamics.html#cb5-142" tabindex="-1"></a>                                <span class="dv">177</span>, <span class="dv">111</span>, <span class="dv">157</span>, <span class="dv">226</span>, </span>
+<span id="cb5-143"><a href="subclonal-dynamics.html#cb5-143" tabindex="-1"></a>                                <span class="dv">209</span>, <span class="dv">150</span>, <span class="dv">301</span>, <span class="dv">158</span>,</span>
+<span id="cb5-144"><a href="subclonal-dynamics.html#cb5-144" tabindex="-1"></a>                                <span class="dv">121</span>, <span class="dv">273</span>, <span class="dv">190</span>, <span class="dv">47</span>, <span class="dv">18</span></span>
+<span id="cb5-145"><a href="subclonal-dynamics.html#cb5-145" tabindex="-1"></a>))</span>
+<span id="cb5-146"><a href="subclonal-dynamics.html#cb5-146" tabindex="-1"></a></span>
+<span id="cb5-147"><a href="subclonal-dynamics.html#cb5-147" tabindex="-1"></a>kra031_remove <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">159</span>, <span class="dv">217</span>, <span class="dv">261</span>, <span class="dv">122</span>, </span>
+<span id="cb5-148"><a href="subclonal-dynamics.html#cb5-148" tabindex="-1"></a>                                <span class="dv">60</span>, <span class="dv">201</span>, <span class="dv">153</span>))</span>
+<span id="cb5-149"><a href="subclonal-dynamics.html#cb5-149" tabindex="-1"></a></span>
+<span id="cb5-150"><a href="subclonal-dynamics.html#cb5-150" tabindex="-1"></a></span>
+<span id="cb5-151"><a href="subclonal-dynamics.html#cb5-151" tabindex="-1"></a>kra032_remove <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">349</span>, <span class="dv">347</span>, <span class="dv">58</span>, <span class="dv">370</span>, </span>
+<span id="cb5-152"><a href="subclonal-dynamics.html#cb5-152" tabindex="-1"></a>                                <span class="dv">284</span>, <span class="dv">366</span>, <span class="dv">326</span>, <span class="dv">373</span>, </span>
+<span id="cb5-153"><a href="subclonal-dynamics.html#cb5-153" tabindex="-1"></a>                                <span class="dv">306</span>, <span class="dv">27</span>, </span>
+<span id="cb5-154"><a href="subclonal-dynamics.html#cb5-154" tabindex="-1"></a>                                <span class="dv">138</span>, <span class="dv">113</span>, <span class="dv">348</span>, <span class="dv">22</span>, </span>
+<span id="cb5-155"><a href="subclonal-dynamics.html#cb5-155" tabindex="-1"></a>                                <span class="dv">24</span>, <span class="dv">103</span>, <span class="dv">218</span>, <span class="dv">181</span>))</span>
+<span id="cb5-156"><a href="subclonal-dynamics.html#cb5-156" tabindex="-1"></a></span>
+<span id="cb5-157"><a href="subclonal-dynamics.html#cb5-157" tabindex="-1"></a></span>
+<span id="cb5-158"><a href="subclonal-dynamics.html#cb5-158" tabindex="-1"></a></span>
+<span id="cb5-159"><a href="subclonal-dynamics.html#cb5-159" tabindex="-1"></a><span class="co"># kra010 has three subclones!!</span></span>
+<span id="cb5-160"><a href="subclonal-dynamics.html#cb5-160" tabindex="-1"></a><span class="co"># kra010_subclone1 &lt;- as.character(c(355,34,166,139,</span></span>
+<span id="cb5-161"><a href="subclonal-dynamics.html#cb5-161" tabindex="-1"></a><span class="co"># 19, 213, 357, 57,</span></span>
+<span id="cb5-162"><a href="subclonal-dynamics.html#cb5-162" tabindex="-1"></a><span class="co"># 72))</span></span>
+<span id="cb5-163"><a href="subclonal-dynamics.html#cb5-163" tabindex="-1"></a></span>
+<span id="cb5-164"><a href="subclonal-dynamics.html#cb5-164" tabindex="-1"></a><span class="co"># kra010_subclone2 &lt;- 317 t/m 304</span></span>
+<span id="cb5-165"><a href="subclonal-dynamics.html#cb5-165" tabindex="-1"></a><span class="co"># kra010_subclone2 &lt; 235 t/m  176</span></span>
+<span id="cb5-166"><a href="subclonal-dynamics.html#cb5-166" tabindex="-1"></a></span>
+<span id="cb5-167"><a href="subclonal-dynamics.html#cb5-167" tabindex="-1"></a><span class="do">##########</span></span>
+<span id="cb5-168"><a href="subclonal-dynamics.html#cb5-168" tabindex="-1"></a><span class="co"># Remove #</span></span>
+<span id="cb5-169"><a href="subclonal-dynamics.html#cb5-169" tabindex="-1"></a><span class="do">##########</span></span>
+<span id="cb5-170"><a href="subclonal-dynamics.html#cb5-170" tabindex="-1"></a></span>
+<span id="cb5-171"><a href="subclonal-dynamics.html#cb5-171" tabindex="-1"></a>kra003 <span class="ot">&lt;-</span> <span class="fu">remove_selection</span>(select_files_edivisive<span class="sc">$</span>kra003, kra003_remove)</span>
+<span id="cb5-172"><a href="subclonal-dynamics.html#cb5-172" tabindex="-1"></a>kra004 <span class="ot">&lt;-</span> <span class="fu">remove_selection</span>(select_files_edivisive<span class="sc">$</span>kra004, kra004_remove)</span>
+<span id="cb5-173"><a href="subclonal-dynamics.html#cb5-173" tabindex="-1"></a></span>
+<span id="cb5-174"><a href="subclonal-dynamics.html#cb5-174" tabindex="-1"></a>kra005 <span class="ot">&lt;-</span> <span class="fu">remove_selection</span>(select_files_edivisive<span class="sc">$</span>kra005, kra005_remove)</span>
+<span id="cb5-175"><a href="subclonal-dynamics.html#cb5-175" tabindex="-1"></a>kra006 <span class="ot">&lt;-</span> <span class="fu">remove_selection</span>(select_files_edivisive<span class="sc">$</span>kra006, kra006_remove)</span>
+<span id="cb5-176"><a href="subclonal-dynamics.html#cb5-176" tabindex="-1"></a></span>
+<span id="cb5-177"><a href="subclonal-dynamics.html#cb5-177" tabindex="-1"></a>kra007 <span class="ot">&lt;-</span> <span class="fu">remove_selection</span>(select_files_edivisive<span class="sc">$</span>kra007, kra007_remove)</span>
+<span id="cb5-178"><a href="subclonal-dynamics.html#cb5-178" tabindex="-1"></a>kra008 <span class="ot">&lt;-</span> <span class="fu">remove_selection</span>(select_files_edivisive<span class="sc">$</span>kra008, kra008_remove)</span>
+<span id="cb5-179"><a href="subclonal-dynamics.html#cb5-179" tabindex="-1"></a></span>
+<span id="cb5-180"><a href="subclonal-dynamics.html#cb5-180" tabindex="-1"></a>kra009 <span class="ot">&lt;-</span> <span class="fu">remove_selection</span>(select_files_edivisive<span class="sc">$</span>kra009, kra009_remove)</span>
+<span id="cb5-181"><a href="subclonal-dynamics.html#cb5-181" tabindex="-1"></a>kra010 <span class="ot">&lt;-</span> <span class="fu">remove_selection</span>(select_files_edivisive<span class="sc">$</span>kra010, kra010_remove)</span>
+<span id="cb5-182"><a href="subclonal-dynamics.html#cb5-182" tabindex="-1"></a></span>
+<span id="cb5-183"><a href="subclonal-dynamics.html#cb5-183" tabindex="-1"></a>kra022 <span class="ot">&lt;-</span> <span class="fu">remove_selection</span>(select_files_edivisive<span class="sc">$</span>kra022, kra022_remove)</span>
+<span id="cb5-184"><a href="subclonal-dynamics.html#cb5-184" tabindex="-1"></a>kra023 <span class="ot">&lt;-</span> <span class="fu">remove_selection</span>(select_files_edivisive<span class="sc">$</span>kra023, kra023_remove)</span>
+<span id="cb5-185"><a href="subclonal-dynamics.html#cb5-185" tabindex="-1"></a></span>
+<span id="cb5-186"><a href="subclonal-dynamics.html#cb5-186" tabindex="-1"></a>kra024 <span class="ot">&lt;-</span> <span class="fu">remove_selection</span>(select_files_edivisive<span class="sc">$</span>kra024, kra024_remove)</span>
+<span id="cb5-187"><a href="subclonal-dynamics.html#cb5-187" tabindex="-1"></a>kra025 <span class="ot">&lt;-</span> <span class="fu">remove_selection</span>(select_files_edivisive<span class="sc">$</span>kra025, kra025_remove)</span>
+<span id="cb5-188"><a href="subclonal-dynamics.html#cb5-188" tabindex="-1"></a></span>
+<span id="cb5-189"><a href="subclonal-dynamics.html#cb5-189" tabindex="-1"></a>kra026 <span class="ot">&lt;-</span> <span class="fu">remove_selection</span>(select_files_edivisive<span class="sc">$</span>kra026, kra026_remove)</span>
+<span id="cb5-190"><a href="subclonal-dynamics.html#cb5-190" tabindex="-1"></a>kra027 <span class="ot">&lt;-</span> <span class="fu">remove_selection</span>(select_files_edivisive<span class="sc">$</span>kra027, kra027_remove)</span>
+<span id="cb5-191"><a href="subclonal-dynamics.html#cb5-191" tabindex="-1"></a>kra028 <span class="ot">&lt;-</span> <span class="fu">remove_selection</span>(select_files_edivisive<span class="sc">$</span>kra028, kra028_remove)</span>
+<span id="cb5-192"><a href="subclonal-dynamics.html#cb5-192" tabindex="-1"></a>kra029 <span class="ot">&lt;-</span> <span class="fu">remove_selection</span>(select_files_edivisive<span class="sc">$</span>kra029, kra029_remove)</span>
+<span id="cb5-193"><a href="subclonal-dynamics.html#cb5-193" tabindex="-1"></a>kra030 <span class="ot">&lt;-</span> <span class="fu">remove_selection</span>(select_files_edivisive<span class="sc">$</span>kra030, kra030_remove)</span>
+<span id="cb5-194"><a href="subclonal-dynamics.html#cb5-194" tabindex="-1"></a></span>
+<span id="cb5-195"><a href="subclonal-dynamics.html#cb5-195" tabindex="-1"></a>kra031 <span class="ot">&lt;-</span> <span class="fu">remove_selection</span>(select_files_edivisive<span class="sc">$</span>kra031, kra031_remove)</span>
+<span id="cb5-196"><a href="subclonal-dynamics.html#cb5-196" tabindex="-1"></a>kra032 <span class="ot">&lt;-</span> <span class="fu">remove_selection</span>(select_files_edivisive<span class="sc">$</span>kra032, kra032_remove)</span>
+<span id="cb5-197"><a href="subclonal-dynamics.html#cb5-197" tabindex="-1"></a></span>
+<span id="cb5-198"><a href="subclonal-dynamics.html#cb5-198" tabindex="-1"></a></span>
+<span id="cb5-199"><a href="subclonal-dynamics.html#cb5-199" tabindex="-1"></a>man_select_files_edivisive <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">kra003 =</span> kra003,</span>
+<span id="cb5-200"><a href="subclonal-dynamics.html#cb5-200" tabindex="-1"></a>                                  <span class="at">kra004 =</span> kra004,</span>
+<span id="cb5-201"><a href="subclonal-dynamics.html#cb5-201" tabindex="-1"></a>                                  </span>
+<span id="cb5-202"><a href="subclonal-dynamics.html#cb5-202" tabindex="-1"></a>                                  <span class="at">kra005 =</span> kra005,</span>
+<span id="cb5-203"><a href="subclonal-dynamics.html#cb5-203" tabindex="-1"></a>                                  <span class="at">kra006 =</span> kra006,</span>
+<span id="cb5-204"><a href="subclonal-dynamics.html#cb5-204" tabindex="-1"></a>                                  </span>
+<span id="cb5-205"><a href="subclonal-dynamics.html#cb5-205" tabindex="-1"></a>                                  <span class="at">kra007 =</span> kra007,</span>
+<span id="cb5-206"><a href="subclonal-dynamics.html#cb5-206" tabindex="-1"></a>                                  <span class="at">kra008 =</span> kra008,</span>
+<span id="cb5-207"><a href="subclonal-dynamics.html#cb5-207" tabindex="-1"></a>                                  </span>
+<span id="cb5-208"><a href="subclonal-dynamics.html#cb5-208" tabindex="-1"></a>                                  <span class="at">kra009 =</span> kra009,</span>
+<span id="cb5-209"><a href="subclonal-dynamics.html#cb5-209" tabindex="-1"></a>                                  <span class="at">kra010 =</span> kra010,</span>
+<span id="cb5-210"><a href="subclonal-dynamics.html#cb5-210" tabindex="-1"></a>                                  </span>
+<span id="cb5-211"><a href="subclonal-dynamics.html#cb5-211" tabindex="-1"></a>                                  <span class="at">kra022 =</span> kra022,</span>
+<span id="cb5-212"><a href="subclonal-dynamics.html#cb5-212" tabindex="-1"></a>                                  <span class="at">kra023 =</span> kra023,</span>
+<span id="cb5-213"><a href="subclonal-dynamics.html#cb5-213" tabindex="-1"></a>                                  </span>
+<span id="cb5-214"><a href="subclonal-dynamics.html#cb5-214" tabindex="-1"></a>                                  <span class="at">kra024 =</span> kra024,</span>
+<span id="cb5-215"><a href="subclonal-dynamics.html#cb5-215" tabindex="-1"></a>                                  <span class="at">kra025 =</span> kra025,</span>
+<span id="cb5-216"><a href="subclonal-dynamics.html#cb5-216" tabindex="-1"></a>                                  </span>
+<span id="cb5-217"><a href="subclonal-dynamics.html#cb5-217" tabindex="-1"></a>                                  <span class="at">kra026 =</span> kra026,</span>
+<span id="cb5-218"><a href="subclonal-dynamics.html#cb5-218" tabindex="-1"></a>                                  <span class="at">kra027 =</span> kra027,</span>
+<span id="cb5-219"><a href="subclonal-dynamics.html#cb5-219" tabindex="-1"></a>                                  <span class="at">kra028 =</span> kra028,</span>
+<span id="cb5-220"><a href="subclonal-dynamics.html#cb5-220" tabindex="-1"></a>                                  </span>
+<span id="cb5-221"><a href="subclonal-dynamics.html#cb5-221" tabindex="-1"></a>                                  <span class="at">kra029 =</span> kra029,</span>
+<span id="cb5-222"><a href="subclonal-dynamics.html#cb5-222" tabindex="-1"></a>                                  <span class="at">kra030 =</span> kra030,</span>
+<span id="cb5-223"><a href="subclonal-dynamics.html#cb5-223" tabindex="-1"></a>                                  <span class="at">kra031 =</span> kra031,</span>
+<span id="cb5-224"><a href="subclonal-dynamics.html#cb5-224" tabindex="-1"></a>                                  <span class="at">kra032 =</span> kra032</span>
+<span id="cb5-225"><a href="subclonal-dynamics.html#cb5-225" tabindex="-1"></a>)</span>
+<span id="cb5-226"><a href="subclonal-dynamics.html#cb5-226" tabindex="-1"></a></span>
+<span id="cb5-227"><a href="subclonal-dynamics.html#cb5-227" tabindex="-1"></a><span class="do">########</span></span>
+<span id="cb5-228"><a href="subclonal-dynamics.html#cb5-228" tabindex="-1"></a><span class="co"># Save #</span></span>
+<span id="cb5-229"><a href="subclonal-dynamics.html#cb5-229" tabindex="-1"></a><span class="do">########</span></span>
+<span id="cb5-230"><a href="subclonal-dynamics.html#cb5-230" tabindex="-1"></a></span>
+<span id="cb5-231"><a href="subclonal-dynamics.html#cb5-231" tabindex="-1"></a><span class="fu">save</span>(man_select_files_edivisive, <span class="at">file =</span> <span class="st">&#39;../cna_analysis/rda/subclonal_dynamics/man_select_files_edivisive.rda&#39;</span> )</span></code></pre></div>
+</div>
+<div id="summary-statistics-of-copy-number-alterations" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Summary statistics of copy number alterations<a href="subclonal-dynamics.html#summary-statistics-of-copy-number-alterations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="subclonal-dynamics.html#cb6-1" tabindex="-1"></a><span class="do">########</span></span>
+<span id="cb6-2"><a href="subclonal-dynamics.html#cb6-2" tabindex="-1"></a><span class="co"># Data #</span></span>
+<span id="cb6-3"><a href="subclonal-dynamics.html#cb6-3" tabindex="-1"></a><span class="do">########</span></span>
+<span id="cb6-4"><a href="subclonal-dynamics.html#cb6-4" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&#39;../cna_analysis/rda/subclonal_dynamics/man_select_files_edivisive.rda&#39;</span> )</span>
+<span id="cb6-5"><a href="subclonal-dynamics.html#cb6-5" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="subclonal-dynamics.html#cb6-6" tabindex="-1"></a><span class="do">###########</span></span>
+<span id="cb6-7"><a href="subclonal-dynamics.html#cb6-7" tabindex="-1"></a><span class="co"># Wrangle #</span></span>
+<span id="cb6-8"><a href="subclonal-dynamics.html#cb6-8" tabindex="-1"></a><span class="do">###########</span></span>
+<span id="cb6-9"><a href="subclonal-dynamics.html#cb6-9" tabindex="-1"></a><span class="co"># removing HUB181I kra024 en kra025</span></span>
+<span id="cb6-10"><a href="subclonal-dynamics.html#cb6-10" tabindex="-1"></a>man_select_files_edivisive <span class="ot">&lt;-</span> man_select_files_edivisive[<span class="sc">!</span><span class="fu">names</span>(man_select_files_edivisive) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;kra024&#39;</span>, <span class="st">&#39;kra025&#39;</span>)]</span>
+<span id="cb6-11"><a href="subclonal-dynamics.html#cb6-11" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="subclonal-dynamics.html#cb6-12" tabindex="-1"></a><span class="co"># !!! GITHUB SPECIFIC CODE !!! #</span></span>
+<span id="cb6-13"><a href="subclonal-dynamics.html#cb6-13" tabindex="-1"></a><span class="co"># adding &#39;../cna_analysis/&#39; to each path within man_select_files_edivisive </span></span>
+<span id="cb6-14"><a href="subclonal-dynamics.html#cb6-14" tabindex="-1"></a>man_select_files_edivisive <span class="ot">&lt;-</span> <span class="fu">lapply</span>(man_select_files_edivisive, <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="st">&quot;../cna_analysis/&quot;</span>, x))</span>
+<span id="cb6-15"><a href="subclonal-dynamics.html#cb6-15" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="subclonal-dynamics.html#cb6-16" tabindex="-1"></a><span class="do">#######</span></span>
+<span id="cb6-17"><a href="subclonal-dynamics.html#cb6-17" tabindex="-1"></a><span class="co"># Run #</span></span>
+<span id="cb6-18"><a href="subclonal-dynamics.html#cb6-18" tabindex="-1"></a><span class="do">#######</span></span>
+<span id="cb6-19"><a href="subclonal-dynamics.html#cb6-19" tabindex="-1"></a><span class="co"># loading segment data from files</span></span>
+<span id="cb6-20"><a href="subclonal-dynamics.html#cb6-20" tabindex="-1"></a>files_loaded <span class="ot">&lt;-</span> <span class="fu">loadFromFiles</span>(<span class="fu">unlist</span>(man_select_files_edivisive), <span class="at">check.class=</span><span class="fu">c</span>(<span class="st">&#39;GRanges&#39;</span>, <span class="st">&#39;GRangesList&#39;</span>, <span class="st">&#39;aneuHMM&#39;</span>, <span class="st">&#39;aneuBiHMM&#39;</span>))</span>
+<span id="cb6-21"><a href="subclonal-dynamics.html#cb6-21" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="subclonal-dynamics.html#cb6-22" tabindex="-1"></a><span class="co"># Computing the total number of cells sequenced</span></span>
+<span id="cb6-23"><a href="subclonal-dynamics.html#cb6-23" tabindex="-1"></a><span class="fu">length</span>(files_loaded)</span></code></pre></div>
+<pre><code>## [1] 2944</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="subclonal-dynamics.html#cb8-1" tabindex="-1"></a><span class="co"># computing the total sum of unique CNAs per single cell and store in a vector</span></span>
+<span id="cb8-2"><a href="subclonal-dynamics.html#cb8-2" tabindex="-1"></a>cna_vector <span class="ot">&lt;-</span> <span class="fu">sapply</span>(files_loaded, <span class="cf">function</span>(file) {</span>
+<span id="cb8-3"><a href="subclonal-dynamics.html#cb8-3" tabindex="-1"></a>  seg_grange <span class="ot">&lt;-</span> file<span class="sc">$</span>segments</span>
+<span id="cb8-4"><a href="subclonal-dynamics.html#cb8-4" tabindex="-1"></a>  cnas_grange <span class="ot">&lt;-</span> seg_grange[seg_grange<span class="sc">$</span>copy.number <span class="sc">!=</span> <span class="dv">2</span>,]</span>
+<span id="cb8-5"><a href="subclonal-dynamics.html#cb8-5" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">length</span>(cnas_grange))</span>
+<span id="cb8-6"><a href="subclonal-dynamics.html#cb8-6" tabindex="-1"></a>})</span>
+<span id="cb8-7"><a href="subclonal-dynamics.html#cb8-7" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="subclonal-dynamics.html#cb8-8" tabindex="-1"></a><span class="co"># Computing the mean CNA per single cell</span></span>
+<span id="cb8-9"><a href="subclonal-dynamics.html#cb8-9" tabindex="-1"></a><span class="fu">mean</span>(cna_vector)</span></code></pre></div>
+<pre><code>## [1] 26.98709</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="subclonal-dynamics.html#cb10-1" tabindex="-1"></a><span class="co"># Computing the standard deviation of CNAs per single cell.</span></span>
+<span id="cb10-2"><a href="subclonal-dynamics.html#cb10-2" tabindex="-1"></a><span class="fu">sd</span>(cna_vector)</span></code></pre></div>
+<pre><code>## [1] 11.74091</code></pre>
+</div>
+<div id="pca-and-k-means-plots" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> PCA and K-means plots<a href="subclonal-dynamics.html#pca-and-k-means-plots" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="subclonal-dynamics.html#cb12-1" tabindex="-1"></a><span class="do">########</span></span>
+<span id="cb12-2"><a href="subclonal-dynamics.html#cb12-2" tabindex="-1"></a><span class="co"># Plot #</span></span>
+<span id="cb12-3"><a href="subclonal-dynamics.html#cb12-3" tabindex="-1"></a><span class="do">########</span></span>
+<span id="cb12-4"><a href="subclonal-dynamics.html#cb12-4" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="subclonal-dynamics.html#cb12-5" tabindex="-1"></a><span class="co"># HUB183 #</span></span>
+<span id="cb12-6"><a href="subclonal-dynamics.html#cb12-6" tabindex="-1"></a><span class="do">######################################################################</span></span>
+<span id="cb12-7"><a href="subclonal-dynamics.html#cb12-7" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="subclonal-dynamics.html#cb12-8" tabindex="-1"></a><span class="co"># PCA #</span></span>
+<span id="cb12-9"><a href="subclonal-dynamics.html#cb12-9" tabindex="-1"></a>hub183_pca <span class="ot">&lt;-</span> <span class="fu">draw_pca</span>(</span>
+<span id="cb12-10"><a href="subclonal-dynamics.html#cb12-10" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra003,</span>
+<span id="cb12-11"><a href="subclonal-dynamics.html#cb12-11" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra004,</span>
+<span id="cb12-12"><a href="subclonal-dynamics.html#cb12-12" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">1</span>,</span>
+<span id="cb12-13"><a href="subclonal-dynamics.html#cb12-13" tabindex="-1"></a>  <span class="at">legend_position =</span> <span class="fu">c</span>(<span class="fl">0.65</span>, <span class="fl">0.8</span>)</span>
+<span id="cb12-14"><a href="subclonal-dynamics.html#cb12-14" tabindex="-1"></a>)</span>
+<span id="cb12-15"><a href="subclonal-dynamics.html#cb12-15" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="subclonal-dynamics.html#cb12-16" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="subclonal-dynamics.html#cb12-17" tabindex="-1"></a>hub183_pca</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/PCA%20and%20k-means%20plots-1.png" width="672" /></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="subclonal-dynamics.html#cb13-1" tabindex="-1"></a><span class="co"># K-means #</span></span>
+<span id="cb13-2"><a href="subclonal-dynamics.html#cb13-2" tabindex="-1"></a>hub183_kmeans <span class="ot">&lt;-</span> <span class="fu">k_cluster</span>(</span>
+<span id="cb13-3"><a href="subclonal-dynamics.html#cb13-3" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra003,</span>
+<span id="cb13-4"><a href="subclonal-dynamics.html#cb13-4" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra004,</span>
+<span id="cb13-5"><a href="subclonal-dynamics.html#cb13-5" tabindex="-1"></a>  <span class="at">cluster =</span> <span class="dv">1</span>,</span>
+<span id="cb13-6"><a href="subclonal-dynamics.html#cb13-6" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;#C6CDF7&quot;</span>),</span>
+<span id="cb13-7"><a href="subclonal-dynamics.html#cb13-7" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&#39;A&#39;</span>),</span>
+<span id="cb13-8"><a href="subclonal-dynamics.html#cb13-8" tabindex="-1"></a>  <span class="at">legend_position =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.85</span>),</span>
+<span id="cb13-9"><a href="subclonal-dynamics.html#cb13-9" tabindex="-1"></a>  <span class="at">normalize =</span> T,</span>
+<span id="cb13-10"><a href="subclonal-dynamics.html#cb13-10" tabindex="-1"></a>  <span class="at">return_elbow =</span> F</span>
+<span id="cb13-11"><a href="subclonal-dynamics.html#cb13-11" tabindex="-1"></a>)</span>
+<span id="cb13-12"><a href="subclonal-dynamics.html#cb13-12" tabindex="-1"></a>hub183_kmeans</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/PCA%20and%20k-means%20plots-2.png" width="672" /></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="subclonal-dynamics.html#cb14-1" tabindex="-1"></a><span class="co"># HUB005 #</span></span>
+<span id="cb14-2"><a href="subclonal-dynamics.html#cb14-2" tabindex="-1"></a><span class="do">######################################################################</span></span>
+<span id="cb14-3"><a href="subclonal-dynamics.html#cb14-3" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="subclonal-dynamics.html#cb14-4" tabindex="-1"></a><span class="co"># PCA #</span></span>
+<span id="cb14-5"><a href="subclonal-dynamics.html#cb14-5" tabindex="-1"></a>hub005_pca <span class="ot">&lt;-</span> <span class="fu">draw_pca</span>(</span>
+<span id="cb14-6"><a href="subclonal-dynamics.html#cb14-6" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra005,</span>
+<span id="cb14-7"><a href="subclonal-dynamics.html#cb14-7" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra006,</span>
+<span id="cb14-8"><a href="subclonal-dynamics.html#cb14-8" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">1</span>,</span>
+<span id="cb14-9"><a href="subclonal-dynamics.html#cb14-9" tabindex="-1"></a>  <span class="at">legend_position =</span> <span class="fu">c</span>(<span class="fl">0.65</span>, <span class="fl">0.85</span>)</span>
+<span id="cb14-10"><a href="subclonal-dynamics.html#cb14-10" tabindex="-1"></a>)</span>
+<span id="cb14-11"><a href="subclonal-dynamics.html#cb14-11" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="subclonal-dynamics.html#cb14-12" tabindex="-1"></a>hub005_pca</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/PCA%20and%20k-means%20plots-3.png" width="672" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="subclonal-dynamics.html#cb15-1" tabindex="-1"></a><span class="co"># K-means #</span></span>
+<span id="cb15-2"><a href="subclonal-dynamics.html#cb15-2" tabindex="-1"></a>hub005_kmeans <span class="ot">&lt;-</span> <span class="fu">k_cluster</span>(</span>
+<span id="cb15-3"><a href="subclonal-dynamics.html#cb15-3" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra005,</span>
+<span id="cb15-4"><a href="subclonal-dynamics.html#cb15-4" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra006,</span>
+<span id="cb15-5"><a href="subclonal-dynamics.html#cb15-5" tabindex="-1"></a>  <span class="at">cluster =</span> <span class="dv">3</span>,</span>
+<span id="cb15-6"><a href="subclonal-dynamics.html#cb15-6" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&#39;#809aa6&#39;</span>, <span class="co"># greyblue</span></span>
+<span id="cb15-7"><a href="subclonal-dynamics.html#cb15-7" tabindex="-1"></a>                    <span class="st">&quot;#D69C4E&quot;</span>, <span class="co"># brown,</span></span>
+<span id="cb15-8"><a href="subclonal-dynamics.html#cb15-8" tabindex="-1"></a>                    <span class="st">&quot;#046C9A&quot;</span>),</span>
+<span id="cb15-9"><a href="subclonal-dynamics.html#cb15-9" tabindex="-1"></a>                    <span class="co">#darkblue</span></span>
+<span id="cb15-10"><a href="subclonal-dynamics.html#cb15-10" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="subclonal-dynamics.html#cb15-11" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&#39;A.b&#39;</span>, <span class="st">&#39;B&#39;</span>, <span class="st">&#39;A.a&#39;</span>),</span>
+<span id="cb15-12"><a href="subclonal-dynamics.html#cb15-12" tabindex="-1"></a>  <span class="at">legend_position =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.85</span>),</span>
+<span id="cb15-13"><a href="subclonal-dynamics.html#cb15-13" tabindex="-1"></a>  <span class="at">normalize =</span> T,</span>
+<span id="cb15-14"><a href="subclonal-dynamics.html#cb15-14" tabindex="-1"></a>  <span class="at">return_elbow =</span> F</span>
+<span id="cb15-15"><a href="subclonal-dynamics.html#cb15-15" tabindex="-1"></a>)</span>
+<span id="cb15-16"><a href="subclonal-dynamics.html#cb15-16" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="subclonal-dynamics.html#cb15-17" tabindex="-1"></a>hub005_kmeans</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/PCA%20and%20k-means%20plots-4.png" width="672" /></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="subclonal-dynamics.html#cb16-1" tabindex="-1"></a><span class="co"># HUB106 #</span></span>
+<span id="cb16-2"><a href="subclonal-dynamics.html#cb16-2" tabindex="-1"></a><span class="do">######################################################################</span></span>
+<span id="cb16-3"><a href="subclonal-dynamics.html#cb16-3" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="subclonal-dynamics.html#cb16-4" tabindex="-1"></a><span class="co"># PCA #</span></span>
+<span id="cb16-5"><a href="subclonal-dynamics.html#cb16-5" tabindex="-1"></a>hub106_pca <span class="ot">&lt;-</span> <span class="fu">draw_pca</span>(</span>
+<span id="cb16-6"><a href="subclonal-dynamics.html#cb16-6" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra007,</span>
+<span id="cb16-7"><a href="subclonal-dynamics.html#cb16-7" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra008,</span>
+<span id="cb16-8"><a href="subclonal-dynamics.html#cb16-8" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">1</span>,</span>
+<span id="cb16-9"><a href="subclonal-dynamics.html#cb16-9" tabindex="-1"></a>  <span class="at">legend_position =</span> <span class="fu">c</span>(<span class="fl">0.65</span>, <span class="fl">0.95</span>)</span>
+<span id="cb16-10"><a href="subclonal-dynamics.html#cb16-10" tabindex="-1"></a>)</span>
+<span id="cb16-11"><a href="subclonal-dynamics.html#cb16-11" tabindex="-1"></a>hub106_pca</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/PCA%20and%20k-means%20plots-5.png" width="672" /></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="subclonal-dynamics.html#cb17-1" tabindex="-1"></a><span class="co"># K-means #</span></span>
+<span id="cb17-2"><a href="subclonal-dynamics.html#cb17-2" tabindex="-1"></a>hub106_kmeans <span class="ot">&lt;-</span> <span class="fu">k_cluster</span>(</span>
+<span id="cb17-3"><a href="subclonal-dynamics.html#cb17-3" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra007,</span>
+<span id="cb17-4"><a href="subclonal-dynamics.html#cb17-4" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra008,</span>
+<span id="cb17-5"><a href="subclonal-dynamics.html#cb17-5" tabindex="-1"></a>  <span class="at">cluster =</span> <span class="dv">3</span>,</span>
+<span id="cb17-6"><a href="subclonal-dynamics.html#cb17-6" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;#E6A0C4&quot;</span>, <span class="co"># pink</span></span>
+<span id="cb17-7"><a href="subclonal-dynamics.html#cb17-7" tabindex="-1"></a>                    <span class="st">&quot;#D8A499&quot;</span>, <span class="co">#brownpink</span></span>
+<span id="cb17-8"><a href="subclonal-dynamics.html#cb17-8" tabindex="-1"></a>                    <span class="st">&quot;#7294D4&quot;</span>),</span>
+<span id="cb17-9"><a href="subclonal-dynamics.html#cb17-9" tabindex="-1"></a>                    <span class="co"># blue</span></span>
+<span id="cb17-10"><a href="subclonal-dynamics.html#cb17-10" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="subclonal-dynamics.html#cb17-11" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&#39;A&#39;</span>, <span class="st">&#39;C&#39;</span>, <span class="st">&#39;B&#39;</span>),</span>
+<span id="cb17-12"><a href="subclonal-dynamics.html#cb17-12" tabindex="-1"></a>  <span class="at">legend_position =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.85</span>),</span>
+<span id="cb17-13"><a href="subclonal-dynamics.html#cb17-13" tabindex="-1"></a>  <span class="at">normalize =</span> T,</span>
+<span id="cb17-14"><a href="subclonal-dynamics.html#cb17-14" tabindex="-1"></a>  <span class="at">return_elbow =</span> F</span>
+<span id="cb17-15"><a href="subclonal-dynamics.html#cb17-15" tabindex="-1"></a>)</span>
+<span id="cb17-16"><a href="subclonal-dynamics.html#cb17-16" tabindex="-1"></a></span>
+<span id="cb17-17"><a href="subclonal-dynamics.html#cb17-17" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="subclonal-dynamics.html#cb17-18" tabindex="-1"></a>hub106_kmeans</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/PCA%20and%20k-means%20plots-6.png" width="672" /></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="subclonal-dynamics.html#cb18-1" tabindex="-1"></a><span class="co"># HUB062 #</span></span>
+<span id="cb18-2"><a href="subclonal-dynamics.html#cb18-2" tabindex="-1"></a><span class="do">######################################################################</span></span>
+<span id="cb18-3"><a href="subclonal-dynamics.html#cb18-3" tabindex="-1"></a><span class="do">### Biological replicate 1 </span><span class="al">###</span></span>
+<span id="cb18-4"><a href="subclonal-dynamics.html#cb18-4" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="subclonal-dynamics.html#cb18-5" tabindex="-1"></a><span class="co"># PCA #</span></span>
+<span id="cb18-6"><a href="subclonal-dynamics.html#cb18-6" tabindex="-1"></a>hub062_pca_double <span class="ot">&lt;-</span></span>
+<span id="cb18-7"><a href="subclonal-dynamics.html#cb18-7" tabindex="-1"></a>  <span class="fu">draw_pca_double</span>(</span>
+<span id="cb18-8"><a href="subclonal-dynamics.html#cb18-8" tabindex="-1"></a>    man_select_files_edivisive<span class="sc">$</span>kra009,</span>
+<span id="cb18-9"><a href="subclonal-dynamics.html#cb18-9" tabindex="-1"></a>    man_select_files_edivisive<span class="sc">$</span>kra010,</span>
+<span id="cb18-10"><a href="subclonal-dynamics.html#cb18-10" tabindex="-1"></a>    man_select_files_edivisive<span class="sc">$</span>kra030,</span>
+<span id="cb18-11"><a href="subclonal-dynamics.html#cb18-11" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">1</span>,</span>
+<span id="cb18-12"><a href="subclonal-dynamics.html#cb18-12" tabindex="-1"></a>    <span class="at">legend_position =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.2</span>)</span>
+<span id="cb18-13"><a href="subclonal-dynamics.html#cb18-13" tabindex="-1"></a>  )</span>
+<span id="cb18-14"><a href="subclonal-dynamics.html#cb18-14" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="subclonal-dynamics.html#cb18-15" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="subclonal-dynamics.html#cb18-16" tabindex="-1"></a>hub062_pca_double</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/PCA%20and%20k-means%20plots-7.png" width="672" /></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="subclonal-dynamics.html#cb19-1" tabindex="-1"></a><span class="co"># &#39;zoom&#39;</span></span>
+<span id="cb19-2"><a href="subclonal-dynamics.html#cb19-2" tabindex="-1"></a>hub062_pca_double_zoom <span class="ot">&lt;-</span></span>
+<span id="cb19-3"><a href="subclonal-dynamics.html#cb19-3" tabindex="-1"></a>  <span class="fu">draw_pca_double</span>(</span>
+<span id="cb19-4"><a href="subclonal-dynamics.html#cb19-4" tabindex="-1"></a>    man_select_files_edivisive<span class="sc">$</span>kra009,</span>
+<span id="cb19-5"><a href="subclonal-dynamics.html#cb19-5" tabindex="-1"></a>    man_select_files_edivisive<span class="sc">$</span>kra010,</span>
+<span id="cb19-6"><a href="subclonal-dynamics.html#cb19-6" tabindex="-1"></a>    man_select_files_edivisive<span class="sc">$</span>kra030,</span>
+<span id="cb19-7"><a href="subclonal-dynamics.html#cb19-7" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">15</span>,</span>
+<span id="cb19-8"><a href="subclonal-dynamics.html#cb19-8" tabindex="-1"></a>    <span class="at">legend_position =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.05</span>, <span class="fl">0.25</span>)</span>
+<span id="cb19-9"><a href="subclonal-dynamics.html#cb19-9" tabindex="-1"></a>  )  <span class="sc">+</span></span>
+<span id="cb19-10"><a href="subclonal-dynamics.html#cb19-10" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.016</span>, <span class="fl">0.030</span>),</span>
+<span id="cb19-11"><a href="subclonal-dynamics.html#cb19-11" tabindex="-1"></a>                  <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.06</span>)) <span class="sc">+</span></span>
+<span id="cb19-12"><a href="subclonal-dynamics.html#cb19-12" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb19-13"><a href="subclonal-dynamics.html#cb19-13" tabindex="-1"></a>    <span class="at">axis.line =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-14"><a href="subclonal-dynamics.html#cb19-14" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-15"><a href="subclonal-dynamics.html#cb19-15" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-16"><a href="subclonal-dynamics.html#cb19-16" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-17"><a href="subclonal-dynamics.html#cb19-17" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-18"><a href="subclonal-dynamics.html#cb19-18" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-19"><a href="subclonal-dynamics.html#cb19-19" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb19-20"><a href="subclonal-dynamics.html#cb19-20" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-21"><a href="subclonal-dynamics.html#cb19-21" tabindex="-1"></a>    <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-22"><a href="subclonal-dynamics.html#cb19-22" tabindex="-1"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-23"><a href="subclonal-dynamics.html#cb19-23" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-24"><a href="subclonal-dynamics.html#cb19-24" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb19-25"><a href="subclonal-dynamics.html#cb19-25" tabindex="-1"></a>  )</span>
+<span id="cb19-26"><a href="subclonal-dynamics.html#cb19-26" tabindex="-1"></a></span>
+<span id="cb19-27"><a href="subclonal-dynamics.html#cb19-27" tabindex="-1"></a>hub062_pca_double_zoom</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/PCA%20and%20k-means%20plots-8.png" width="672" /></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="subclonal-dynamics.html#cb20-1" tabindex="-1"></a><span class="co"># K-means #</span></span>
+<span id="cb20-2"><a href="subclonal-dynamics.html#cb20-2" tabindex="-1"></a>hub062_kmeans_double <span class="ot">&lt;-</span></span>
+<span id="cb20-3"><a href="subclonal-dynamics.html#cb20-3" tabindex="-1"></a>  <span class="fu">k_cluster_double</span>(</span>
+<span id="cb20-4"><a href="subclonal-dynamics.html#cb20-4" tabindex="-1"></a>    man_select_files_edivisive<span class="sc">$</span>kra009,</span>
+<span id="cb20-5"><a href="subclonal-dynamics.html#cb20-5" tabindex="-1"></a>    man_select_files_edivisive<span class="sc">$</span>kra010,</span>
+<span id="cb20-6"><a href="subclonal-dynamics.html#cb20-6" tabindex="-1"></a>    man_select_files_edivisive<span class="sc">$</span>kra030,</span>
+<span id="cb20-7"><a href="subclonal-dynamics.html#cb20-7" tabindex="-1"></a>    <span class="at">cluster =</span> <span class="dv">3</span>,</span>
+<span id="cb20-8"><a href="subclonal-dynamics.html#cb20-8" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;#F1BB7B&quot;</span>, <span class="co">#orange like</span></span>
+<span id="cb20-9"><a href="subclonal-dynamics.html#cb20-9" tabindex="-1"></a>                      <span class="st">&quot;#FD6467&quot;</span>, <span class="co"># pinkish red</span></span>
+<span id="cb20-10"><a href="subclonal-dynamics.html#cb20-10" tabindex="-1"></a>                      <span class="st">&quot;#5B1A18&quot;</span>),</span>
+<span id="cb20-11"><a href="subclonal-dynamics.html#cb20-11" tabindex="-1"></a>                      <span class="co">#brownish</span></span>
+<span id="cb20-12"><a href="subclonal-dynamics.html#cb20-12" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="subclonal-dynamics.html#cb20-13" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&#39;C&#39;</span>, <span class="st">&#39;A&#39;</span>, <span class="st">&#39;B&#39;</span>),</span>
+<span id="cb20-14"><a href="subclonal-dynamics.html#cb20-14" tabindex="-1"></a>    <span class="at">legend_position =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.2</span>),</span>
+<span id="cb20-15"><a href="subclonal-dynamics.html#cb20-15" tabindex="-1"></a>    <span class="at">normalize =</span> T,</span>
+<span id="cb20-16"><a href="subclonal-dynamics.html#cb20-16" tabindex="-1"></a>    <span class="at">return_elbow =</span> F</span>
+<span id="cb20-17"><a href="subclonal-dynamics.html#cb20-17" tabindex="-1"></a>  )</span>
+<span id="cb20-18"><a href="subclonal-dynamics.html#cb20-18" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="subclonal-dynamics.html#cb20-19" tabindex="-1"></a>hub062_kmeans_double</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/PCA%20and%20k-means%20plots-9.png" width="672" /></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="subclonal-dynamics.html#cb21-1" tabindex="-1"></a><span class="do">### Biological replicate 2 </span><span class="al">###</span></span>
+<span id="cb21-2"><a href="subclonal-dynamics.html#cb21-2" tabindex="-1"></a><span class="co"># PCA #</span></span>
+<span id="cb21-3"><a href="subclonal-dynamics.html#cb21-3" tabindex="-1"></a>hub062_pca_rep2 <span class="ot">&lt;-</span> <span class="fu">draw_pca</span>(</span>
+<span id="cb21-4"><a href="subclonal-dynamics.html#cb21-4" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra028,</span>
+<span id="cb21-5"><a href="subclonal-dynamics.html#cb21-5" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra032,</span>
+<span id="cb21-6"><a href="subclonal-dynamics.html#cb21-6" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">1</span>,</span>
+<span id="cb21-7"><a href="subclonal-dynamics.html#cb21-7" tabindex="-1"></a>  <span class="at">legend_position =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.9</span>)</span>
+<span id="cb21-8"><a href="subclonal-dynamics.html#cb21-8" tabindex="-1"></a>)</span>
+<span id="cb21-9"><a href="subclonal-dynamics.html#cb21-9" tabindex="-1"></a>hub062_pca_rep2</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/PCA%20and%20k-means%20plots-10.png" width="672" /></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="subclonal-dynamics.html#cb22-1" tabindex="-1"></a><span class="co"># K-means #</span></span>
+<span id="cb22-2"><a href="subclonal-dynamics.html#cb22-2" tabindex="-1"></a>hub062_kmeans_rep2 <span class="ot">&lt;-</span> <span class="fu">k_cluster</span>(</span>
+<span id="cb22-3"><a href="subclonal-dynamics.html#cb22-3" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra028,</span>
+<span id="cb22-4"><a href="subclonal-dynamics.html#cb22-4" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra032,</span>
+<span id="cb22-5"><a href="subclonal-dynamics.html#cb22-5" tabindex="-1"></a>  <span class="at">cluster =</span> <span class="dv">3</span>,</span>
+<span id="cb22-6"><a href="subclonal-dynamics.html#cb22-6" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;#FD6467&quot;</span>, <span class="co"># pinkish red</span></span>
+<span id="cb22-7"><a href="subclonal-dynamics.html#cb22-7" tabindex="-1"></a>                    <span class="st">&quot;#5B1A18&quot;</span>, <span class="co">#brownish</span></span>
+<span id="cb22-8"><a href="subclonal-dynamics.html#cb22-8" tabindex="-1"></a>                    <span class="st">&quot;#F1BB7B&quot;</span>),</span>
+<span id="cb22-9"><a href="subclonal-dynamics.html#cb22-9" tabindex="-1"></a>                    <span class="co">#orange like</span></span>
+<span id="cb22-10"><a href="subclonal-dynamics.html#cb22-10" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&#39;A&#39;</span>, <span class="st">&#39;B&#39;</span>, <span class="st">&#39;C&#39;</span>),</span>
+<span id="cb22-11"><a href="subclonal-dynamics.html#cb22-11" tabindex="-1"></a>  <span class="at">legend_position =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.9</span>),</span>
+<span id="cb22-12"><a href="subclonal-dynamics.html#cb22-12" tabindex="-1"></a>  <span class="at">normalize =</span> T</span>
+<span id="cb22-13"><a href="subclonal-dynamics.html#cb22-13" tabindex="-1"></a>)</span>
+<span id="cb22-14"><a href="subclonal-dynamics.html#cb22-14" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="subclonal-dynamics.html#cb22-15" tabindex="-1"></a>hub062_kmeans_rep2</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/PCA%20and%20k-means%20plots-11.png" width="672" /></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="subclonal-dynamics.html#cb23-1" tabindex="-1"></a><span class="co"># HUB015 #</span></span>
+<span id="cb23-2"><a href="subclonal-dynamics.html#cb23-2" tabindex="-1"></a><span class="do">######################################################################</span></span>
+<span id="cb23-3"><a href="subclonal-dynamics.html#cb23-3" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="subclonal-dynamics.html#cb23-4" tabindex="-1"></a><span class="co"># PCA #</span></span>
+<span id="cb23-5"><a href="subclonal-dynamics.html#cb23-5" tabindex="-1"></a>hub015_pca <span class="ot">&lt;-</span></span>
+<span id="cb23-6"><a href="subclonal-dynamics.html#cb23-6" tabindex="-1"></a>  <span class="fu">draw_pca</span>(</span>
+<span id="cb23-7"><a href="subclonal-dynamics.html#cb23-7" tabindex="-1"></a>    man_select_files_edivisive<span class="sc">$</span>kra022,</span>
+<span id="cb23-8"><a href="subclonal-dynamics.html#cb23-8" tabindex="-1"></a>    <span class="co"># 10 gy radiated</span></span>
+<span id="cb23-9"><a href="subclonal-dynamics.html#cb23-9" tabindex="-1"></a>    man_select_files_edivisive<span class="sc">$</span>kra023,</span>
+<span id="cb23-10"><a href="subclonal-dynamics.html#cb23-10" tabindex="-1"></a>    <span class="co"># 0 gy control</span></span>
+<span id="cb23-11"><a href="subclonal-dynamics.html#cb23-11" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">1</span>,</span>
+<span id="cb23-12"><a href="subclonal-dynamics.html#cb23-12" tabindex="-1"></a>    <span class="at">legend_position =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.8</span>),</span>
+<span id="cb23-13"><a href="subclonal-dynamics.html#cb23-13" tabindex="-1"></a>    <span class="at">ssdna004 =</span> T</span>
+<span id="cb23-14"><a href="subclonal-dynamics.html#cb23-14" tabindex="-1"></a>  ) <span class="co"># coordinates do not correspond with coordinates in pc1 and pc2!</span></span>
+<span id="cb23-15"><a href="subclonal-dynamics.html#cb23-15" tabindex="-1"></a></span>
+<span id="cb23-16"><a href="subclonal-dynamics.html#cb23-16" tabindex="-1"></a>hub015_pca</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/PCA%20and%20k-means%20plots-12.png" width="672" /></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="subclonal-dynamics.html#cb24-1" tabindex="-1"></a><span class="co"># K-means #</span></span>
+<span id="cb24-2"><a href="subclonal-dynamics.html#cb24-2" tabindex="-1"></a>hub015_kmeans <span class="ot">&lt;-</span> <span class="fu">k_cluster</span>(</span>
+<span id="cb24-3"><a href="subclonal-dynamics.html#cb24-3" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra022,</span>
+<span id="cb24-4"><a href="subclonal-dynamics.html#cb24-4" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra023,</span>
+<span id="cb24-5"><a href="subclonal-dynamics.html#cb24-5" tabindex="-1"></a>  <span class="at">cluster =</span> <span class="dv">3</span>,</span>
+<span id="cb24-6"><a href="subclonal-dynamics.html#cb24-6" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;#f5de90&quot;</span>,</span>
+<span id="cb24-7"><a href="subclonal-dynamics.html#cb24-7" tabindex="-1"></a>                    <span class="st">&#39;#E1AF00&#39;</span>,</span>
+<span id="cb24-8"><a href="subclonal-dynamics.html#cb24-8" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="subclonal-dynamics.html#cb24-9" tabindex="-1"></a>                    <span class="st">&#39;#F21A00&#39;</span>),</span>
+<span id="cb24-10"><a href="subclonal-dynamics.html#cb24-10" tabindex="-1"></a>                    <span class="co"># red</span></span>
+<span id="cb24-11"><a href="subclonal-dynamics.html#cb24-11" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>( <span class="st">&#39;A.a&#39;</span>,<span class="st">&#39;A.b&#39;</span>, <span class="st">&#39;B&#39;</span>),</span>
+<span id="cb24-12"><a href="subclonal-dynamics.html#cb24-12" tabindex="-1"></a>  <span class="at">legend_position =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.8</span>),</span>
+<span id="cb24-13"><a href="subclonal-dynamics.html#cb24-13" tabindex="-1"></a>  <span class="at">normalize =</span> T,</span>
+<span id="cb24-14"><a href="subclonal-dynamics.html#cb24-14" tabindex="-1"></a>  <span class="at">return_elbow =</span> F</span>
+<span id="cb24-15"><a href="subclonal-dynamics.html#cb24-15" tabindex="-1"></a>)</span>
+<span id="cb24-16"><a href="subclonal-dynamics.html#cb24-16" tabindex="-1"></a></span>
+<span id="cb24-17"><a href="subclonal-dynamics.html#cb24-17" tabindex="-1"></a>hub015_kmeans</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/PCA%20and%20k-means%20plots-13.png" width="672" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="subclonal-dynamics.html#cb25-1" tabindex="-1"></a><span class="co"># HUB197 #</span></span>
+<span id="cb25-2"><a href="subclonal-dynamics.html#cb25-2" tabindex="-1"></a><span class="do">######################################################################</span></span>
+<span id="cb25-3"><a href="subclonal-dynamics.html#cb25-3" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="subclonal-dynamics.html#cb25-4" tabindex="-1"></a><span class="co"># PCA #</span></span>
+<span id="cb25-5"><a href="subclonal-dynamics.html#cb25-5" tabindex="-1"></a>hub197_pca <span class="ot">&lt;-</span> <span class="fu">draw_pca</span>(</span>
+<span id="cb25-6"><a href="subclonal-dynamics.html#cb25-6" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra026,</span>
+<span id="cb25-7"><a href="subclonal-dynamics.html#cb25-7" tabindex="-1"></a>  <span class="co"># 10 gy</span></span>
+<span id="cb25-8"><a href="subclonal-dynamics.html#cb25-8" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra027,</span>
+<span id="cb25-9"><a href="subclonal-dynamics.html#cb25-9" tabindex="-1"></a>  <span class="co"># 0 gy</span></span>
+<span id="cb25-10"><a href="subclonal-dynamics.html#cb25-10" tabindex="-1"></a>  <span class="co"># 0 Gy</span></span>
+<span id="cb25-11"><a href="subclonal-dynamics.html#cb25-11" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">1</span>,</span>
+<span id="cb25-12"><a href="subclonal-dynamics.html#cb25-12" tabindex="-1"></a>  <span class="at">legend_position =</span> <span class="fu">c</span>(<span class="fl">0.7</span>, <span class="fl">0.8</span>),</span>
+<span id="cb25-13"><a href="subclonal-dynamics.html#cb25-13" tabindex="-1"></a>  <span class="at">ssdna004 =</span> T</span>
+<span id="cb25-14"><a href="subclonal-dynamics.html#cb25-14" tabindex="-1"></a>)</span>
+<span id="cb25-15"><a href="subclonal-dynamics.html#cb25-15" tabindex="-1"></a>hub197_pca</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/PCA%20and%20k-means%20plots-14.png" width="672" /></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="subclonal-dynamics.html#cb26-1" tabindex="-1"></a><span class="co"># K-means #</span></span>
+<span id="cb26-2"><a href="subclonal-dynamics.html#cb26-2" tabindex="-1"></a>hub197_kmeans <span class="ot">&lt;-</span> <span class="fu">k_cluster</span>(</span>
+<span id="cb26-3"><a href="subclonal-dynamics.html#cb26-3" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra026,</span>
+<span id="cb26-4"><a href="subclonal-dynamics.html#cb26-4" tabindex="-1"></a>  man_select_files_edivisive<span class="sc">$</span>kra027,</span>
+<span id="cb26-5"><a href="subclonal-dynamics.html#cb26-5" tabindex="-1"></a>  <span class="at">cluster =</span> <span class="dv">3</span>,</span>
+<span id="cb26-6"><a href="subclonal-dynamics.html#cb26-6" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;#0B775E&quot;</span>,</span>
+<span id="cb26-7"><a href="subclonal-dynamics.html#cb26-7" tabindex="-1"></a>                    <span class="st">&#39;#E1BD6D&#39;</span>,</span>
+<span id="cb26-8"><a href="subclonal-dynamics.html#cb26-8" tabindex="-1"></a>                    <span class="st">&#39;#35274A&#39;</span></span>
+<span id="cb26-9"><a href="subclonal-dynamics.html#cb26-9" tabindex="-1"></a>                    ),</span>
+<span id="cb26-10"><a href="subclonal-dynamics.html#cb26-10" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="subclonal-dynamics.html#cb26-11" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&#39;C&#39;</span>, <span class="st">&#39;B&#39;</span>, <span class="st">&#39;A&#39;</span>),</span>
+<span id="cb26-12"><a href="subclonal-dynamics.html#cb26-12" tabindex="-1"></a>  <span class="at">legend_position =</span> <span class="fu">c</span>(<span class="fl">0.7</span>, <span class="fl">0.8</span>),</span>
+<span id="cb26-13"><a href="subclonal-dynamics.html#cb26-13" tabindex="-1"></a>  <span class="at">normalize =</span> T</span>
+<span id="cb26-14"><a href="subclonal-dynamics.html#cb26-14" tabindex="-1"></a>)</span>
+<span id="cb26-15"><a href="subclonal-dynamics.html#cb26-15" tabindex="-1"></a></span>
+<span id="cb26-16"><a href="subclonal-dynamics.html#cb26-16" tabindex="-1"></a>hub197_kmeans</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/PCA%20and%20k-means%20plots-15.png" width="672" /></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="subclonal-dynamics.html#cb27-1" tabindex="-1"></a><span class="do">#######</span></span>
+<span id="cb27-2"><a href="subclonal-dynamics.html#cb27-2" tabindex="-1"></a><span class="co"># </span><span class="re">END</span><span class="co"> #</span></span>
+<span id="cb27-3"><a href="subclonal-dynamics.html#cb27-3" tabindex="-1"></a><span class="do">#######</span></span></code></pre></div>
 
+</div>
 </div>
             </section>
 
