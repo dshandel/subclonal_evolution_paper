@@ -1,6 +1,6 @@
 <!DOCTYPE html>
+<html lang="" xml:lang=""
 
-<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
@@ -53,6 +53,14 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.28/datatables.js"></script>
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -151,6 +159,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2.2" data-path="in-vitro-radiation-response-and-clinical-data.html"><a href="in-vitro-radiation-response-and-clinical-data.html#rauc-across-multiple-experiments"><i class="fa fa-check"></i><b>2.2.2</b> rAUC across multiple experiments</a></li>
 <li class="chapter" data-level="2.2.3" data-path="in-vitro-radiation-response-and-clinical-data.html"><a href="in-vitro-radiation-response-and-clinical-data.html#flow-cytometry-based-measurement-of-apoptotic-cells-with-sub-g1-dna-content"><i class="fa fa-check"></i><b>2.2.3</b> Flow cytometry-based measurement of (apoptotic) cells with sub-G1 DNA content</a></li>
 <li class="chapter" data-level="2.2.4" data-path="in-vitro-radiation-response-and-clinical-data.html"><a href="in-vitro-radiation-response-and-clinical-data.html#recovery-statistics-after-10-gy-radiation"><i class="fa fa-check"></i><b>2.2.4</b> Recovery statistics after 10 Gy radiation</a></li>
+<li class="chapter" data-level="2.2.5" data-path="in-vitro-radiation-response-and-clinical-data.html"><a href="in-vitro-radiation-response-and-clinical-data.html#persisters-versus-shifters-dose-response-plots"><i class="fa fa-check"></i><b>2.2.5</b> Persisters versus shifters dose-response plots</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html"><i class="fa fa-check"></i><b>3</b> Subclonal dynamics</a>
@@ -165,10 +174,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5.2" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#subclone-statistics"><i class="fa fa-check"></i><b>3.5.2</b> Subclone statistics</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#single-cell-copy-number-heatmap-plots"><i class="fa fa-check"></i><b>3.6</b> Single cell copy number heatmap plots</a></li>
-<li class="chapter" data-level="3.7" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#fishers-test"><i class="fa fa-check"></i><b>3.7</b> Fishers test</a></li>
+<li class="chapter" data-level="3.7" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#fishers-exact-test"><i class="fa fa-check"></i><b>3.7</b> Fisher’s exact test</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html"><i class="fa fa-check"></i><b>4</b> Copy number analyses</a></li>
-<li class="chapter" data-level="5" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html"><i class="fa fa-check"></i><b>5</b> Copy number pattern analyses</a></li>
+<li class="chapter" data-level="4" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html"><i class="fa fa-check"></i><b>4</b> Copy number analyses</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html#colorectal-cancer-specific-arm-level-copy-number-alterations-per-organoid"><i class="fa fa-check"></i><b>4.1</b> Colorectal cancer-specific arm-level copy number alterations per organoid</a></li>
+<li class="chapter" data-level="4.2" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html#copy-number-alterations-per-subclone"><i class="fa fa-check"></i><b>4.2</b> Copy number alterations per subclone</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html#copy-number-alterations-specific-to-hub062a"><i class="fa fa-check"></i><b>4.2.1</b> Copy number alterations specific to HUB062A</a></li>
+<li class="chapter" data-level="4.2.2" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html#copy-number-alterations-specific-to-resistant-subclones"><i class="fa fa-check"></i><b>4.2.2</b> Copy number alterations specific to resistant subclones</a></li>
+<li class="chapter" data-level="4.2.3" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html#newly-acquired-copy-number-alterations"><i class="fa fa-check"></i><b>4.2.3</b> Newly acquired copy number alterations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html"><i class="fa fa-check"></i><b>5</b> Copy number pattern analyses</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html#single-cell-analyses"><i class="fa fa-check"></i><b>5.1</b> Single cell analyses</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html#heterogeneity-score"><i class="fa fa-check"></i><b>5.1.1</b> Heterogeneity score</a></li>
+<li class="chapter" data-level="5.1.2" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html#copy-number-length-analysis"><i class="fa fa-check"></i><b>5.1.2</b> Copy number length analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html#ccle-analysis"><i class="fa fa-check"></i><b>5.2</b> CCLE analysis</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html#run-cin-signature"><i class="fa fa-check"></i><b>5.2.1</b> Run CIN signature</a></li>
+<li class="chapter" data-level="5.2.2" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html#statistics-cin-signature"><i class="fa fa-check"></i><b>5.2.2</b> Statistics CIN signature</a></li>
+<li class="chapter" data-level="5.2.3" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html#plot-cx1-cin-signature"><i class="fa fa-check"></i><b>5.2.3</b> PLot CX1 CIN signature</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="source-code.html"><a href="source-code.html"><i class="fa fa-check"></i><b>6</b> Source code</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="source-code.html"><a href="source-code.html#auc_rad-script-auc_fun-function"><i class="fa fa-check"></i><b>6.1</b> AUC_rad script: ‘AUC_fun’ function</a></li>
@@ -180,6 +211,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.7" data-path="source-code.html"><a href="source-code.html#divide_subclone_functions-script-extract_other_cells-extract_square-l_g-and-subclone_classes_for_genomeheatmap-functions"><i class="fa fa-check"></i><b>6.7</b> divide_subclone_functions script: ‘extract_other_cells’, ‘extract_square’, ‘l_g’ and ‘subclone_classes_for_genomeheatmap’ functions</a></li>
 <li class="chapter" data-level="6.8" data-path="source-code.html"><a href="source-code.html#plot_genomeheatmap-script-genomeheatmap-function"><i class="fa fa-check"></i><b>6.8</b> plot_genomeheatmap script: ‘genomeheatmap’ function</a></li>
 <li class="chapter" data-level="6.9" data-path="source-code.html"><a href="source-code.html#fisher_test-script-perform_fisher-function"><i class="fa fa-check"></i><b>6.9</b> fisher_test script: ‘perform_fisher’ function</a></li>
+<li class="chapter" data-level="6.10" data-path="source-code.html"><a href="source-code.html#find_specific_cna_sc-script-find_specific_cna_sc-function"><i class="fa fa-check"></i><b>6.10</b> find_specific_cna_sc script: ‘find_specific_cna_sc’ function</a></li>
+<li class="chapter" data-level="6.11" data-path="source-code.html"><a href="source-code.html#get_cytoband_coverage-script-get_cytoband_coverage-function"><i class="fa fa-check"></i><b>6.11</b> get_cytoband_coverage script: ‘get_cytoband_coverage’ function</a></li>
+<li class="chapter" data-level="6.12" data-path="source-code.html"><a href="source-code.html#get_genes-script-get_genes-functoin"><i class="fa fa-check"></i><b>6.12</b> get_genes script: ‘get_genes’ functoin</a></li>
+<li class="chapter" data-level="6.13" data-path="source-code.html"><a href="source-code.html#get_oncogenes-scripts-get_oncogenes-function"><i class="fa fa-check"></i><b>6.13</b> get_oncogenes scripts: ‘get_oncogenes’ function</a></li>
+<li class="chapter" data-level="6.14" data-path="source-code.html"><a href="source-code.html#plot_genes_karyotype-script-plot_genes_karyotype-function"><i class="fa fa-check"></i><b>6.14</b> plot_genes_karyotype script: ‘plot_genes_karyotype’ function</a></li>
+<li class="chapter" data-level="6.15" data-path="source-code.html"><a href="source-code.html#shifters-script-create_cn_matrix-and-cluster_and_shift_transitions-functions"><i class="fa fa-check"></i><b>6.15</b> shifters script: ‘create_cn_matrix’ and ‘cluster_and_shift_transitions’ functions</a></li>
+<li class="chapter" data-level="6.16" data-path="source-code.html"><a href="source-code.html#calculate_heterogeneity_score-script-calculate_heterogeneity_score-function"><i class="fa fa-check"></i><b>6.16</b> calculate_heterogeneity_score script: ‘calculate_heterogeneity_score’ function</a></li>
+<li class="chapter" data-level="6.17" data-path="source-code.html"><a href="source-code.html#cna_profiler-script-cna_profiler-function"><i class="fa fa-check"></i><b>6.17</b> cna_profiler script: ‘cna_profiler’ function</a></li>
+<li class="chapter" data-level="6.18" data-path="source-code.html"><a href="source-code.html#cin_signature_ccle-script-run_cin_ccle-function"><i class="fa fa-check"></i><b>6.18</b> cin_signature_ccle script: ‘run_cin_ccle’ function</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -208,9 +248,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="introduction" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">1</span> Introduction<a href="index.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This book includes all the scripts used to generate the statistics and plots presented in the paper “Pre-existing Radioresistant Subclones Determine Radioresistance in Rectal Cancer Organoids.”</p>
-<p>The scripts are arranged in a loose chronological order, corresponding to the flow of the paper. The source code referenced within the scripts can be located in the ‘R’ folder on the associated Github page and also in the final chapter of this book.</p>
+<p>The scripts are arranged in a loose chronological order, corresponding to the flow of the paper. The source code referenced within the scripts can be located in the ‘R’ folder on this Github page and also in the final chapter of the book.</p>
 <p>Paper: <a href="https://doi-org.proxy.library.uu.nl/10.1002/bjs.11828" class="uri">https://doi-org.proxy.library.uu.nl/10.1002/bjs.11828</a></p>
-<p>Github: <a href="https://github.com/dshandel/subclonal_evolution_paper" class="uri">https://github.com/dshandel/subclonal_evolution_paper</a></p>
+<p>Book: <a href="https://github.com/dshandel/subclonal_evolution_paper" class="uri">https://github.com/dshandel/subclonal_evolution_paper</a></p>
 
 </div>
             </section>

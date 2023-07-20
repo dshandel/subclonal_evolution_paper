@@ -1,6 +1,6 @@
 # Copy number pattern analyses
 
-```{r libraries and sources for subclonal dynamics analysis, echo = T, message=FALSE, warning=FALSE}
+```{r libraries and sources for cna patterns, echo = T, message=FALSE, warning=FALSE}
 # Libraries and sources
 library(stringr)
 library(tidyverse)
@@ -639,7 +639,7 @@ DT::datatable(stat)
 ```
 
 
-### PLot CX1 CIN signature
+### Plot CX1 CIN signature
 
 ```{r plot CX1 CIN signature, eval = T,echo = T, warning=F, message=F}
 
