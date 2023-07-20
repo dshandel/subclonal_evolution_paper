@@ -1609,7 +1609,7 @@ knitr::include_graphics("figs/hub197_gwh_postrad_KRA-026.jpg")
 
 ```
 
-## Fisher's test
+## Fishers test
 ```{r Fisher, eval = T, echo = T, warning= F, message = F}
 ########
 # Data #

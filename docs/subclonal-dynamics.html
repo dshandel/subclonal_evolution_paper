@@ -164,7 +164,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5.2" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#subclone-statistics"><i class="fa fa-check"></i><b>3.5.2</b> Subclone statistics</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#single-cell-copy-number-heatmap-plots"><i class="fa fa-check"></i><b>3.6</b> Single cell copy number heatmap plots</a></li>
-<li class="chapter" data-level="3.7" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#fishers-test"><i class="fa fa-check"></i><b>3.7</b> Fisher’s test</a></li>
+<li class="chapter" data-level="3.7" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#fishers-test"><i class="fa fa-check"></i><b>3.7</b> Fishers test</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html"><i class="fa fa-check"></i><b>4</b> Copy number analyses</a></li>
 <li class="chapter" data-level="5" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html"><i class="fa fa-check"></i><b>5</b> Copy number pattern analyses</a></li>
@@ -1497,7 +1497,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="figs/hub197_gwh_postrad_KRA-026.jpg" width="9244" /></p>
 </div>
 <div id="fishers-test" class="section level2 hasAnchor" number="3.7">
-<h2><span class="header-section-number">3.7</span> Fisher’s test<a href="subclonal-dynamics.html#fishers-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">3.7</span> Fishers test<a href="subclonal-dynamics.html#fishers-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="subclonal-dynamics.html#cb75-1" tabindex="-1"></a><span class="do">########</span></span>
 <span id="cb75-2"><a href="subclonal-dynamics.html#cb75-2" tabindex="-1"></a><span class="co"># Data #</span></span>
 <span id="cb75-3"><a href="subclonal-dynamics.html#cb75-3" tabindex="-1"></a><span class="do">########</span></span>
@@ -1573,10 +1573,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb75-73"><a href="subclonal-dynamics.html#cb75-73" tabindex="-1"></a><span class="fu">names</span>(p_val_adjust) <span class="ot">&lt;-</span> org_names</span>
 <span id="cb75-74"><a href="subclonal-dynamics.html#cb75-74" tabindex="-1"></a></span>
 <span id="cb75-75"><a href="subclonal-dynamics.html#cb75-75" tabindex="-1"></a>p_val_adjust</span></code></pre></div>
-<pre><code>##            HUB183            HUB005            HUB106     HUB062_cycle1     HUB062_cycle2            HUB015            HUB197 
-##                NA      1.000000e+00      2.015762e-02      1.564551e-17      1.162420e-26      6.787625e-03      1.989615e-71 
-## HUB062_replicate2 
-##      1.989615e-71</code></pre>
+<pre><code>##            HUB183            HUB005            HUB106     HUB062_cycle1     HUB062_cycle2            HUB015            HUB197 HUB062_replicate2 
+##                NA      1.000000e+00      2.015762e-02      1.564551e-17      1.162420e-26      6.787625e-03      1.989615e-71      1.989615e-71</code></pre>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="subclonal-dynamics.html#cb77-1" tabindex="-1"></a><span class="do">#######</span></span>
 <span id="cb77-2"><a href="subclonal-dynamics.html#cb77-2" tabindex="-1"></a><span class="co"># </span><span class="re">END</span><span class="co"> #</span></span>
 <span id="cb77-3"><a href="subclonal-dynamics.html#cb77-3" tabindex="-1"></a><span class="do">#######</span></span></code></pre></div>
