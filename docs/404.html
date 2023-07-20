@@ -52,6 +52,14 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.28/datatables.js"></script>
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -164,9 +172,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5.2" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#subclone-statistics"><i class="fa fa-check"></i><b>3.5.2</b> Subclone statistics</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#single-cell-copy-number-heatmap-plots"><i class="fa fa-check"></i><b>3.6</b> Single cell copy number heatmap plots</a></li>
-<li class="chapter" data-level="3.7" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#fishers-test"><i class="fa fa-check"></i><b>3.7</b> Fishers test</a></li>
+<li class="chapter" data-level="3.7" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#fishers-exact-test"><i class="fa fa-check"></i><b>3.7</b> Fisher’s exact test</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html"><i class="fa fa-check"></i><b>4</b> Copy number analyses</a></li>
+<li class="chapter" data-level="4" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html"><i class="fa fa-check"></i><b>4</b> Copy number analyses</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html#colorectal-cancer-specific-arm-level-copy-number-alterations-per-organoid"><i class="fa fa-check"></i><b>4.1</b> Colorectal cancer-specific arm-level copy number alterations per organoid</a></li>
+<li class="chapter" data-level="4.2" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html#copy-number-alterations-per-subclone"><i class="fa fa-check"></i><b>4.2</b> Copy number alterations per subclone</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html#copy-number-alterations-specific-to-hub062a"><i class="fa fa-check"></i><b>4.2.1</b> Copy number alterations specific to HUB062A</a></li>
+<li class="chapter" data-level="4.2.2" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html#copy-number-alterations-specific-to-resistant-subclones"><i class="fa fa-check"></i><b>4.2.2</b> Copy number alterations specific to resistant subclones</a></li>
+<li class="chapter" data-level="4.2.3" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html#newly-acquired-copy-number-alterations"><i class="fa fa-check"></i><b>4.2.3</b> Newly acquired copy number alterations</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html"><i class="fa fa-check"></i><b>5</b> Copy number pattern analyses</a></li>
 <li class="chapter" data-level="6" data-path="source-code.html"><a href="source-code.html"><i class="fa fa-check"></i><b>6</b> Source code</a>
 <ul>
@@ -179,6 +196,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.7" data-path="source-code.html"><a href="source-code.html#divide_subclone_functions-script-extract_other_cells-extract_square-l_g-and-subclone_classes_for_genomeheatmap-functions"><i class="fa fa-check"></i><b>6.7</b> divide_subclone_functions script: ‘extract_other_cells’, ‘extract_square’, ‘l_g’ and ‘subclone_classes_for_genomeheatmap’ functions</a></li>
 <li class="chapter" data-level="6.8" data-path="source-code.html"><a href="source-code.html#plot_genomeheatmap-script-genomeheatmap-function"><i class="fa fa-check"></i><b>6.8</b> plot_genomeheatmap script: ‘genomeheatmap’ function</a></li>
 <li class="chapter" data-level="6.9" data-path="source-code.html"><a href="source-code.html#fisher_test-script-perform_fisher-function"><i class="fa fa-check"></i><b>6.9</b> fisher_test script: ‘perform_fisher’ function</a></li>
+<li class="chapter" data-level="6.10" data-path="source-code.html"><a href="source-code.html#find_specific_cna_sc-script-find_specific_cna_sc-function"><i class="fa fa-check"></i><b>6.10</b> find_specific_cna_sc script: ‘find_specific_cna_sc’ function</a></li>
+<li class="chapter" data-level="6.11" data-path="source-code.html"><a href="source-code.html#get_cytoband_coverage-script-get_cytoband_coverage-function"><i class="fa fa-check"></i><b>6.11</b> get_cytoband_coverage script: ‘get_cytoband_coverage’ function</a></li>
+<li class="chapter" data-level="6.12" data-path="source-code.html"><a href="source-code.html#get_genes-script-get_genes-functoin"><i class="fa fa-check"></i><b>6.12</b> get_genes script: ‘get_genes’ functoin</a></li>
+<li class="chapter" data-level="6.13" data-path="source-code.html"><a href="source-code.html#get_oncogenes-scripts-get_oncogenes-function"><i class="fa fa-check"></i><b>6.13</b> get_oncogenes scripts: ‘get_oncogenes’ function</a></li>
+<li class="chapter" data-level="6.14" data-path="source-code.html"><a href="source-code.html#plot_genes_karyotype-script-plot_genes_karyotype-function"><i class="fa fa-check"></i><b>6.14</b> plot_genes_karyotype script: ‘plot_genes_karyotype’ function</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>

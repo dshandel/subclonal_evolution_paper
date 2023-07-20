@@ -15,7 +15,7 @@ subclone-selection
 selecting-subclones
 subclone-statistics
 single-cell-copy-number-heatmap-plots
-fishers-test
+fishers-exact-test
 copy-number-analyses
 copy-number-pattern-analyses
 source-code
@@ -28,3 +28,14 @@ plot_pca_kmeans-script-draw_pca-k_cluster-draw_pca_double-and-k_cluster_double-f
 divide_subclone_functions-script-extract_other_cells-extract_square-l_g-and-subclone_classes_for_genomeheatmap-functions
 plot_genomeheatmap-script-genomeheatmap-function
 fisher_test-script-perform_fisher-function
+colorectal-cancer-specific-arm-level-copy-number-alterations
+find_specific_cna_sc-script-find_specific_cna_sc-function
+get_cytoband_coverage-script-get_cytoband_coverage-function
+colorectal-cancer-specific-arm-level-copy-number-alterations-per-organoid
+copy-number-alterations-per-subclone
+copy-number-alterations-specific-to-hub062a
+copy-number-alterations-specific-to-resistant-subclones
+get_genes-script-get_genes-functoin
+get_oncogenes-scripts-get_oncogenes-function
+plot_genes_karyotype-script-plot_genes_karyotype-function
+newly-acquired-copy-number-alterations

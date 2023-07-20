@@ -19,7 +19,9 @@ get_cytoband_coverage <- function(Grange) {
   # save(hg38IdeogramCyto, file = 'rda/cna_analysis/hg38IdeogramCyto.rda')
   
   # loading cytogentic location
-  load('rda/cna_analysis/hg38IdeogramCyto.rda')
+  
+  # !!! ADDING ../cna_analysis for publication in GitHub !!!
+  load('../cna_analysis/rda/cna_analysis/hg38IdeogramCyto.rda')
   
   ###########
   # Wrangle #

@@ -26,8 +26,8 @@ get_genes <- function(GRange) {
   # save(genes_GR, file = 'rda/cna_analysis/genes_GR.rda')
   
   # loading genelist and genomic location
-  load("rda/cna_analysis/genes_GR.rda", envir = .GlobalEnv)
-  load('rda/cna_analysis/genes.rda', envir = .GlobalEnv )
+  load("../cna_analysis/rda/cna_analysis/genes_GR.rda", envir = .GlobalEnv)
+  load('../cna_analysis/rda/cna_analysis/genes.rda', envir = .GlobalEnv )
   
   # Convert both GRanges to similar karyogram style
   seqlevelsStyle(GRange) <- "UCSC"

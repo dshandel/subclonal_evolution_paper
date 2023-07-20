@@ -1161,3 +1161,675 @@ perform_fisher <- function(dataframe,
 
 ```
 
+## find_specific_cna_sc script: 'find_specific_cna_sc' function 
+```{r find_specific_cna_sc, eval = F,echo = T}
+find_specific_cna_sc <-
+  function(list_resistant,
+           list_sensitive,
+           perc_cutoff_within_subclone_resistant,
+           perc_cutoff_within_subclone_sensitive,
+           per_cutoff_across_subclone_resistant,
+           per_cutoff_across_subclone_sensitive,
+           return_cnas_per_subclone = F) {
+    #' @param list_resistant a list subclone names which itself contains a list of paths of paths to aneuHMM .Rda files. 
+    #' @param list_sensitive a list subclone names which itself contains a list of paths of paths to aneuHMM .Rda files. 
+    #' @param perc_cutoff_within_subclone_resistant user defined percentage cutoff to use (e.g. 0.6 means a certain CNA is shared by 60% of the cells
+    #' within a subclone).
+    #' @param perc_cutoff_within_subclone_senstive same as in perc_cutoff_within_subclone_resistant but for the sensitive group
+    #' @param per_cutoff_across_subclone_resistant user defined percentage cutoff to use (e.g. 0.7 means a certain CNA is shared in 70% of all subclones)
+    #' @param return_cnas_per_subclone boolean. If TRUE will return the shared by perc_cutoff_within_subclone CNAs for each list of each item within 
+    #' list_resistant. Note list_sensitive should be set to NULL for proper results!!
+    #' @param per_cutoff_across_subclone_sensitive same as resistant but for the sensitive group
+    #' @example perc_cutoff_within_subclone = 0.6 and per_cutoff_across_subclone = 0.7 means the algorithm will find CNAs that are shared 
+    #' by 60% of single cells within each subclone, and by 70% of all subclones. Important, a cutoff of 50% is the same as computing the median.
+    #' @return a list of GRanges showing unique to list_resistant amplifications and deletions and unique to list_sensitive
+    #' amplifications and deletions or, if return_cnas_per_subclone see param return_cnas_per_subclone above.
+    #' @details Note that this algorithm is NOT sensitive to the number of single cells within each subclone. 
+    
+    #############
+    # Libraries #
+    #############
+    require(plyranges)
+    require(AneuFinder)
+    
+    ###########
+    # Part 1. #
+    ###########
+    print('Computing (this may take some minutes)...')
+    
+    resistant_sc <-
+      lapply(list_resistant,
+             loadFromFiles,
+             check.class = c("aneuHMM", "aneuBiHMM"))
+    sensitive_sc <-
+      lapply(list_sensitive,
+             loadFromFiles,
+             check.class = c("aneuHMM", "aneuBiHMM"))
+    
+    # find specific CNAs needs a list of GRanges where each GRange has columns
+    # seqnames, ranges, strand (not necessary) and cn.
+    wrangle_sc <- function(list_lff) {
+      # segments is the reduced bins GRange (so all equal CN bins put together)
+      wrangle_within <- function(list_lff_within) {
+        segments <- list_lff_within$segments
+        # ugly way of adding a cn column
+        segments$cn <- segments$copy.number
+        
+        return(segments)
+        
+        # END of wrange_within function
+        
+      }
+      within_subcl <- lapply(list_lff, wrangle_within)
+      
+      # END OF wrangle_sc function
+      
+    }
+
+    list_resistant <- lapply(resistant_sc, wrangle_sc)
+    list_sensitive <- lapply(sensitive_sc, wrangle_sc)
+    
+    print('Extracted segment info from files')
+    Sys.sleep(1) 
+    
+    ###########
+    # Part 2. #
+    ###########
+    # The Granges are now still arranged in bins. We are first going to
+    # combine bins with similar copy number.
+    print('Computing (this may take some minutes)...')
+    combine_indels <- function(subclone_consensus) {
+      #' @param subclone_consensus_list is a GRanges with seqnames, ranges, strand and cn
+      #' @returns list of Granges where each Granges has only CNA of cn2 or cn>2
+      
+      combine_within <- function(subclone_consensus_within) {
+        # subset subclone_consensus in cn <2, cn = 2 and cn > 2
+        cn_less_2 <-
+          subclone_consensus_within[subclone_consensus_within$cn < 2,]
+        cn_more_2 <-
+          subclone_consensus_within[subclone_consensus_within$cn > 2,]
+        
+        # reduce each GRanges (joins consecutive ranges together)
+        cn_less_2 <- reduce(cn_less_2)
+        cn_more_2 <- reduce(cn_more_2)
+        
+        # reduce deletes metadata.
+        # adding metadata
+        cn_less_2$cn <- rep('<2', length(cn_less_2))
+        
+        cn_more_2$cn <- rep('<2', length(cn_more_2))
+        
+        # make list and rename items
+        GR_list <- GRangesList(cn_less_2, cn_more_2)
+        names(GR_list) <- c('<2', '>2')
+        
+        # Return #
+        return(GR_list)
+      }
+      
+      combine_subcl <- lapply(subclone_consensus, combine_within)
+      
+    }
+    
+    # run an apply function here on each Granges in list_resistant versus list_sensitive
+    resistant_split <- lapply(list_resistant, combine_indels)
+    sensitive_split <- lapply(list_sensitive, combine_indels)
+    
+    # splits deletions together within each subclone
+    grouper_del <- function(gr) {
+      grouper_within <- function(gr_within) {
+        return(gr_within$'<2')
+      }
+      
+      within_grouper <- lapply(gr, grouper_within)
+    }
+    
+    # splits amplifciations together within each subclone
+    grouper_ampl <- function(gr) {
+      grouper_within <- function(gr_within) {
+        return(gr_within$'>2')
+      }
+      
+      within_grouper <- lapply(gr, grouper_within)
+    }
+    
+    # run apply on each subclone
+    resistant_split_del <- lapply(resistant_split, grouper_del)
+    resistant_split_ampl <- lapply(resistant_split, grouper_ampl)
+    
+    sensitive_split_del <- lapply(sensitive_split, grouper_del)
+    sensitive_split_ampl <- lapply(sensitive_split, grouper_ampl)
+    
+    ###########
+    # Part 3. #
+    ###########
+    # Part 3A #
+    ###########
+    # Finding common CNAs within each subclone
+    shared_cnas <-
+      function(list_GRanges,
+               perc_cutoff_within_subclone) {
+        #' @param list_GRanges is a list of GRanges with seqnames, ranges, strand and cn
+        #' @param perc_cutoff_within_subclone user defined percentage cutoff to use (e.g. 0.6)
+        #' @returns Granges where each Granges is shared by => perc_cutoff_within_subclone
+        
+        # finding overlaps in x% of regions: wait for response community:
+        # https://stackoverflow.com/questions/74900085/find-ranges-that-are-shared-by-80-or-more-of-10-granges-objects
+        # https://support.bioconductor.org/p/9148540/
+        
+        shared_cnas_within <- function(list_GRanges_within) {
+          n <- length(list_GRanges_within) # number of range sets
+          shared_cna <-
+            bind_ranges(list_GRanges_within, .id = "origin") %>%
+            compute_coverage() %>%
+            mutate(fraction_cov = score / n) %>%
+            filter(fraction_cov >= perc_cutoff_within_subclone) %>%
+            reduce_ranges()
+          
+          return(shared_cna)
+        }
+        
+        lapply(list_GRanges, shared_cnas_within)
+      }
+    
+    resistant_shared_del <-
+      shared_cnas(resistant_split_del, perc_cutoff_within_subclone = perc_cutoff_within_subclone_resistant)
+    resistant_shared_ampl <-
+      shared_cnas(resistant_split_ampl, perc_cutoff_within_subclone = perc_cutoff_within_subclone_resistant)
+    sensitive_shared_del <-
+      shared_cnas(sensitive_split_del, perc_cutoff_within_subclone = perc_cutoff_within_subclone_sensitive)
+    sensitive_shared_ampl <-
+      shared_cnas(sensitive_split_ampl, perc_cutoff_within_subclone = perc_cutoff_within_subclone_sensitive)
+    
+    # END of function if return_cnas_per_subclone == T
+    if (return_cnas_per_subclone == T) {
+      cna_list <- list (deletions = c(resistant_shared_del, sensitive_shared_del), 
+                        amplifications = c(resistant_shared_ampl, sensitive_shared_del))
+      
+      print(
+        paste0(
+          'Extracted CNAs that are shared by ',
+          as.numeric(perc_cutoff_within_subclone_resistant) * 100,
+          '% of single cells within each resistant subclone, and by ',
+          as.numeric(perc_cutoff_within_subclone_sensitive) * 100,
+          '% of single cells within each sensitive subclone'
+        )
+      )
+      ##########
+      # Unload #
+      ##########
+      suppressWarnings(invisible(lapply(paste0("package:", names(sessionInfo()$otherPkgs)),   # Unload add-on packages
+                                        detach,
+                                        character.only = TRUE, unload = TRUE)))
+      
+      return(cna_list)
+    }
+    
+    # Part 3B #
+    ###########
+    # Finding common CNAs across subclones
+    shared_cnas_across_subclones <-
+      function(list_GRanges,
+               per_cutoff_across_subclone) {
+        #' @param list_GRanges is a list of GRanges with seqnames, ranges, strand and cn
+        #' @param perc_cutoff user defined percentage cutoff to use (e.g. 0.6)
+        #' @returns Granges where each Granges is shared by => perc_cutoff_within_subclone
+        
+        # finding overlaps in x% of regions: wait for response community:
+        # https://stackoverflow.com/questions/74900085/find-ranges-that-are-shared-by-80-or-more-of-10-granges-objects
+        # https://support.bioconductor.org/p/9148540/
+        
+        n <- length(list_GRanges) # number of range sets
+        shared_cna <-
+          bind_ranges(list_GRanges, .id = "origin") %>%
+          compute_coverage() %>%
+          mutate(fraction_cov = score / n) %>%
+          filter(fraction_cov >= per_cutoff_across_subclone) %>%
+          reduce_ranges()
+        
+        return(shared_cna)
+        
+      }
+    
+    resistant_shared_del_across <-
+      shared_cnas_across_subclones(resistant_shared_del, per_cutoff_across_subclone = per_cutoff_across_subclone_resistant)
+    resistant_shared_ampl_across <-
+      shared_cnas_across_subclones(resistant_shared_ampl, per_cutoff_across_subclone = per_cutoff_across_subclone_resistant)
+    sensitive_shared_del_across <-
+      shared_cnas_across_subclones(sensitive_shared_del, per_cutoff_across_subclone = per_cutoff_across_subclone_sensitive)
+    sensitive_shared_ampl_across <-
+      shared_cnas_across_subclones(sensitive_shared_ampl, per_cutoff_across_subclone = per_cutoff_across_subclone_sensitive)
+    
+    print(
+      paste0(
+        'Extracted CNAs that are shared by ',
+        as.numeric(perc_cutoff_within_subclone_resistant) * 100, ' and ', as.numeric(perc_cutoff_within_subclone_sensitive) * 100,
+        '% of single cells within resistant and sensitive subclones, respectively, and that are shared by ',
+        as.numeric(per_cutoff_across_subclone_resistant) * 100, ' and ', as.numeric(per_cutoff_across_subclone_sensitive) * 100, 
+        '% across resistant and sensitive subclones, respectively.'
+      )
+    )
+    
+    Sys.sleep(1) 
+    print('Computing (few seconds)...')
+    Sys.sleep(2) 
+    
+    ###########
+    # Part 4. #
+    ###########
+    # Now that we have shared CNAs across subclones with the resistant and sensitive group, we need to extract
+    # only those CNAs that are unique to the resistant group.
+    
+    # unique to resistant lines deletions:
+    unique_resistant_del <-
+      setdiff(resistant_shared_del_across, sensitive_shared_del_across)
+    # unique to resistant lines amplifications
+    unique_resistant_ampl <-
+      setdiff(resistant_shared_ampl_across,
+              sensitive_shared_ampl_across)
+    
+    # unique to sensitive lines deletions:
+    unique_sensitive_del <-
+      setdiff(sensitive_shared_del_across, resistant_shared_del_across)
+    # unique to sensitive lines amplifications:
+    unique_sensitive_ampl <-
+      setdiff(sensitive_shared_ampl_across,
+              resistant_shared_ampl_across)
+    
+    print(
+      'Identified amplifications and deletions that are unique to resistant or sensitive subclones'
+    )
+    
+    ##########
+    # Return #
+    ##########
+    returner <-
+      list(
+        unique_resistant_del,
+        unique_resistant_ampl,
+        unique_sensitive_del,
+        unique_sensitive_ampl
+      )
+    names(returner) <-
+      c(
+        'unique_resistant_del',
+        'unique_resistant_ampl',
+        'unique_sensitive_del',
+        'unique_sensitive_ampl'
+      )
+    
+    ##########
+    # Unload #
+    ##########
+    suppressWarnings(invisible(lapply(paste0("package:", names(sessionInfo()$otherPkgs)),   # Unload add-on packages
+                     detach,
+                     character.only = TRUE, unload = TRUE)))
+    
+    return(returner)
+  }
+
+```
+
+
+## get_cytoband_coverage script: 'get_cytoband_coverage' function 
+```{r get_cytoband_coverage.R, eval = F,echo = T}
+get_cytoband_coverage <- function(Grange) {
+  #' @param Grange a grange with seqnames and granges.
+  #' @returns returns a GRange with cytogenetic locations including
+  #' percentage of overlap and a dataframe containing information on how much of
+  #' the total arm was affected.
+  
+  #############
+  # Libraries #
+  #############
+  require(tidyverse)
+  require(plyranges)
+  
+  ########
+  # Data #
+  ########
+  # Uncomment me, this is to download cytogenetic coordinates
+  # library(biovizBase)
+  # hg38IdeogramCyto <- getIdeogram("hg38", cytobands = TRUE)
+  # save(hg38IdeogramCyto, file = 'rda/cna_analysis/hg38IdeogramCyto.rda')
+  
+  # !!! ADDING ../cna_analysis for publication in GitHub !!!
+  load('../cna_analysis/rda/cna_analysis/hg38IdeogramCyto.rda')
+  
+  
+  ###########
+  # Wrangle #
+  ###########
+  # Convert both GRanges to similar karyogram style
+  seqlevelsStyle(Grange) <- "NCBI"
+  seqlevelsStyle(hg38IdeogramCyto) <- "NCBI"
+  
+  Grange_list_cytoband <- list()
+  Grange_list_pq_affected <- list()
+  
+  # return empty Grange and empty data.frame if Grange is empty
+  if (length(Grange) == 0) {
+    # return empty Grange
+    return(list(GRanges(
+      seqnames = character(0),
+      IRanges(start = integer(0), end = integer(0)),
+      cytobands_cov =  character(0)
+    ),
+    data.frame(seqnames = character(), 
+               start_of_arm = numeric(), 
+               end_of_arm = numeric(), 
+               width_of_arm = numeric(), 
+               strand = character(), 
+               chromosome = character(), 
+               arm = character(), 
+               percentage_arm_affected = numeric(), 
+               stringsAsFactors = FALSE)
+    ))
+  }
+  
+  for (row in 1:length(Grange)) {
+    for_range <- Grange[row]
+    
+    ##########
+    # Part 1 #
+    ##########
+    ## First find specific cytoband locations
+    # finding overlaps
+    hits <- findOverlaps(for_range, hg38IdeogramCyto)
+    
+    # computing percentage overlap
+    overlaps <-
+      pintersect(for_range[queryHits(hits)], hg38IdeogramCyto[subjectHits(hits)])
+    percentOverlap <-
+      width(overlaps) / width(hg38IdeogramCyto[subjectHits(hits)])
+    
+    # extracting cytobands
+    cytobands <-
+      paste0(seqnames(hg38IdeogramCyto[subjectHits(hits)]), hg38IdeogramCyto[subjectHits(hits)]$name)
+    # replace 'chr'
+    cytobands <-
+      str_replace(cytobands, pattern = 'chr', replacement = '')
+    
+    cytobands_cov <-
+      list(paste0(cytobands, ';', round(percentOverlap, 2) * 100, '%'))
+    
+    for_range$cytobands_cov <- cytobands_cov
+    
+    Grange_list_cytoband[[row]] <- for_range
+    
+    ##########
+    # Part 2 #
+    ##########
+    # make dataframe that shows how much of an arm is affected 
+    
+    # Grange with p and q IRanges
+    p_q <- hg38IdeogramCyto
+    
+    p_q$arm <- str_extract(p_q$name, 'p|q')
+    
+    p_q <- subset(p_q, seqnames %in% c(seq(1:22), 'X', 'Y'))
+    
+    p_q <- p_q %>% group_by(seqnames, arm) %>% reduce_ranges()
+    
+    # finding overlaps
+    hits_pq <- findOverlaps(for_range, p_q)
+    
+    # computing percentage overlap
+    overlaps <-
+      pintersect(for_range[queryHits(hits_pq)], p_q[subjectHits(hits_pq)])
+    percentOverlap <-
+      width(overlaps) / width(p_q[subjectHits(hits_pq)])
+    
+    p_q_percentage <- as.data.frame(p_q[subjectHits(hits_pq)])
+    
+    p_q_percentage$percentage_arm_affected <- percentOverlap * 100
+    
+    colnames(p_q_percentage) <-
+      c(
+        'seqnames',
+        'start_of_arm',
+        'end_of_arm',
+        'width_of_arm',
+        'strand',
+        'chromosome',
+        'arm',
+        'percentage_arm_affected'
+      )
+    
+    
+    
+    
+    Grange_list_pq_affected[[row]] <- p_q_percentage
+    
+    
+  }
+  
+  Grange <- bind_ranges(Grange_list_cytoband)
+  pq_arm_affect <- bind_rows(Grange_list_pq_affected)
+  
+  return(list(Grange, pq_arm_affect))
+  
+  ### END of function ###
+  
+}
+
+```
+
+## get_genes script: 'get_genes' functoin
+```{r get_genes, eval = F,echo = T}
+get_genes <- function(GRange) { 
+  #' @param Grange a grange with seqnames and granges. 
+  #' @returns returns df with all genes encoded within the GRange regions. 
+  
+  require(GenomicRanges)
+  require(biomaRt)
+  
+  # This code should be run only once and is therefore commented. 
+  # code from: https://www.biostars.org/p/311199/
+  
+  # Set up an gene annotation template to use
+  # mart <- useMart(biomart="ensembl", dataset="hsapiens_gene_ensembl")
+  # mart <- useMart(biomart="ENSEMBL_MART_ENSEMBL", host="www.ensembl.org", path="/biomart/martservice", dataset="hsapiens_gene_ensembl")
+  # genes <- getBM(attributes=c("hgnc_symbol","chromosome_name","start_position","end_position"), mart=mart)
+  # genes <- genes[genes[,1]!="" & genes[,2] %in% c(1:22,"X","Y"),]
+  # xidx <- which(genes[,2]=="X")
+  # yidx <- which(genes[,2]=="Y")
+  # genes[xidx, 2] <- 23
+  # genes[yidx, 2] <- 24
+  # genes[,2] <- sapply(genes[,2],as.integer)
+  # genes <- genes[order(genes[,3]),]
+  # genes <- genes[order(genes[,2]),]
+  # save(genes, file = 'rda/cna_analysis/genes.rda')
+  # colnames(genes) <- c("GeneSymbol","Chr","Start","End")
+  # genes_GR <- makeGRangesFromDataFrame(genes,keep.extra.columns = TRUE)
+  # save(genes_GR, file = 'rda/cna_analysis/genes_GR.rda')
+  
+  # loading genelist and genomic location
+  load("../cna_analysis/rda/cna_analysis/genes_GR.rda", envir = .GlobalEnv)
+  load('../cna_analysis/rda/cna_analysis/genes.rda', envir = .GlobalEnv )
+  
+  # Convert both GRanges to similar karyogram style
+  seqlevelsStyle(GRange) <- "UCSC"
+  GRange <- renameSeqlevels(GRange, paste0('chr', c(1:23)))
+  
+  seqlevelsStyle(genes_GR) <- "UCSC"
+  
+  # Finding hits with genes_GR and GRanges
+  hits <- findOverlaps(genes_GR, GRange, type="within")
+  
+  # constructing
+  df <- cbind(as.data.frame(GRange)[subjectHits(hits),],genes[queryHits(hits),])
+  
+  return(df)
+  
+}
+
+```
+
+## get_oncogenes scripts: 'get_oncogenes' function
+```{r get_oncogenes, eval = F,echo = T}
+get_oncogenes <- function(GRange) {
+  #' @param Grange a grange with seqnames and granges. 
+  #' @returns returns df with all genes encoded within the GRange regions. 
+  source('R/get_genes.R')
+  
+  # first finding all genes within GRange
+  all_genes <- get_genes(GRange) 
+  
+  # change colnames so dataframes match
+  colnames(all_genes)[which(names(all_genes) == 'hgnc_symbol')] <- "Gene Symbol"   
+  
+  # downloading oncogenes
+  require(readr)
+  oncogenes <- read_csv("../cna_analysis/data/cna_analysis/Census_allMon May 30 12_43_01 2022.csv")
+  
+  
+  # subset df_genes so to only have oncogenes
+  require(tidyverse)
+  oncogenes <- inner_join(oncogenes, all_genes)
+  
+  return(oncogenes)
+  
+}
+
+```
+
+
+## plot_genes_karyotype script: 'plot_genes_karyotype' function
+```{r plot_genes_karyotype, eval = F,echo = T}
+plot_genes_karyotype <-
+  function(GRange,
+           dist = -30,
+           show_genes,
+           show_chromosomes = c(
+             "chr1",
+             "chr2",
+             "chr3",
+             "chr4",
+             "chr5",
+             "chr6",
+             "chr7",
+             "chr8",
+             "chr9",
+             "chr10",
+             "chr11",
+             "chr12",
+             "chr13",
+             "chr14",
+             "chr15",
+             "chr16",
+             "chr17",
+             "chr18",
+             "chr19",
+             "chr20",
+             "chr21",
+             "chr22",
+             "chrX"
+           )) {
+    #' @param GRange a GRange with seqnames, ranges, strand and hgnc_symbol
+    #' @param dist How far away the genes should be plotted from the lines.
+    #' Between -40 and -70 seems to do the trick most of the times.
+    #' @param show_genes is a vector of gene symbols to show.
+    #' @param show_chromosomes is a vector indicating which chromosomes to show.
+    #' @return a karyotype with genes labeled
+    #' @details. Throws an error when the GRange does not contain either
+    #' ampflications or deletions. This can be ignored, the resulting plot
+    #' is correct
+    
+    #############
+    # Libraries #
+    #############
+    require(karyoploteR)
+    require(stringr)
+    
+    ###########
+    # Wrangle #
+    ###########
+    # making sure seqlevels match
+    seqlevelsStyle(GRange) <- 'UCSC'
+    
+    kp <- plotKaryotype(
+      "hg38",
+      plot.type = 5,
+      labels.plotter = NULL,
+      main = "",
+      cex = 4,
+      chromosomes = show_chromosomes
+    )
+    
+    #renaming seqlevels
+    seqlevels_grange_change <-
+      str_replace_all(seqlevels(GRange),
+                      pattern = 'chr23',
+                      replacement = 'chrX')
+    
+    GRange <- renameSeqlevels(GRange, value = seqlevels_grange_change)
+    
+    kpAddChromosomeNames(
+      kp,
+      chr.names = str_remove_all(show_chromosomes, 'chr'),
+      cex = 1.3
+    )
+    
+    # split into amplifications and deletions
+    ampl <- GRange[GRange$cn == 'amplified']
+    ampl <- ampl[ampl$hgnc_symbol %in% show_genes]
+    
+    del <- GRange[GRange$cn == 'deleted']
+    del <- del[del$hgnc_symbol %in% show_genes]
+    
+    tryCatch(
+      cor <-
+        cor.test(df$AUC, df$dependency, use = "complete.obs"),
+      error = function(e)
+        NULL
+    )
+    
+    tryCatch(
+      kpPlotMarkers(
+        kp,
+        data = ampl,
+        labels = ampl$hgnc_symbol,
+        ignore.chromosome.ends = T,
+        r0 = 1,
+        r1 = 0.85,
+        label.dist = 0.003,
+        label.margin = dist,
+        marker.parts = c(0.3, 0.1, 0.1),
+        line.color = 'firebrick',
+        label.color = 'firebrick'
+      ),
+      error = function(e)
+        NULL
+    )
+    
+    
+    tryCatch(
+      kpPlotMarkers(
+        kp,
+        data = del,
+        labels = del$hgnc_symbol,
+        ignore.chromosome.ends = T,
+        r0 = 1,
+        r1 = 0.4,
+        label.dist = 0.003,
+        cex = 8,
+        label.margin = dist,
+        marker.parts = c(0.3, 0.1, 0.1),
+        line.color = 'steelblue',
+        label.color = 'steelblue'
+      ),
+      error = function(e)
+        NULL
+    )
+    
+    
+  }
+
+
+```
+
+
+```{r 4, eval = F,echo = T}
+
+```

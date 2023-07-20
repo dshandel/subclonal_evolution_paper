@@ -11,7 +11,7 @@ get_oncogenes <- function(GRange) {
   
   # downloading oncogenes
   require(readr)
-  oncogenes <- read_csv("data/cna_analysis/Census_allMon May 30 12_43_01 2022.csv")
+  oncogenes <- read_csv("../cna_analysis/data/cna_analysis/Census_allMon May 30 12_43_01 2022.csv")
   
   
   # subset df_genes so to only have oncogenes

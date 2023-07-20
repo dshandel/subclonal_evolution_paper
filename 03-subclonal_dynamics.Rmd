@@ -22,7 +22,7 @@ source('R/fisher_test.R')
 ```
 
 ## AneuFinder run
-```{r running aneufinder (NOT RUN), eval=FALSE}
+```{r running aneufinder (NOT RUN), eval=FALSE, echo = T}
 ###########
 # Folders #
 ###########
@@ -145,7 +145,7 @@ for (i in 4:length(inputdirs)) {
 
 
 ## Quality selection
-```{r quality run (NOT RUN), eval = FALSE}
+```{r quality run (NOT RUN), eval = FALSE, echo = T}
 ###############
 # Description #
 ###############
@@ -1609,7 +1609,7 @@ knitr::include_graphics("figs/hub197_gwh_postrad_KRA-026.jpg")
 
 ```
 
-## Fishers test
+## Fisher's exact test
 ```{r Fisher, eval = T, echo = T, warning= F, message = F}
 ########
 # Data #

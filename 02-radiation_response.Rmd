@@ -490,7 +490,7 @@ sd_days_sens <- sd(as.numeric(df_sens$days_to_full_recovery), na.rm = T)
 sd_days_sens
 ```
 
-
+### Persisters versus shifters dose-response plots
 
 
 
