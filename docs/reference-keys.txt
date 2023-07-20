@@ -39,3 +39,16 @@ get_genes-script-get_genes-functoin
 get_oncogenes-scripts-get_oncogenes-function
 plot_genes_karyotype-script-plot_genes_karyotype-function
 newly-acquired-copy-number-alterations
+persisters-versus-shifters-dose-response-plots
+single-cell-analyses
+heterogeneity-score
+copy-number-length-analysis
+ccle-database
+shifters-script-create_cn_matrix-and-cluster_and_shift_transitions-functions
+calculate_heterogeneity_score-script-calculate_heterogeneity_score-function
+cna_profiler-script-cna_profiler-function
+ccle-analysis
+run-cin-signature
+statistics-cin-signature
+plot-cx1-cin-signature
+cin_signature_ccle-script-run_cin_ccle-function
