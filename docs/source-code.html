@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Source code | Pre-existing Radioresistant Subclones Determine Radioresistance in Rectal Cancer Organoids</title>
+  <meta name="description" content="6 Source code | Pre-existing Radioresistant Subclones Determine Radioresistance in Rectal Cancer Organoids" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Source code | Pre-existing Radioresistant Subclones Determine Radioresistance in Rectal Cancer Organoids" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Source code | Pre-existing Radioresistant Subclones Determine Radioresistance in Rectal Cancer Organoids" />
+  
+  
+  
+
+<meta name="author" content="Daan Andel" />
+
+
+<meta name="date" content="2023-07-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="copy-number-pattern-analyses.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Subclonal Evolution Paper</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="in-vitro-radiation-response-and-clinical-data.html"><a href="in-vitro-radiation-response-and-clinical-data.html"><i class="fa fa-check"></i><b>2</b> In vitro radiation response and clinical data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="in-vitro-radiation-response-and-clinical-data.html"><a href="in-vitro-radiation-response-and-clinical-data.html#progression-free-survival"><i class="fa fa-check"></i><b>2.1</b> Progression-free survival</a></li>
+<li class="chapter" data-level="2.2" data-path="in-vitro-radiation-response-and-clinical-data.html"><a href="in-vitro-radiation-response-and-clinical-data.html#in-vitro-dose-response"><i class="fa fa-check"></i><b>2.2</b> In vitro dose-response</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="in-vitro-radiation-response-and-clinical-data.html"><a href="in-vitro-radiation-response-and-clinical-data.html#dose-response-plot"><i class="fa fa-check"></i><b>2.2.1</b> Dose-response plot</a></li>
+<li class="chapter" data-level="2.2.2" data-path="in-vitro-radiation-response-and-clinical-data.html"><a href="in-vitro-radiation-response-and-clinical-data.html#rauc-across-multiple-experiments"><i class="fa fa-check"></i><b>2.2.2</b> rAUC across multiple experiments</a></li>
+<li class="chapter" data-level="2.2.3" data-path="in-vitro-radiation-response-and-clinical-data.html"><a href="in-vitro-radiation-response-and-clinical-data.html#flow-cytometry-based-measurement-of-apoptotic-cells-with-sub-g1-dna-content"><i class="fa fa-check"></i><b>2.2.3</b> Flow cytometry-based measurement of (apoptotic) cells with sub-G1 DNA content</a></li>
+<li class="chapter" data-level="2.2.4" data-path="in-vitro-radiation-response-and-clinical-data.html"><a href="in-vitro-radiation-response-and-clinical-data.html#recovery-statistics-after-10-gy-radiation"><i class="fa fa-check"></i><b>2.2.4</b> Recovery statistics after 10 Gy radiation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html"><i class="fa fa-check"></i><b>3</b> Subclonal dynamics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#aneufinder-run"><i class="fa fa-check"></i><b>3.1</b> AneuFinder run</a></li>
+<li class="chapter" data-level="3.2" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#quality-selection"><i class="fa fa-check"></i><b>3.2</b> Quality selection</a></li>
+<li class="chapter" data-level="3.3" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#summary-statistics-of-copy-number-alterations"><i class="fa fa-check"></i><b>3.3</b> Summary statistics of copy number alterations</a></li>
+<li class="chapter" data-level="3.4" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#pca-and-k-means-plots"><i class="fa fa-check"></i><b>3.4</b> PCA and K-means plots</a></li>
+<li class="chapter" data-level="3.5" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#subclone-selection"><i class="fa fa-check"></i><b>3.5</b> Subclone selection</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#selecting-subclones"><i class="fa fa-check"></i><b>3.5.1</b> Selecting subclones</a></li>
+<li class="chapter" data-level="3.5.2" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#subclone-statistics"><i class="fa fa-check"></i><b>3.5.2</b> Subclone statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#single-cell-copy-number-heatmap-plots"><i class="fa fa-check"></i><b>3.6</b> Single cell copy number heatmap plots</a></li>
+<li class="chapter" data-level="3.7" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#fishers-test"><i class="fa fa-check"></i><b>3.7</b> Fisher’s test</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html"><i class="fa fa-check"></i><b>4</b> Copy number analyses</a></li>
+<li class="chapter" data-level="5" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html"><i class="fa fa-check"></i><b>5</b> Copy number pattern analyses</a></li>
+<li class="chapter" data-level="6" data-path="source-code.html"><a href="source-code.html"><i class="fa fa-check"></i><b>6</b> Source code</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="source-code.html"><a href="source-code.html#auc_rad-script-auc_fun-function"><i class="fa fa-check"></i><b>6.1</b> AUC_rad script: ‘AUC_fun’ function</a></li>
+<li class="chapter" data-level="6.2" data-path="source-code.html"><a href="source-code.html#fitter_rad-script-fitter-function"><i class="fa fa-check"></i><b>6.2</b> fitter_rad script: ‘fitter’ function</a></li>
+<li class="chapter" data-level="6.3" data-path="source-code.html"><a href="source-code.html#ic50_rad-script-ic50_fun-function"><i class="fa fa-check"></i><b>6.3</b> ic50_rad script: ‘IC50_fun’ function</a></li>
+<li class="chapter" data-level="6.4" data-path="source-code.html"><a href="source-code.html#relativize_dr-script-relative-function"><i class="fa fa-check"></i><b>6.4</b> relativize_dr script: ‘relative’ function</a></li>
+<li class="chapter" data-level="6.5" data-path="source-code.html"><a href="source-code.html#quality_functions-script-quality_check-quality_select-and-check_quality-functions"><i class="fa fa-check"></i><b>6.5</b> quality_functions script: ‘quality_check’, ‘quality_select’ and ‘check_quality’ functions</a></li>
+<li class="chapter" data-level="6.6" data-path="source-code.html"><a href="source-code.html#plot_pca_kmeans-script-draw_pca-k_cluster-draw_pca_double-and-k_cluster_double-functions"><i class="fa fa-check"></i><b>6.6</b> plot_pca_kmeans script: ‘draw_pca’, ‘k_cluster’, ‘draw_pca_double’ and ‘k_cluster_double’ functions</a></li>
+<li class="chapter" data-level="6.7" data-path="source-code.html"><a href="source-code.html#divide_subclone_functions-script-extract_other_cells-extract_square-l_g-and-subclone_classes_for_genomeheatmap-functions"><i class="fa fa-check"></i><b>6.7</b> divide_subclone_functions script: ‘extract_other_cells’, ‘extract_square’, ‘l_g’ and ‘subclone_classes_for_genomeheatmap’ functions</a></li>
+<li class="chapter" data-level="6.8" data-path="source-code.html"><a href="source-code.html#plot_genomeheatmap-script-genomeheatmap-function"><i class="fa fa-check"></i><b>6.8</b> plot_genomeheatmap script: ‘genomeheatmap’ function</a></li>
+<li class="chapter" data-level="6.9" data-path="source-code.html"><a href="source-code.html#fisher_test-script-perform_fisher-function"><i class="fa fa-check"></i><b>6.9</b> fisher_test script: ‘perform_fisher’ function</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Pre-existing Radioresistant Subclones Determine Radioresistance in Rectal Cancer Organoids</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="source-code" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> Source code<a href="source-code.html#source-code" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The source code in this here is arranged in a loose chronological order, reflecting the sequence in which it is called in the scripts presented throughout this book.</p>
+<div id="auc_rad-script-auc_fun-function" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> AUC_rad script: ‘AUC_fun’ function<a href="source-code.html#auc_rad-script-auc_fun-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="source-code.html#cb78-1" tabindex="-1"></a><span class="co"># returns the AUC of the actual data.</span></span>
+<span id="cb78-2"><a href="source-code.html#cb78-2" tabindex="-1"></a>AUC_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(df) {</span>
+<span id="cb78-3"><a href="source-code.html#cb78-3" tabindex="-1"></a>  </span>
+<span id="cb78-4"><a href="source-code.html#cb78-4" tabindex="-1"></a>  <span class="co"># defining variables to work with</span></span>
+<span id="cb78-5"><a href="source-code.html#cb78-5" tabindex="-1"></a>  d <span class="ot">&lt;-</span> df</span>
+<span id="cb78-6"><a href="source-code.html#cb78-6" tabindex="-1"></a>  </span>
+<span id="cb78-7"><a href="source-code.html#cb78-7" tabindex="-1"></a>  lines <span class="ot">&lt;-</span> <span class="fu">character</span>()</span>
+<span id="cb78-8"><a href="source-code.html#cb78-8" tabindex="-1"></a>  <span class="co"># for loop, checks if CF$cline is in vector lines, if so, do nothing, else append to vector. </span></span>
+<span id="cb78-9"><a href="source-code.html#cb78-9" tabindex="-1"></a>  <span class="cf">for</span> (line <span class="cf">in</span> d<span class="sc">$</span>cline) (</span>
+<span id="cb78-10"><a href="source-code.html#cb78-10" tabindex="-1"></a>    <span class="fu">ifelse</span>(line <span class="sc">%in%</span> lines, <span class="cn">NA</span>, lines <span class="ot">&lt;-</span> <span class="fu">c</span>(lines, line)))</span>
+<span id="cb78-11"><a href="source-code.html#cb78-11" tabindex="-1"></a>  </span>
+<span id="cb78-12"><a href="source-code.html#cb78-12" tabindex="-1"></a>  <span class="co"># separate into dataframes according to cline</span></span>
+<span id="cb78-13"><a href="source-code.html#cb78-13" tabindex="-1"></a>  per_line <span class="ot">&lt;-</span> <span class="fu">split</span>(d, <span class="at">f =</span> d<span class="sc">$</span>cline, <span class="at">drop =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb78-14"><a href="source-code.html#cb78-14" tabindex="-1"></a>  </span>
+<span id="cb78-15"><a href="source-code.html#cb78-15" tabindex="-1"></a>  <span class="co"># define dose_vetor</span></span>
+<span id="cb78-16"><a href="source-code.html#cb78-16" tabindex="-1"></a>  dose_vector <span class="ot">&lt;-</span> <span class="fu">unique</span>(d<span class="sc">$</span>dose)</span>
+<span id="cb78-17"><a href="source-code.html#cb78-17" tabindex="-1"></a>  </span>
+<span id="cb78-18"><a href="source-code.html#cb78-18" tabindex="-1"></a>  </span>
+<span id="cb78-19"><a href="source-code.html#cb78-19" tabindex="-1"></a>  <span class="co"># computes AUC for given predicted survival and dose given by dose_vector</span></span>
+<span id="cb78-20"><a href="source-code.html#cb78-20" tabindex="-1"></a>  AUC_calc <span class="ot">&lt;-</span> <span class="cf">function</span>(df) {</span>
+<span id="cb78-21"><a href="source-code.html#cb78-21" tabindex="-1"></a>    <span class="co"># extract actual data</span></span>
+<span id="cb78-22"><a href="source-code.html#cb78-22" tabindex="-1"></a>    rel_mean <span class="ot">&lt;-</span> df<span class="sc">$</span>relative_mean</span>
+<span id="cb78-23"><a href="source-code.html#cb78-23" tabindex="-1"></a>    </span>
+<span id="cb78-24"><a href="source-code.html#cb78-24" tabindex="-1"></a>    <span class="co"># extracts number of experiemnts </span></span>
+<span id="cb78-25"><a href="source-code.html#cb78-25" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">unique</span>(d<span class="sc">$</span>Exp))</span>
+<span id="cb78-26"><a href="source-code.html#cb78-26" tabindex="-1"></a>    <span class="co">#remove 2th and 3th number (are duplicates)</span></span>
+<span id="cb78-27"><a href="source-code.html#cb78-27" tabindex="-1"></a>    rel_mean <span class="ot">&lt;-</span> rel_mean[<span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">length</span>(rel_mean), n)]</span>
+<span id="cb78-28"><a href="source-code.html#cb78-28" tabindex="-1"></a>    </span>
+<span id="cb78-29"><a href="source-code.html#cb78-29" tabindex="-1"></a>    <span class="co"># compute maximal </span></span>
+<span id="cb78-30"><a href="source-code.html#cb78-30" tabindex="-1"></a>    max_AUC <span class="ot">&lt;-</span> <span class="fu">max</span>(dose_vector)<span class="sc">*</span><span class="dv">1</span></span>
+<span id="cb78-31"><a href="source-code.html#cb78-31" tabindex="-1"></a>    </span>
+<span id="cb78-32"><a href="source-code.html#cb78-32" tabindex="-1"></a>    <span class="co">#compute AUC</span></span>
+<span id="cb78-33"><a href="source-code.html#cb78-33" tabindex="-1"></a>    act_AUC <span class="ot">&lt;-</span> <span class="fu">AUC</span>(<span class="at">x=</span>dose_vector, <span class="at">y =</span> rel_mean)</span>
+<span id="cb78-34"><a href="source-code.html#cb78-34" tabindex="-1"></a>    </span>
+<span id="cb78-35"><a href="source-code.html#cb78-35" tabindex="-1"></a>    <span class="co"># make dataframe</span></span>
+<span id="cb78-36"><a href="source-code.html#cb78-36" tabindex="-1"></a>    datafr <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">max_AUC =</span> max_AUC,</span>
+<span id="cb78-37"><a href="source-code.html#cb78-37" tabindex="-1"></a>                         <span class="at">act_AUC =</span> act_AUC, </span>
+<span id="cb78-38"><a href="source-code.html#cb78-38" tabindex="-1"></a>                         <span class="at">rel_AUC =</span> act_AUC<span class="sc">/</span>max_AUC,</span>
+<span id="cb78-39"><a href="source-code.html#cb78-39" tabindex="-1"></a>                         <span class="at">expcode =</span> <span class="fu">unique</span>(df<span class="sc">$</span>expcode),</span>
+<span id="cb78-40"><a href="source-code.html#cb78-40" tabindex="-1"></a>                         <span class="at">cline=</span> <span class="fu">unique</span>(df<span class="sc">$</span>cline),</span>
+<span id="cb78-41"><a href="source-code.html#cb78-41" tabindex="-1"></a>                         <span class="at">treatment =</span> <span class="fu">unique</span>(df<span class="sc">$</span>treatment ) )</span>
+<span id="cb78-42"><a href="source-code.html#cb78-42" tabindex="-1"></a>    </span>
+<span id="cb78-43"><a href="source-code.html#cb78-43" tabindex="-1"></a>    </span>
+<span id="cb78-44"><a href="source-code.html#cb78-44" tabindex="-1"></a>    <span class="fu">return</span>(datafr)</span>
+<span id="cb78-45"><a href="source-code.html#cb78-45" tabindex="-1"></a>  }</span>
+<span id="cb78-46"><a href="source-code.html#cb78-46" tabindex="-1"></a>  </span>
+<span id="cb78-47"><a href="source-code.html#cb78-47" tabindex="-1"></a>  <span class="co"># Store in vector</span></span>
+<span id="cb78-48"><a href="source-code.html#cb78-48" tabindex="-1"></a>  AUC_vector <span class="ot">&lt;-</span> <span class="fu">lapply</span>(per_line, AUC_calc) </span>
+<span id="cb78-49"><a href="source-code.html#cb78-49" tabindex="-1"></a>  </span>
+<span id="cb78-50"><a href="source-code.html#cb78-50" tabindex="-1"></a>  <span class="co">#merge dataframes</span></span>
+<span id="cb78-51"><a href="source-code.html#cb78-51" tabindex="-1"></a>  df <span class="ot">=</span> <span class="fu">do.call</span>(rbind, AUC_vector)</span>
+<span id="cb78-52"><a href="source-code.html#cb78-52" tabindex="-1"></a>  </span>
+<span id="cb78-53"><a href="source-code.html#cb78-53" tabindex="-1"></a>  <span class="fu">return</span>(df) </span>
+<span id="cb78-54"><a href="source-code.html#cb78-54" tabindex="-1"></a>  </span>
+<span id="cb78-55"><a href="source-code.html#cb78-55" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="fitter_rad-script-fitter-function" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> fitter_rad script: ‘fitter’ function<a href="source-code.html#fitter_rad-script-fitter-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="source-code.html#cb79-1" tabindex="-1"></a>fitter <span class="ot">&lt;-</span> <span class="cf">function</span>(df) {</span>
+<span id="cb79-2"><a href="source-code.html#cb79-2" tabindex="-1"></a>  </span>
+<span id="cb79-3"><a href="source-code.html#cb79-3" tabindex="-1"></a>  <span class="co"># defining variables to work with</span></span>
+<span id="cb79-4"><a href="source-code.html#cb79-4" tabindex="-1"></a>  d <span class="ot">&lt;-</span> df</span>
+<span id="cb79-5"><a href="source-code.html#cb79-5" tabindex="-1"></a>  </span>
+<span id="cb79-6"><a href="source-code.html#cb79-6" tabindex="-1"></a>  </span>
+<span id="cb79-7"><a href="source-code.html#cb79-7" tabindex="-1"></a>  lines <span class="ot">&lt;-</span> <span class="fu">character</span>()</span>
+<span id="cb79-8"><a href="source-code.html#cb79-8" tabindex="-1"></a>  <span class="co"># for loop, checks if CF$cline is in vector lines, if so, do nothing, else append to vector. </span></span>
+<span id="cb79-9"><a href="source-code.html#cb79-9" tabindex="-1"></a>  <span class="cf">for</span> (line <span class="cf">in</span> d<span class="sc">$</span>cline) (</span>
+<span id="cb79-10"><a href="source-code.html#cb79-10" tabindex="-1"></a>    <span class="fu">ifelse</span>(line <span class="sc">%in%</span> lines, <span class="cn">NA</span>, lines <span class="ot">&lt;-</span> <span class="fu">c</span>(lines, line)))</span>
+<span id="cb79-11"><a href="source-code.html#cb79-11" tabindex="-1"></a>  </span>
+<span id="cb79-12"><a href="source-code.html#cb79-12" tabindex="-1"></a>  <span class="co"># separate into dataframes according to cline</span></span>
+<span id="cb79-13"><a href="source-code.html#cb79-13" tabindex="-1"></a>  per_line <span class="ot">&lt;-</span> <span class="fu">split</span>(d, <span class="at">f =</span> d<span class="sc">$</span>cline, <span class="at">drop =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb79-14"><a href="source-code.html#cb79-14" tabindex="-1"></a>  </span>
+<span id="cb79-15"><a href="source-code.html#cb79-15" tabindex="-1"></a>  </span>
+<span id="cb79-16"><a href="source-code.html#cb79-16" tabindex="-1"></a>  <span class="co"># Function to make model for every line and dataframe with predicted data for each line. </span></span>
+<span id="cb79-17"><a href="source-code.html#cb79-17" tabindex="-1"></a>  fit_model<span class="ot">=</span> <span class="cf">function</span>(line) {</span>
+<span id="cb79-18"><a href="source-code.html#cb79-18" tabindex="-1"></a>    <span class="co"># line is a dataframe. Outputs the fits of norm and dose</span></span>
+<span id="cb79-19"><a href="source-code.html#cb79-19" tabindex="-1"></a>    fit <span class="ot">&lt;-</span> <span class="fu">drm</span>(relative <span class="sc">~</span> dose, <span class="co"># define y -axis (ncolonies) and x-axis (dose)</span></span>
+<span id="cb79-20"><a href="source-code.html#cb79-20" tabindex="-1"></a>               <span class="at">data =</span> line, <span class="co"># defines dataframe</span></span>
+<span id="cb79-21"><a href="source-code.html#cb79-21" tabindex="-1"></a>               <span class="at">fct =</span> <span class="fu">LL.4</span> (<span class="at">names =</span> <span class="fu">c</span>(<span class="st">&#39;Slope&#39;</span>, <span class="st">&quot;Lower Limit&quot;</span>, <span class="st">&quot;Upper Limit&quot;</span>, <span class="st">&quot;IC50&quot;</span>))) <span class="co"># defines to fit a log-losistic model)</span></span>
+<span id="cb79-22"><a href="source-code.html#cb79-22" tabindex="-1"></a>    </span>
+<span id="cb79-23"><a href="source-code.html#cb79-23" tabindex="-1"></a>    newdata <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">dose=</span><span class="fu">exp</span>(<span class="fu">seq</span>(<span class="fu">log</span>(<span class="fl">0.00000001</span>), <span class="fu">log</span>(<span class="fu">max</span>(df<span class="sc">$</span>dose) <span class="sc">+</span> <span class="dv">1000</span>), <span class="at">length=</span><span class="dv">1000</span>))) <span class="co"># new data with doses. Note: lowest dose is not</span></span>
+<span id="cb79-24"><a href="source-code.html#cb79-24" tabindex="-1"></a>    <span class="co"># log 0 but log(&#39;very small number&#39;) because otherwise this will hamper the scaling in ggplot later on. </span></span>
+<span id="cb79-25"><a href="source-code.html#cb79-25" tabindex="-1"></a>    pm <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata=</span>newdata, <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>) <span class="co"># new data with predictions and confidence intervals</span></span>
+<span id="cb79-26"><a href="source-code.html#cb79-26" tabindex="-1"></a>    newdata<span class="sc">$</span>pred <span class="ot">&lt;-</span> pm[,<span class="dv">1</span>] <span class="co"># add prediction values to new data.</span></span>
+<span id="cb79-27"><a href="source-code.html#cb79-27" tabindex="-1"></a>    newdata<span class="sc">$</span>predmin <span class="ot">&lt;-</span> pm[,<span class="dv">2</span>] <span class="co"># add lower bounderies to new data </span></span>
+<span id="cb79-28"><a href="source-code.html#cb79-28" tabindex="-1"></a>    newdata<span class="sc">$</span>predmax <span class="ot">&lt;-</span> pm[,<span class="dv">3</span>] <span class="co"># add upper bounderies to new data </span></span>
+<span id="cb79-29"><a href="source-code.html#cb79-29" tabindex="-1"></a>    newdata<span class="sc">$</span>cline <span class="ot">&lt;-</span> line<span class="sc">$</span>cline[<span class="dv">1</span>] <span class="co"># add column with cline.</span></span>
+<span id="cb79-30"><a href="source-code.html#cb79-30" tabindex="-1"></a>    newdata<span class="sc">$</span>expcode <span class="ot">=</span> <span class="fu">unique</span>(df<span class="sc">$</span>expcode)</span>
+<span id="cb79-31"><a href="source-code.html#cb79-31" tabindex="-1"></a>    <span class="fu">return</span>(newdata)</span>
+<span id="cb79-32"><a href="source-code.html#cb79-32" tabindex="-1"></a>  }</span>
+<span id="cb79-33"><a href="source-code.html#cb79-33" tabindex="-1"></a>  </span>
+<span id="cb79-34"><a href="source-code.html#cb79-34" tabindex="-1"></a>  <span class="co"># Store in vector</span></span>
+<span id="cb79-35"><a href="source-code.html#cb79-35" tabindex="-1"></a>  data_frames <span class="ot">&lt;-</span> <span class="fu">lapply</span>(per_line, fit_model) </span>
+<span id="cb79-36"><a href="source-code.html#cb79-36" tabindex="-1"></a>  </span>
+<span id="cb79-37"><a href="source-code.html#cb79-37" tabindex="-1"></a>  </span>
+<span id="cb79-38"><a href="source-code.html#cb79-38" tabindex="-1"></a>  <span class="co">#merge dataframes</span></span>
+<span id="cb79-39"><a href="source-code.html#cb79-39" tabindex="-1"></a>  df <span class="ot">=</span> <span class="fu">do.call</span>(rbind, data_frames)</span>
+<span id="cb79-40"><a href="source-code.html#cb79-40" tabindex="-1"></a>  </span>
+<span id="cb79-41"><a href="source-code.html#cb79-41" tabindex="-1"></a>  <span class="fu">return</span>(df) </span>
+<span id="cb79-42"><a href="source-code.html#cb79-42" tabindex="-1"></a>  </span>
+<span id="cb79-43"><a href="source-code.html#cb79-43" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="ic50_rad-script-ic50_fun-function" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> ic50_rad script: ‘IC50_fun’ function<a href="source-code.html#ic50_rad-script-ic50_fun-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="source-code.html#cb80-1" tabindex="-1"></a>IC50_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(df, rad) {</span>
+<span id="cb80-2"><a href="source-code.html#cb80-2" tabindex="-1"></a>  </span>
+<span id="cb80-3"><a href="source-code.html#cb80-3" tabindex="-1"></a>  <span class="co"># defining variables to work with</span></span>
+<span id="cb80-4"><a href="source-code.html#cb80-4" tabindex="-1"></a>  <span class="fu">ifelse</span>(<span class="fu">is.null</span>(rad), d<span class="ot">&lt;-</span>df, d <span class="ot">&lt;-</span> <span class="fu">subset</span>(df, rec_rad <span class="sc">==</span> rad))</span>
+<span id="cb80-5"><a href="source-code.html#cb80-5" tabindex="-1"></a>  </span>
+<span id="cb80-6"><a href="source-code.html#cb80-6" tabindex="-1"></a>  lines <span class="ot">&lt;-</span> <span class="fu">character</span>()</span>
+<span id="cb80-7"><a href="source-code.html#cb80-7" tabindex="-1"></a>  <span class="co"># for loop, checks if CF$cline is in vector lines, if so, do nothing, else append to vector. </span></span>
+<span id="cb80-8"><a href="source-code.html#cb80-8" tabindex="-1"></a>  <span class="cf">for</span> (line <span class="cf">in</span> d<span class="sc">$</span>cline) (</span>
+<span id="cb80-9"><a href="source-code.html#cb80-9" tabindex="-1"></a>    <span class="fu">ifelse</span>(line <span class="sc">%in%</span> lines, <span class="cn">NA</span>, lines <span class="ot">&lt;-</span> <span class="fu">c</span>(lines, line)))</span>
+<span id="cb80-10"><a href="source-code.html#cb80-10" tabindex="-1"></a>  </span>
+<span id="cb80-11"><a href="source-code.html#cb80-11" tabindex="-1"></a>  <span class="co"># separate into dataframes according to cline</span></span>
+<span id="cb80-12"><a href="source-code.html#cb80-12" tabindex="-1"></a>  per_line <span class="ot">&lt;-</span> <span class="fu">split</span>(d, <span class="at">f =</span> d<span class="sc">$</span>cline, <span class="at">drop =</span><span class="cn">TRUE</span>)</span>
+<span id="cb80-13"><a href="source-code.html#cb80-13" tabindex="-1"></a>  </span>
+<span id="cb80-14"><a href="source-code.html#cb80-14" tabindex="-1"></a>  </span>
+<span id="cb80-15"><a href="source-code.html#cb80-15" tabindex="-1"></a>  <span class="co"># Function to make model for every line and dataframe with predicted data for each line. </span></span>
+<span id="cb80-16"><a href="source-code.html#cb80-16" tabindex="-1"></a>  ic50<span class="ot">=</span> <span class="cf">function</span>(line) {</span>
+<span id="cb80-17"><a href="source-code.html#cb80-17" tabindex="-1"></a>    <span class="co"># line is a dataframe. Outputs the fits of norm and dose</span></span>
+<span id="cb80-18"><a href="source-code.html#cb80-18" tabindex="-1"></a>    fit <span class="ot">&lt;-</span> <span class="fu">drm</span>(relative <span class="sc">~</span> dose, <span class="co"># define y -axis (ncolonies) and x-axis (dose)</span></span>
+<span id="cb80-19"><a href="source-code.html#cb80-19" tabindex="-1"></a>               <span class="at">data =</span> line, <span class="co"># defines dataframe</span></span>
+<span id="cb80-20"><a href="source-code.html#cb80-20" tabindex="-1"></a>               <span class="at">fct =</span> <span class="fu">LL.4</span> (<span class="at">names =</span> <span class="fu">c</span>(<span class="st">&#39;Slope&#39;</span>, <span class="st">&quot;Lower Limit&quot;</span>, <span class="st">&quot;Upper Limit&quot;</span>, <span class="st">&quot;IC50&quot;</span>))) <span class="co"># defines to fit a log-losistic model)</span></span>
+<span id="cb80-21"><a href="source-code.html#cb80-21" tabindex="-1"></a>    </span>
+<span id="cb80-22"><a href="source-code.html#cb80-22" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">coef</span>(fit)[<span class="dv">4</span>])</span>
+<span id="cb80-23"><a href="source-code.html#cb80-23" tabindex="-1"></a>  }</span>
+<span id="cb80-24"><a href="source-code.html#cb80-24" tabindex="-1"></a>  </span>
+<span id="cb80-25"><a href="source-code.html#cb80-25" tabindex="-1"></a>  <span class="co"># Store in vector</span></span>
+<span id="cb80-26"><a href="source-code.html#cb80-26" tabindex="-1"></a>  IC50_vector <span class="ot">&lt;-</span> <span class="fu">lapply</span>(per_line, ic50) </span>
+<span id="cb80-27"><a href="source-code.html#cb80-27" tabindex="-1"></a>  </span>
+<span id="cb80-28"><a href="source-code.html#cb80-28" tabindex="-1"></a>  <span class="co">#merge dataframes</span></span>
+<span id="cb80-29"><a href="source-code.html#cb80-29" tabindex="-1"></a>  df <span class="ot">=</span> <span class="fu">do.call</span>(rbind, IC50_vector)</span>
+<span id="cb80-30"><a href="source-code.html#cb80-30" tabindex="-1"></a>  </span>
+<span id="cb80-31"><a href="source-code.html#cb80-31" tabindex="-1"></a>  <span class="fu">return</span>(df) </span>
+<span id="cb80-32"><a href="source-code.html#cb80-32" tabindex="-1"></a>  </span>
+<span id="cb80-33"><a href="source-code.html#cb80-33" tabindex="-1"></a>} </span></code></pre></div>
+</div>
+<div id="relativize_dr-script-relative-function" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> relativize_dr script: ‘relative’ function<a href="source-code.html#relativize_dr-script-relative-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="source-code.html#cb81-1" tabindex="-1"></a>relative <span class="ot">&lt;-</span> <span class="cf">function</span>(df, rad) {</span>
+<span id="cb81-2"><a href="source-code.html#cb81-2" tabindex="-1"></a>  <span class="co">#&#39; @param df with dose response data and columns cline, dose, Exp, </span></span>
+<span id="cb81-3"><a href="source-code.html#cb81-3" tabindex="-1"></a>  <span class="co">#&#39; rec_rad, expcode, ncolonies</span></span>
+<span id="cb81-4"><a href="source-code.html#cb81-4" tabindex="-1"></a>  <span class="co">#&#39; @param rad if line received radiation (T or F), stored in column rec_rad</span></span>
+<span id="cb81-5"><a href="source-code.html#cb81-5" tabindex="-1"></a>  <span class="co">#&#39; @return relativized data where dose = 0 is used as 100%</span></span>
+<span id="cb81-6"><a href="source-code.html#cb81-6" tabindex="-1"></a>  </span>
+<span id="cb81-7"><a href="source-code.html#cb81-7" tabindex="-1"></a>  <span class="co"># defining variables to work with</span></span>
+<span id="cb81-8"><a href="source-code.html#cb81-8" tabindex="-1"></a>  <span class="fu">ifelse</span>(rad <span class="sc">==</span> T, d<span class="ot">&lt;-</span><span class="fu">subset</span>(df, rec_rad <span class="sc">==</span> <span class="dv">1</span>), d<span class="ot">&lt;-</span><span class="fu">subset</span>(df, rec_rad <span class="sc">==</span> <span class="dv">0</span>) )</span>
+<span id="cb81-9"><a href="source-code.html#cb81-9" tabindex="-1"></a>  </span>
+<span id="cb81-10"><a href="source-code.html#cb81-10" tabindex="-1"></a>  <span class="co"># define ncolonies</span></span>
+<span id="cb81-11"><a href="source-code.html#cb81-11" tabindex="-1"></a>  column <span class="ot">&lt;-</span> <span class="st">&quot;ncolonies&quot;</span></span>
+<span id="cb81-12"><a href="source-code.html#cb81-12" tabindex="-1"></a>  </span>
+<span id="cb81-13"><a href="source-code.html#cb81-13" tabindex="-1"></a>  <span class="co"># Extracts the column name.</span></span>
+<span id="cb81-14"><a href="source-code.html#cb81-14" tabindex="-1"></a>  col <span class="ot">&lt;-</span> d[<span class="fu">c</span>(column)]</span>
+<span id="cb81-15"><a href="source-code.html#cb81-15" tabindex="-1"></a>  </span>
+<span id="cb81-16"><a href="source-code.html#cb81-16" tabindex="-1"></a>  <span class="co"># extracts number of experiemnts </span></span>
+<span id="cb81-17"><a href="source-code.html#cb81-17" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">unique</span>(d<span class="sc">$</span>Exp))</span>
+<span id="cb81-18"><a href="source-code.html#cb81-18" tabindex="-1"></a>  </span>
+<span id="cb81-19"><a href="source-code.html#cb81-19" tabindex="-1"></a>  <span class="co"># Takes mean every nth row</span></span>
+<span id="cb81-20"><a href="source-code.html#cb81-20" tabindex="-1"></a>  </span>
+<span id="cb81-21"><a href="source-code.html#cb81-21" tabindex="-1"></a>  mean_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb81-22"><a href="source-code.html#cb81-22" tabindex="-1"></a>    m <span class="ot">&lt;-</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb81-23"><a href="source-code.html#cb81-23" tabindex="-1"></a>    <span class="fu">return</span>(m)</span>
+<span id="cb81-24"><a href="source-code.html#cb81-24" tabindex="-1"></a>  }</span>
+<span id="cb81-25"><a href="source-code.html#cb81-25" tabindex="-1"></a>  </span>
+<span id="cb81-26"><a href="source-code.html#cb81-26" tabindex="-1"></a>  mean <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(col,<span class="fu">list</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>(<span class="fu">nrow</span>(col)<span class="sc">%/%</span>n<span class="sc">+</span><span class="dv">1</span>),<span class="at">each=</span>n,<span class="at">len=</span><span class="fu">nrow</span>(col))), mean_fun)[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb81-27"><a href="source-code.html#cb81-27" tabindex="-1"></a>  <span class="co"># Duplicates (n=2) or triplicates (n=3) the rows.</span></span>
+<span id="cb81-28"><a href="source-code.html#cb81-28" tabindex="-1"></a>  mean <span class="ot">&lt;-</span> mean[<span class="fu">rep</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(mean)), <span class="at">each =</span> n), ]</span>
+<span id="cb81-29"><a href="source-code.html#cb81-29" tabindex="-1"></a>  <span class="co"># Adds everything to the dataframe. </span></span>
+<span id="cb81-30"><a href="source-code.html#cb81-30" tabindex="-1"></a>  d[<span class="st">&quot;mean&quot;</span>] <span class="ot">&lt;-</span> mean</span>
+<span id="cb81-31"><a href="source-code.html#cb81-31" tabindex="-1"></a>  </span>
+<span id="cb81-32"><a href="source-code.html#cb81-32" tabindex="-1"></a>  <span class="co"># Select mean values of 0 concentration</span></span>
+<span id="cb81-33"><a href="source-code.html#cb81-33" tabindex="-1"></a>  d <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span></span>
+<span id="cb81-34"><a href="source-code.html#cb81-34" tabindex="-1"></a>    <span class="fu">group_by</span>(cline) <span class="sc">%&gt;%</span></span>
+<span id="cb81-35"><a href="source-code.html#cb81-35" tabindex="-1"></a>    <span class="fu">arrange</span>(cline,dose)</span>
+<span id="cb81-36"><a href="source-code.html#cb81-36" tabindex="-1"></a>  </span>
+<span id="cb81-37"><a href="source-code.html#cb81-37" tabindex="-1"></a>  first <span class="ot">&lt;-</span> d[d<span class="sc">$</span>dose<span class="sc">==</span><span class="dv">0</span>, ] <span class="sc">%&gt;%</span></span>
+<span id="cb81-38"><a href="source-code.html#cb81-38" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(cline, <span class="at">value100=</span>mean)</span>
+<span id="cb81-39"><a href="source-code.html#cb81-39" tabindex="-1"></a>  </span>
+<span id="cb81-40"><a href="source-code.html#cb81-40" tabindex="-1"></a>  <span class="co"># Make cline a factor</span></span>
+<span id="cb81-41"><a href="source-code.html#cb81-41" tabindex="-1"></a>  d<span class="sc">$</span>cline<span class="ot">&lt;-</span><span class="fu">factor</span>(d<span class="sc">$</span>cline)</span>
+<span id="cb81-42"><a href="source-code.html#cb81-42" tabindex="-1"></a>  </span>
+<span id="cb81-43"><a href="source-code.html#cb81-43" tabindex="-1"></a>  <span class="co"># Merge first original (d)</span></span>
+<span id="cb81-44"><a href="source-code.html#cb81-44" tabindex="-1"></a>  d <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span></span>
+<span id="cb81-45"><a href="source-code.html#cb81-45" tabindex="-1"></a>    <span class="fu">merge</span>(first,<span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;cline&quot;</span>))</span>
+<span id="cb81-46"><a href="source-code.html#cb81-46" tabindex="-1"></a>  </span>
+<span id="cb81-47"><a href="source-code.html#cb81-47" tabindex="-1"></a>  <span class="co"># Extract only every nth row.</span></span>
+<span id="cb81-48"><a href="source-code.html#cb81-48" tabindex="-1"></a>  d <span class="ot">=</span> d[<span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(d), n), ]</span>
+<span id="cb81-49"><a href="source-code.html#cb81-49" tabindex="-1"></a>  </span>
+<span id="cb81-50"><a href="source-code.html#cb81-50" tabindex="-1"></a>  <span class="co"># make new column with relative, called relative</span></span>
+<span id="cb81-51"><a href="source-code.html#cb81-51" tabindex="-1"></a>  d<span class="sc">$</span>relative <span class="ot">=</span> d<span class="sc">$</span>ncolonies<span class="sc">/</span>d<span class="sc">$</span>value100</span>
+<span id="cb81-52"><a href="source-code.html#cb81-52" tabindex="-1"></a>  d<span class="sc">$</span>relative_mean <span class="ot">=</span> d<span class="sc">$</span>mean<span class="sc">/</span>d<span class="sc">$</span>value100</span>
+<span id="cb81-53"><a href="source-code.html#cb81-53" tabindex="-1"></a>  </span>
+<span id="cb81-54"><a href="source-code.html#cb81-54" tabindex="-1"></a>  d<span class="ot">&lt;-</span><span class="fu">subset</span>(d, <span class="at">select=</span><span class="sc">-</span><span class="fu">c</span>(mean,value100))</span>
+<span id="cb81-55"><a href="source-code.html#cb81-55" tabindex="-1"></a>  </span>
+<span id="cb81-56"><a href="source-code.html#cb81-56" tabindex="-1"></a>  <span class="co"># compute relative standard error of the mean</span></span>
+<span id="cb81-57"><a href="source-code.html#cb81-57" tabindex="-1"></a>  <span class="co"># define the column with sem in it</span></span>
+<span id="cb81-58"><a href="source-code.html#cb81-58" tabindex="-1"></a>  column <span class="ot">&lt;-</span> <span class="st">&quot;relative&quot;</span></span>
+<span id="cb81-59"><a href="source-code.html#cb81-59" tabindex="-1"></a>  </span>
+<span id="cb81-60"><a href="source-code.html#cb81-60" tabindex="-1"></a>  <span class="co"># Extracts the column name.</span></span>
+<span id="cb81-61"><a href="source-code.html#cb81-61" tabindex="-1"></a>  col <span class="ot">&lt;-</span> d[<span class="fu">c</span>(column)]</span>
+<span id="cb81-62"><a href="source-code.html#cb81-62" tabindex="-1"></a>  </span>
+<span id="cb81-63"><a href="source-code.html#cb81-63" tabindex="-1"></a>  </span>
+<span id="cb81-64"><a href="source-code.html#cb81-64" tabindex="-1"></a>  sem_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb81-65"><a href="source-code.html#cb81-65" tabindex="-1"></a>    std <span class="ot">&lt;-</span> <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb81-66"><a href="source-code.html#cb81-66" tabindex="-1"></a>    vector <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(x)</span>
+<span id="cb81-67"><a href="source-code.html#cb81-67" tabindex="-1"></a>    </span>
+<span id="cb81-68"><a href="source-code.html#cb81-68" tabindex="-1"></a>    sem <span class="ot">&lt;-</span> std<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">length</span>(vector))</span>
+<span id="cb81-69"><a href="source-code.html#cb81-69" tabindex="-1"></a>    <span class="fu">return</span>(sem)</span>
+<span id="cb81-70"><a href="source-code.html#cb81-70" tabindex="-1"></a>  }</span>
+<span id="cb81-71"><a href="source-code.html#cb81-71" tabindex="-1"></a>  </span>
+<span id="cb81-72"><a href="source-code.html#cb81-72" tabindex="-1"></a>  sem <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(col,<span class="fu">list</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>(<span class="fu">nrow</span>(col)<span class="sc">%/%</span>n<span class="sc">+</span><span class="dv">1</span>),<span class="at">each=</span>n,<span class="at">len=</span><span class="fu">nrow</span>(col))),sem_fun)[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb81-73"><a href="source-code.html#cb81-73" tabindex="-1"></a>  sem <span class="ot">&lt;-</span> sem[<span class="fu">rep</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(sem)), <span class="at">each =</span> n), ]</span>
+<span id="cb81-74"><a href="source-code.html#cb81-74" tabindex="-1"></a>  d[<span class="st">&quot;relative_sem&quot;</span>] <span class="ot">&lt;-</span> sem</span>
+<span id="cb81-75"><a href="source-code.html#cb81-75" tabindex="-1"></a>  </span>
+<span id="cb81-76"><a href="source-code.html#cb81-76" tabindex="-1"></a>  <span class="fu">return</span>(d)</span>
+<span id="cb81-77"><a href="source-code.html#cb81-77" tabindex="-1"></a>  </span>
+<span id="cb81-78"><a href="source-code.html#cb81-78" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="quality_functions-script-quality_check-quality_select-and-check_quality-functions" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> quality_functions script: ‘quality_check’, ‘quality_select’ and ‘check_quality’ functions<a href="source-code.html#quality_functions-script-quality_check-quality_select-and-check_quality-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="source-code.html#cb82-1" tabindex="-1"></a>quality_check <span class="ot">&lt;-</span> <span class="cf">function</span>(inputdir, model) {</span>
+<span id="cb82-2"><a href="source-code.html#cb82-2" tabindex="-1"></a>  <span class="co">#&#39; @param inputdir is directory containing the standard aneufinder output for each plate</span></span>
+<span id="cb82-3"><a href="source-code.html#cb82-3" tabindex="-1"></a>  <span class="co">#&#39; model is which model to use for the quality check: either dnacopy, edivisive or HMM</span></span>
+<span id="cb82-4"><a href="source-code.html#cb82-4" tabindex="-1"></a>  <span class="co">#&#39; quality_check will make quality metrics for each plate</span></span>
+<span id="cb82-5"><a href="source-code.html#cb82-5" tabindex="-1"></a>  <span class="co">#&#39; quality_check assumes that rdaBaseDirectory contains folder with models for each plate</span></span>
+<span id="cb82-6"><a href="source-code.html#cb82-6" tabindex="-1"></a>  <span class="co">#&#39; each plate folder has to contain a MODEL folder and a method-&#39;dnacopy, edivisive, or HMM&#39; folder</span></span>
+<span id="cb82-7"><a href="source-code.html#cb82-7" tabindex="-1"></a>  <span class="co">#&#39; @example quality_check(inputdir = rdaBaseDirectory, model = &#39;edivisive&#39;)</span></span>
+<span id="cb82-8"><a href="source-code.html#cb82-8" tabindex="-1"></a>  </span>
+<span id="cb82-9"><a href="source-code.html#cb82-9" tabindex="-1"></a>  <span class="co"># go to folder with appropiate files</span></span>
+<span id="cb82-10"><a href="source-code.html#cb82-10" tabindex="-1"></a>  rda_folder <span class="ot">&lt;-</span> <span class="fu">paste0</span>(inputdir, <span class="st">&#39;/MODELS&#39;</span>, <span class="st">&#39;/method-&#39;</span>, model)</span>
+<span id="cb82-11"><a href="source-code.html#cb82-11" tabindex="-1"></a>  </span>
+<span id="cb82-12"><a href="source-code.html#cb82-12" tabindex="-1"></a>  <span class="co"># extract files</span></span>
+<span id="cb82-13"><a href="source-code.html#cb82-13" tabindex="-1"></a>  rda_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(rda_folder, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb82-14"><a href="source-code.html#cb82-14" tabindex="-1"></a>  </span>
+<span id="cb82-15"><a href="source-code.html#cb82-15" tabindex="-1"></a>  <span class="co"># run quality check on each file</span></span>
+<span id="cb82-16"><a href="source-code.html#cb82-16" tabindex="-1"></a>  cl <span class="ot">&lt;-</span></span>
+<span id="cb82-17"><a href="source-code.html#cb82-17" tabindex="-1"></a>    <span class="fu">clusterByQuality</span>(</span>
+<span id="cb82-18"><a href="source-code.html#cb82-18" tabindex="-1"></a>      rda_files,</span>
+<span id="cb82-19"><a href="source-code.html#cb82-19" tabindex="-1"></a>      <span class="at">measures =</span> <span class="fu">c</span>(</span>
+<span id="cb82-20"><a href="source-code.html#cb82-20" tabindex="-1"></a>        <span class="st">&#39;spikiness&#39;</span>,</span>
+<span id="cb82-21"><a href="source-code.html#cb82-21" tabindex="-1"></a>        <span class="st">&#39;num.segments&#39;</span>,</span>
+<span id="cb82-22"><a href="source-code.html#cb82-22" tabindex="-1"></a>        <span class="st">&#39;entropy&#39;</span>,</span>
+<span id="cb82-23"><a href="source-code.html#cb82-23" tabindex="-1"></a>        <span class="st">&#39;bhattacharyya&#39;</span>,</span>
+<span id="cb82-24"><a href="source-code.html#cb82-24" tabindex="-1"></a>        <span class="st">&#39;sos&#39;</span></span>
+<span id="cb82-25"><a href="source-code.html#cb82-25" tabindex="-1"></a>      )</span>
+<span id="cb82-26"><a href="source-code.html#cb82-26" tabindex="-1"></a>    )</span>
+<span id="cb82-27"><a href="source-code.html#cb82-27" tabindex="-1"></a>  </span>
+<span id="cb82-28"><a href="source-code.html#cb82-28" tabindex="-1"></a>  <span class="fu">return</span>(cl)</span>
+<span id="cb82-29"><a href="source-code.html#cb82-29" tabindex="-1"></a>  </span>
+<span id="cb82-30"><a href="source-code.html#cb82-30" tabindex="-1"></a>}</span>
+<span id="cb82-31"><a href="source-code.html#cb82-31" tabindex="-1"></a></span>
+<span id="cb82-32"><a href="source-code.html#cb82-32" tabindex="-1"></a>quality_select <span class="ot">&lt;-</span> <span class="cf">function</span>(cl, spik, bhat) {</span>
+<span id="cb82-33"><a href="source-code.html#cb82-33" tabindex="-1"></a>  <span class="co">#&#39; selects all files that meets the defined quality requirements</span></span>
+<span id="cb82-34"><a href="source-code.html#cb82-34" tabindex="-1"></a>  <span class="co">#&#39; @param cl output of the clusterByQuality function in AneuFinder</span></span>
+<span id="cb82-35"><a href="source-code.html#cb82-35" tabindex="-1"></a>  <span class="co">#&#39; @param spik the spikiness treshhold. All clusters with spikiness above</span></span>
+<span id="cb82-36"><a href="source-code.html#cb82-36" tabindex="-1"></a>  <span class="co">#&#39; the treshold will be removed</span></span>
+<span id="cb82-37"><a href="source-code.html#cb82-37" tabindex="-1"></a>  <span class="co">#&#39; @param bhat the bhattacharrya score. All clusters with bhattacharrya below</span></span>
+<span id="cb82-38"><a href="source-code.html#cb82-38" tabindex="-1"></a>  <span class="co">#&#39; the treshold will be removed</span></span>
+<span id="cb82-39"><a href="source-code.html#cb82-39" tabindex="-1"></a>  <span class="co">#&#39; @return returns a vector of selected files paths</span></span>
+<span id="cb82-40"><a href="source-code.html#cb82-40" tabindex="-1"></a>  </span>
+<span id="cb82-41"><a href="source-code.html#cb82-41" tabindex="-1"></a>  <span class="co"># convert to df to allow easy wrangling</span></span>
+<span id="cb82-42"><a href="source-code.html#cb82-42" tabindex="-1"></a>  cl_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(cl<span class="sc">$</span>parameters)</span>
+<span id="cb82-43"><a href="source-code.html#cb82-43" tabindex="-1"></a>  </span>
+<span id="cb82-44"><a href="source-code.html#cb82-44" tabindex="-1"></a>  <span class="co"># remove higher than spik</span></span>
+<span id="cb82-45"><a href="source-code.html#cb82-45" tabindex="-1"></a>  spik <span class="ot">&lt;-</span> <span class="fu">subset</span>(cl_df, spikiness <span class="sc">&lt;</span> spik)</span>
+<span id="cb82-46"><a href="source-code.html#cb82-46" tabindex="-1"></a>  </span>
+<span id="cb82-47"><a href="source-code.html#cb82-47" tabindex="-1"></a>  <span class="co"># remove lower than bhat</span></span>
+<span id="cb82-48"><a href="source-code.html#cb82-48" tabindex="-1"></a>  spik_bhat <span class="ot">&lt;-</span> <span class="fu">subset</span>(spik,  bhattacharyya <span class="sc">&gt;</span> bhat)</span>
+<span id="cb82-49"><a href="source-code.html#cb82-49" tabindex="-1"></a>  </span>
+<span id="cb82-50"><a href="source-code.html#cb82-50" tabindex="-1"></a>  cluster_n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(spik_bhat)</span>
+<span id="cb82-51"><a href="source-code.html#cb82-51" tabindex="-1"></a>  </span>
+<span id="cb82-52"><a href="source-code.html#cb82-52" tabindex="-1"></a>  <span class="co"># create vector of selected files</span></span>
+<span id="cb82-53"><a href="source-code.html#cb82-53" tabindex="-1"></a>  selected.files <span class="ot">&lt;-</span> <span class="fu">unlist</span>(cl<span class="sc">$</span>classification[<span class="dv">0</span><span class="sc">:</span>cluster_n])</span>
+<span id="cb82-54"><a href="source-code.html#cb82-54" tabindex="-1"></a>  </span>
+<span id="cb82-55"><a href="source-code.html#cb82-55" tabindex="-1"></a>  <span class="fu">return</span>(selected.files)</span>
+<span id="cb82-56"><a href="source-code.html#cb82-56" tabindex="-1"></a>  </span>
+<span id="cb82-57"><a href="source-code.html#cb82-57" tabindex="-1"></a>}</span>
+<span id="cb82-58"><a href="source-code.html#cb82-58" tabindex="-1"></a></span>
+<span id="cb82-59"><a href="source-code.html#cb82-59" tabindex="-1"></a>check_quality <span class="ot">&lt;-</span> <span class="cf">function</span>(cl) {</span>
+<span id="cb82-60"><a href="source-code.html#cb82-60" tabindex="-1"></a>  <span class="fu">return</span>(cl<span class="sc">$</span>parameters)</span>
+<span id="cb82-61"><a href="source-code.html#cb82-61" tabindex="-1"></a>}</span>
+<span id="cb82-62"><a href="source-code.html#cb82-62" tabindex="-1"></a>  </span>
+<span id="cb82-63"><a href="source-code.html#cb82-63" tabindex="-1"></a><span class="er">}</span></span></code></pre></div>
+</div>
+<div id="plot_pca_kmeans-script-draw_pca-k_cluster-draw_pca_double-and-k_cluster_double-functions" class="section level2 hasAnchor" number="6.6">
+<h2><span class="header-section-number">6.6</span> plot_pca_kmeans script: ‘draw_pca’, ‘k_cluster’, ‘draw_pca_double’ and ‘k_cluster_double’ functions<a href="source-code.html#plot_pca_kmeans-script-draw_pca-k_cluster-draw_pca_double-and-k_cluster_double-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="source-code.html#cb83-1" tabindex="-1"></a>draw_pca <span class="ot">&lt;-</span></span>
+<span id="cb83-2"><a href="source-code.html#cb83-2" tabindex="-1"></a>  <span class="cf">function</span>(list_files1,</span>
+<span id="cb83-3"><a href="source-code.html#cb83-3" tabindex="-1"></a>           list_files2,</span>
+<span id="cb83-4"><a href="source-code.html#cb83-4" tabindex="-1"></a>           size,</span>
+<span id="cb83-5"><a href="source-code.html#cb83-5" tabindex="-1"></a>           legend_position,</span>
+<span id="cb83-6"><a href="source-code.html#cb83-6" tabindex="-1"></a>           baseline_kra,</span>
+<span id="cb83-7"><a href="source-code.html#cb83-7" tabindex="-1"></a>           recurrence_kra,</span>
+<span id="cb83-8"><a href="source-code.html#cb83-8" tabindex="-1"></a>           <span class="at">ssdna004 =</span> F) {</span>
+<span id="cb83-9"><a href="source-code.html#cb83-9" tabindex="-1"></a>    cells <span class="ot">&lt;-</span> <span class="fu">c</span>(list_files1, list_files2)</span>
+<span id="cb83-10"><a href="source-code.html#cb83-10" tabindex="-1"></a>    </span>
+<span id="cb83-11"><a href="source-code.html#cb83-11" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">plot_pca</span>(</span>
+<span id="cb83-12"><a href="source-code.html#cb83-12" tabindex="-1"></a>      cells,</span>
+<span id="cb83-13"><a href="source-code.html#cb83-13" tabindex="-1"></a>      <span class="at">colorBy =</span> classes,</span>
+<span id="cb83-14"><a href="source-code.html#cb83-14" tabindex="-1"></a>      <span class="at">PC1 =</span> <span class="dv">1</span>,</span>
+<span id="cb83-15"><a href="source-code.html#cb83-15" tabindex="-1"></a>      <span class="at">PC2 =</span> <span class="dv">2</span>,</span>
+<span id="cb83-16"><a href="source-code.html#cb83-16" tabindex="-1"></a>      <span class="at">plot =</span> F</span>
+<span id="cb83-17"><a href="source-code.html#cb83-17" tabindex="-1"></a>    )</span>
+<span id="cb83-18"><a href="source-code.html#cb83-18" tabindex="-1"></a>    </span>
+<span id="cb83-19"><a href="source-code.html#cb83-19" tabindex="-1"></a>    df<span class="sc">$</span>class <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(<span class="fu">rownames</span>(df),  <span class="st">&#39;KRA-0</span><span class="sc">\\</span><span class="st">d+&#39;</span>)</span>
+<span id="cb83-20"><a href="source-code.html#cb83-20" tabindex="-1"></a>    num <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(<span class="fu">rownames</span>(df),  <span class="st">&#39;_</span><span class="sc">\\</span><span class="st">d+</span><span class="sc">\\</span><span class="st">.&#39;</span>)</span>
+<span id="cb83-21"><a href="source-code.html#cb83-21" tabindex="-1"></a>    num <span class="ot">&lt;-</span> <span class="fu">str_remove_all</span>(num, <span class="at">pattern =</span> <span class="st">&#39;</span><span class="sc">\\</span><span class="st">.&#39;</span>)</span>
+<span id="cb83-22"><a href="source-code.html#cb83-22" tabindex="-1"></a>    df<span class="sc">$</span>label <span class="ot">&lt;-</span> <span class="fu">paste0</span>(df<span class="sc">$</span>class, num)</span>
+<span id="cb83-23"><a href="source-code.html#cb83-23" tabindex="-1"></a>    pc1 <span class="ot">&lt;-</span> <span class="fu">colnames</span>(df)[<span class="dv">1</span>]</span>
+<span id="cb83-24"><a href="source-code.html#cb83-24" tabindex="-1"></a>    pc2 <span class="ot">&lt;-</span> <span class="fu">colnames</span>(df)[<span class="dv">2</span>]</span>
+<span id="cb83-25"><a href="source-code.html#cb83-25" tabindex="-1"></a>    </span>
+<span id="cb83-26"><a href="source-code.html#cb83-26" tabindex="-1"></a>    <span class="fu">colnames</span>(df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;PC1&#39;</span>, <span class="st">&#39;PC2&#39;</span>, <span class="st">&#39;class&#39;</span>, <span class="st">&#39;label&#39;</span>)</span>
+<span id="cb83-27"><a href="source-code.html#cb83-27" tabindex="-1"></a>    </span>
+<span id="cb83-28"><a href="source-code.html#cb83-28" tabindex="-1"></a>    col_vals <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(ssdna004 <span class="sc">==</span> T, <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;#D69C4E&quot;</span>, <span class="st">&quot;#999999&quot;</span>)), <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;#999999&quot;</span>, <span class="st">&quot;#D69C4E&quot;</span>)))</span>
+<span id="cb83-29"><a href="source-code.html#cb83-29" tabindex="-1"></a>    label_vals <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(ssdna004 <span class="sc">==</span> T, <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&#39;Recurrence&#39;</span>, <span class="st">&#39;Baseline&#39;</span>)), <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&#39;Baseline&#39;</span>, <span class="st">&#39;Recurrence&#39;</span>)))</span>
+<span id="cb83-30"><a href="source-code.html#cb83-30" tabindex="-1"></a>    </span>
+<span id="cb83-31"><a href="source-code.html#cb83-31" tabindex="-1"></a>    p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">label =</span> label)) <span class="sc">+</span></span>
+<span id="cb83-32"><a href="source-code.html#cb83-32" tabindex="-1"></a>      <span class="fu">geom_point</span>(<span class="at">size =</span> size, <span class="fu">aes</span>(<span class="at">x =</span> PC1,</span>
+<span id="cb83-33"><a href="source-code.html#cb83-33" tabindex="-1"></a>                                  <span class="at">y =</span> PC2,</span>
+<span id="cb83-34"><a href="source-code.html#cb83-34" tabindex="-1"></a>                                  <span class="at">col =</span> class)) <span class="sc">+</span></span>
+<span id="cb83-35"><a href="source-code.html#cb83-35" tabindex="-1"></a>      <span class="co"># scale_color_manual(values = c(&quot;#FFDB6D&quot;, &quot;#00AFBB&quot;)) +</span></span>
+<span id="cb83-36"><a href="source-code.html#cb83-36" tabindex="-1"></a>      <span class="fu">scale_color_manual</span>(</span>
+<span id="cb83-37"><a href="source-code.html#cb83-37" tabindex="-1"></a>        <span class="at">name =</span> <span class="st">&#39;&#39;</span>,</span>
+<span id="cb83-38"><a href="source-code.html#cb83-38" tabindex="-1"></a>        <span class="at">values =</span> col_vals[[<span class="dv">1</span>]],</span>
+<span id="cb83-39"><a href="source-code.html#cb83-39" tabindex="-1"></a>        <span class="at">labels =</span> label_vals[[<span class="dv">1</span>]]</span>
+<span id="cb83-40"><a href="source-code.html#cb83-40" tabindex="-1"></a>      ) <span class="sc">+</span></span>
+<span id="cb83-41"><a href="source-code.html#cb83-41" tabindex="-1"></a>      </span>
+<span id="cb83-42"><a href="source-code.html#cb83-42" tabindex="-1"></a>      <span class="co"># or consider &#39;#9e1303&#39; for second cycle of recurrence</span></span>
+<span id="cb83-43"><a href="source-code.html#cb83-43" tabindex="-1"></a>      </span>
+<span id="cb83-44"><a href="source-code.html#cb83-44" tabindex="-1"></a>      <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
+<span id="cb83-45"><a href="source-code.html#cb83-45" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">legend.position =</span> legend_position,</span>
+<span id="cb83-46"><a href="source-code.html#cb83-46" tabindex="-1"></a>            <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">17</span>),</span>
+<span id="cb83-47"><a href="source-code.html#cb83-47" tabindex="-1"></a>            <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>)) <span class="sc">+</span></span>
+<span id="cb83-48"><a href="source-code.html#cb83-48" tabindex="-1"></a>      </span>
+<span id="cb83-49"><a href="source-code.html#cb83-49" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x =</span> pc1, <span class="at">y =</span> pc2)</span>
+<span id="cb83-50"><a href="source-code.html#cb83-50" tabindex="-1"></a>    p</span>
+<span id="cb83-51"><a href="source-code.html#cb83-51" tabindex="-1"></a>    </span>
+<span id="cb83-52"><a href="source-code.html#cb83-52" tabindex="-1"></a>  </span>
+<span id="cb83-53"><a href="source-code.html#cb83-53" tabindex="-1"></a>    </span>
+<span id="cb83-54"><a href="source-code.html#cb83-54" tabindex="-1"></a>    <span class="co"># ggplotly(p)</span></span>
+<span id="cb83-55"><a href="source-code.html#cb83-55" tabindex="-1"></a>    </span>
+<span id="cb83-56"><a href="source-code.html#cb83-56" tabindex="-1"></a>  }</span>
+<span id="cb83-57"><a href="source-code.html#cb83-57" tabindex="-1"></a></span>
+<span id="cb83-58"><a href="source-code.html#cb83-58" tabindex="-1"></a></span>
+<span id="cb83-59"><a href="source-code.html#cb83-59" tabindex="-1"></a>k_cluster <span class="ot">&lt;-</span> <span class="cf">function</span>(list_files1,</span>
+<span id="cb83-60"><a href="source-code.html#cb83-60" tabindex="-1"></a>                      list_files2,</span>
+<span id="cb83-61"><a href="source-code.html#cb83-61" tabindex="-1"></a>                      cluster_n,</span>
+<span id="cb83-62"><a href="source-code.html#cb83-62" tabindex="-1"></a>                      cols,</span>
+<span id="cb83-63"><a href="source-code.html#cb83-63" tabindex="-1"></a>                      labels,</span>
+<span id="cb83-64"><a href="source-code.html#cb83-64" tabindex="-1"></a>                      legend_position,</span>
+<span id="cb83-65"><a href="source-code.html#cb83-65" tabindex="-1"></a>                      normalize,</span>
+<span id="cb83-66"><a href="source-code.html#cb83-66" tabindex="-1"></a>                      <span class="at">return_elbow =</span> F) {</span>
+<span id="cb83-67"><a href="source-code.html#cb83-67" tabindex="-1"></a>  </span>
+<span id="cb83-68"><a href="source-code.html#cb83-68" tabindex="-1"></a>  <span class="fu">require</span>(factoextra)</span>
+<span id="cb83-69"><a href="source-code.html#cb83-69" tabindex="-1"></a>  </span>
+<span id="cb83-70"><a href="source-code.html#cb83-70" tabindex="-1"></a>  cells <span class="ot">&lt;-</span> <span class="fu">c</span>(list_files1, list_files2)</span>
+<span id="cb83-71"><a href="source-code.html#cb83-71" tabindex="-1"></a>  </span>
+<span id="cb83-72"><a href="source-code.html#cb83-72" tabindex="-1"></a>  df12 <span class="ot">&lt;-</span> <span class="fu">plot_pca</span>(</span>
+<span id="cb83-73"><a href="source-code.html#cb83-73" tabindex="-1"></a>    cells,</span>
+<span id="cb83-74"><a href="source-code.html#cb83-74" tabindex="-1"></a>    <span class="at">colorBy =</span> classes,</span>
+<span id="cb83-75"><a href="source-code.html#cb83-75" tabindex="-1"></a>    <span class="at">PC1 =</span> <span class="dv">1</span>,</span>
+<span id="cb83-76"><a href="source-code.html#cb83-76" tabindex="-1"></a>    <span class="at">PC2 =</span> <span class="dv">2</span>,</span>
+<span id="cb83-77"><a href="source-code.html#cb83-77" tabindex="-1"></a>    <span class="at">plot =</span> F</span>
+<span id="cb83-78"><a href="source-code.html#cb83-78" tabindex="-1"></a>  )</span>
+<span id="cb83-79"><a href="source-code.html#cb83-79" tabindex="-1"></a></span>
+<span id="cb83-80"><a href="source-code.html#cb83-80" tabindex="-1"></a>  </span>
+<span id="cb83-81"><a href="source-code.html#cb83-81" tabindex="-1"></a>  df34 <span class="ot">&lt;-</span> <span class="fu">plot_pca</span>(</span>
+<span id="cb83-82"><a href="source-code.html#cb83-82" tabindex="-1"></a>    cells,</span>
+<span id="cb83-83"><a href="source-code.html#cb83-83" tabindex="-1"></a>    <span class="at">colorBy =</span> classes,</span>
+<span id="cb83-84"><a href="source-code.html#cb83-84" tabindex="-1"></a>    <span class="at">PC1 =</span> <span class="dv">3</span>,</span>
+<span id="cb83-85"><a href="source-code.html#cb83-85" tabindex="-1"></a>    <span class="at">PC2 =</span> <span class="dv">4</span>,</span>
+<span id="cb83-86"><a href="source-code.html#cb83-86" tabindex="-1"></a>    <span class="at">plot =</span> F</span>
+<span id="cb83-87"><a href="source-code.html#cb83-87" tabindex="-1"></a>  )</span>
+<span id="cb83-88"><a href="source-code.html#cb83-88" tabindex="-1"></a>  </span>
+<span id="cb83-89"><a href="source-code.html#cb83-89" tabindex="-1"></a>  df56 <span class="ot">&lt;-</span> <span class="fu">plot_pca</span>(</span>
+<span id="cb83-90"><a href="source-code.html#cb83-90" tabindex="-1"></a>    cells,</span>
+<span id="cb83-91"><a href="source-code.html#cb83-91" tabindex="-1"></a>    <span class="at">colorBy =</span> classes,</span>
+<span id="cb83-92"><a href="source-code.html#cb83-92" tabindex="-1"></a>    <span class="at">PC1 =</span> <span class="dv">5</span>,</span>
+<span id="cb83-93"><a href="source-code.html#cb83-93" tabindex="-1"></a>    <span class="at">PC2 =</span> <span class="dv">6</span>,</span>
+<span id="cb83-94"><a href="source-code.html#cb83-94" tabindex="-1"></a>    <span class="at">plot =</span> F</span>
+<span id="cb83-95"><a href="source-code.html#cb83-95" tabindex="-1"></a>  )</span>
+<span id="cb83-96"><a href="source-code.html#cb83-96" tabindex="-1"></a>  </span>
+<span id="cb83-97"><a href="source-code.html#cb83-97" tabindex="-1"></a>  df78 <span class="ot">&lt;-</span> <span class="fu">plot_pca</span>(</span>
+<span id="cb83-98"><a href="source-code.html#cb83-98" tabindex="-1"></a>    cells,</span>
+<span id="cb83-99"><a href="source-code.html#cb83-99" tabindex="-1"></a>    <span class="at">colorBy =</span> classes,</span>
+<span id="cb83-100"><a href="source-code.html#cb83-100" tabindex="-1"></a>    <span class="at">PC1 =</span> <span class="dv">7</span>,</span>
+<span id="cb83-101"><a href="source-code.html#cb83-101" tabindex="-1"></a>    <span class="at">PC2 =</span> <span class="dv">8</span>,</span>
+<span id="cb83-102"><a href="source-code.html#cb83-102" tabindex="-1"></a>    <span class="at">plot =</span> F</span>
+<span id="cb83-103"><a href="source-code.html#cb83-103" tabindex="-1"></a>  )</span>
+<span id="cb83-104"><a href="source-code.html#cb83-104" tabindex="-1"></a>  </span>
+<span id="cb83-105"><a href="source-code.html#cb83-105" tabindex="-1"></a>  df910 <span class="ot">&lt;-</span> <span class="fu">plot_pca</span>(</span>
+<span id="cb83-106"><a href="source-code.html#cb83-106" tabindex="-1"></a>    cells,</span>
+<span id="cb83-107"><a href="source-code.html#cb83-107" tabindex="-1"></a>    <span class="at">colorBy =</span> classes,</span>
+<span id="cb83-108"><a href="source-code.html#cb83-108" tabindex="-1"></a>    <span class="at">PC1 =</span> <span class="dv">9</span>,</span>
+<span id="cb83-109"><a href="source-code.html#cb83-109" tabindex="-1"></a>    <span class="at">PC2 =</span> <span class="dv">10</span>,</span>
+<span id="cb83-110"><a href="source-code.html#cb83-110" tabindex="-1"></a>    <span class="at">plot =</span> F</span>
+<span id="cb83-111"><a href="source-code.html#cb83-111" tabindex="-1"></a>  )</span>
+<span id="cb83-112"><a href="source-code.html#cb83-112" tabindex="-1"></a>  </span>
+<span id="cb83-113"><a href="source-code.html#cb83-113" tabindex="-1"></a>  </span>
+<span id="cb83-114"><a href="source-code.html#cb83-114" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">cbind</span>(df12, df34, df56, df78, df910)</span>
+<span id="cb83-115"><a href="source-code.html#cb83-115" tabindex="-1"></a>  </span>
+<span id="cb83-116"><a href="source-code.html#cb83-116" tabindex="-1"></a>  </span>
+<span id="cb83-117"><a href="source-code.html#cb83-117" tabindex="-1"></a>  <span class="cf">if</span> (normalize) {</span>
+<span id="cb83-118"><a href="source-code.html#cb83-118" tabindex="-1"></a>    <span class="co"># extract variance explained for each pca</span></span>
+<span id="cb83-119"><a href="source-code.html#cb83-119" tabindex="-1"></a>    pca_var <span class="ot">&lt;-</span></span>
+<span id="cb83-120"><a href="source-code.html#cb83-120" tabindex="-1"></a>      <span class="fu">as.numeric</span>(<span class="fu">str_match</span>(<span class="fu">colnames</span>(df), <span class="st">&quot;</span><span class="sc">\\</span><span class="st">(</span><span class="sc">\\</span><span class="st">s*(.*?)</span><span class="sc">\\</span><span class="st">s*%&quot;</span>)[, <span class="dv">2</span>])</span>
+<span id="cb83-121"><a href="source-code.html#cb83-121" tabindex="-1"></a>    </span>
+<span id="cb83-122"><a href="source-code.html#cb83-122" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(pca_var)) {</span>
+<span id="cb83-123"><a href="source-code.html#cb83-123" tabindex="-1"></a>      <span class="co"># calculate normalized pca values</span></span>
+<span id="cb83-124"><a href="source-code.html#cb83-124" tabindex="-1"></a>      norm_pca <span class="ot">&lt;-</span> df[, i] <span class="sc">/</span> <span class="dv">100</span> <span class="sc">*</span> pca_var[i]</span>
+<span id="cb83-125"><a href="source-code.html#cb83-125" tabindex="-1"></a>      <span class="co">#repopulate the dataframe</span></span>
+<span id="cb83-126"><a href="source-code.html#cb83-126" tabindex="-1"></a>      df[, i] <span class="ot">&lt;-</span> norm_pca</span>
+<span id="cb83-127"><a href="source-code.html#cb83-127" tabindex="-1"></a>    }</span>
+<span id="cb83-128"><a href="source-code.html#cb83-128" tabindex="-1"></a>    </span>
+<span id="cb83-129"><a href="source-code.html#cb83-129" tabindex="-1"></a>    </span>
+<span id="cb83-130"><a href="source-code.html#cb83-130" tabindex="-1"></a>    </span>
+<span id="cb83-131"><a href="source-code.html#cb83-131" tabindex="-1"></a>    </span>
+<span id="cb83-132"><a href="source-code.html#cb83-132" tabindex="-1"></a>    </span>
+<span id="cb83-133"><a href="source-code.html#cb83-133" tabindex="-1"></a>  }</span>
+<span id="cb83-134"><a href="source-code.html#cb83-134" tabindex="-1"></a>  </span>
+<span id="cb83-135"><a href="source-code.html#cb83-135" tabindex="-1"></a>  <span class="co">#check best k for k-means clustering method</span></span>
+<span id="cb83-136"><a href="source-code.html#cb83-136" tabindex="-1"></a>  <span class="cf">if</span> (return_elbow) {</span>
+<span id="cb83-137"><a href="source-code.html#cb83-137" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">fviz_nbclust</span>(df, kmeans, <span class="at">method =</span> <span class="st">&quot;silhouette&quot;</span>) <span class="sc">+</span></span>
+<span id="cb83-138"><a href="source-code.html#cb83-138" tabindex="-1"></a>             <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;Elbow method&quot;</span>))</span>
+<span id="cb83-139"><a href="source-code.html#cb83-139" tabindex="-1"></a>    </span>
+<span id="cb83-140"><a href="source-code.html#cb83-140" tabindex="-1"></a>  }</span>
+<span id="cb83-141"><a href="source-code.html#cb83-141" tabindex="-1"></a>  </span>
+<span id="cb83-142"><a href="source-code.html#cb83-142" tabindex="-1"></a>  <span class="co"># #</span></span>
+<span id="cb83-143"><a href="source-code.html#cb83-143" tabindex="-1"></a>  <span class="co"># fviz_nbclust(df, kmeans, method = &quot;silhouette&quot;)+</span></span>
+<span id="cb83-144"><a href="source-code.html#cb83-144" tabindex="-1"></a>  <span class="co">#   labs(subtitle = &quot;Silhouette method&quot;)</span></span>
+<span id="cb83-145"><a href="source-code.html#cb83-145" tabindex="-1"></a>  <span class="co">#</span></span>
+<span id="cb83-146"><a href="source-code.html#cb83-146" tabindex="-1"></a>  <span class="co"># fviz_nbclust(df, kmeans, nstart = 25,  method = &quot;gap_stat&quot;, nboot = 50)+</span></span>
+<span id="cb83-147"><a href="source-code.html#cb83-147" tabindex="-1"></a>  <span class="co">#   labs(subtitle = &quot;Gap statistic method&quot;)</span></span>
+<span id="cb83-148"><a href="source-code.html#cb83-148" tabindex="-1"></a>  </span>
+<span id="cb83-149"><a href="source-code.html#cb83-149" tabindex="-1"></a>  <span class="co"># compute k-means clustering</span></span>
+<span id="cb83-150"><a href="source-code.html#cb83-150" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb83-151"><a href="source-code.html#cb83-151" tabindex="-1"></a>  res.km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(df, cluster_n, <span class="at">nstart =</span> <span class="dv">1000</span>)</span>
+<span id="cb83-152"><a href="source-code.html#cb83-152" tabindex="-1"></a>  </span>
+<span id="cb83-153"><a href="source-code.html#cb83-153" tabindex="-1"></a>  <span class="co"># change colnames so it works for our plot</span></span>
+<span id="cb83-154"><a href="source-code.html#cb83-154" tabindex="-1"></a>  df12<span class="sc">$</span>class <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(<span class="fu">rownames</span>(df12),  <span class="st">&#39;KRA-0</span><span class="sc">\\</span><span class="st">d+&#39;</span>)</span>
+<span id="cb83-155"><a href="source-code.html#cb83-155" tabindex="-1"></a>  num <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(<span class="fu">rownames</span>(df),  <span class="st">&#39;_</span><span class="sc">\\</span><span class="st">d+</span><span class="sc">\\</span><span class="st">.&#39;</span>)</span>
+<span id="cb83-156"><a href="source-code.html#cb83-156" tabindex="-1"></a>  num <span class="ot">&lt;-</span> <span class="fu">str_remove_all</span>(num, <span class="at">pattern =</span> <span class="st">&#39;</span><span class="sc">\\</span><span class="st">.&#39;</span>)</span>
+<span id="cb83-157"><a href="source-code.html#cb83-157" tabindex="-1"></a>  df12<span class="sc">$</span>label <span class="ot">&lt;-</span> <span class="fu">paste0</span>(df12<span class="sc">$</span>class, num)</span>
+<span id="cb83-158"><a href="source-code.html#cb83-158" tabindex="-1"></a>  pc1 <span class="ot">&lt;-</span> <span class="fu">colnames</span>(df12)[<span class="dv">1</span>]</span>
+<span id="cb83-159"><a href="source-code.html#cb83-159" tabindex="-1"></a>  pc2 <span class="ot">&lt;-</span> <span class="fu">colnames</span>(df12)[<span class="dv">2</span>]</span>
+<span id="cb83-160"><a href="source-code.html#cb83-160" tabindex="-1"></a>  </span>
+<span id="cb83-161"><a href="source-code.html#cb83-161" tabindex="-1"></a>  <span class="fu">colnames</span>(df12) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;PC1&#39;</span>, <span class="st">&#39;PC2&#39;</span>, <span class="st">&#39;class&#39;</span>, <span class="st">&#39;label&#39;</span>)</span>
+<span id="cb83-162"><a href="source-code.html#cb83-162" tabindex="-1"></a>  </span>
+<span id="cb83-163"><a href="source-code.html#cb83-163" tabindex="-1"></a>  <span class="co"># plot nicely</span></span>
+<span id="cb83-164"><a href="source-code.html#cb83-164" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> df12, <span class="fu">aes</span>(<span class="at">label =</span> label)) <span class="sc">+</span></span>
+<span id="cb83-165"><a href="source-code.html#cb83-165" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">1.0</span>,</span>
+<span id="cb83-166"><a href="source-code.html#cb83-166" tabindex="-1"></a>               <span class="fu">aes</span>(</span>
+<span id="cb83-167"><a href="source-code.html#cb83-167" tabindex="-1"></a>                 <span class="at">x =</span> PC1,</span>
+<span id="cb83-168"><a href="source-code.html#cb83-168" tabindex="-1"></a>                 <span class="at">y =</span> PC2,</span>
+<span id="cb83-169"><a href="source-code.html#cb83-169" tabindex="-1"></a>                 <span class="at">col =</span> <span class="fu">as.factor</span>(res.km<span class="sc">$</span>cluster)</span>
+<span id="cb83-170"><a href="source-code.html#cb83-170" tabindex="-1"></a>               )) <span class="sc">+</span></span>
+<span id="cb83-171"><a href="source-code.html#cb83-171" tabindex="-1"></a>    </span>
+<span id="cb83-172"><a href="source-code.html#cb83-172" tabindex="-1"></a>    </span>
+<span id="cb83-173"><a href="source-code.html#cb83-173" tabindex="-1"></a>    <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
+<span id="cb83-174"><a href="source-code.html#cb83-174" tabindex="-1"></a>    </span>
+<span id="cb83-175"><a href="source-code.html#cb83-175" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> pc1, <span class="at">y =</span> pc2) <span class="sc">+</span></span>
+<span id="cb83-176"><a href="source-code.html#cb83-176" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">labels =</span> labels,</span>
+<span id="cb83-177"><a href="source-code.html#cb83-177" tabindex="-1"></a>                       <span class="at">values =</span> cols,</span>
+<span id="cb83-178"><a href="source-code.html#cb83-178" tabindex="-1"></a>                       <span class="at">name =</span> <span class="st">&quot;Clone&quot;</span>) <span class="sc">+</span></span>
+<span id="cb83-179"><a href="source-code.html#cb83-179" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> legend_position,</span>
+<span id="cb83-180"><a href="source-code.html#cb83-180" tabindex="-1"></a>          <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">17</span>),</span>
+<span id="cb83-181"><a href="source-code.html#cb83-181" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>)) </span>
+<span id="cb83-182"><a href="source-code.html#cb83-182" tabindex="-1"></a>  </span>
+<span id="cb83-183"><a href="source-code.html#cb83-183" tabindex="-1"></a>  <span class="fu">return</span>(p)</span>
+<span id="cb83-184"><a href="source-code.html#cb83-184" tabindex="-1"></a>  </span>
+<span id="cb83-185"><a href="source-code.html#cb83-185" tabindex="-1"></a>  <span class="co">#ggplotly(p)</span></span>
+<span id="cb83-186"><a href="source-code.html#cb83-186" tabindex="-1"></a>  </span>
+<span id="cb83-187"><a href="source-code.html#cb83-187" tabindex="-1"></a>}</span>
+<span id="cb83-188"><a href="source-code.html#cb83-188" tabindex="-1"></a></span>
+<span id="cb83-189"><a href="source-code.html#cb83-189" tabindex="-1"></a>draw_pca_double <span class="ot">&lt;-</span></span>
+<span id="cb83-190"><a href="source-code.html#cb83-190" tabindex="-1"></a>  <span class="cf">function</span>(list_files1,</span>
+<span id="cb83-191"><a href="source-code.html#cb83-191" tabindex="-1"></a>           list_files2,</span>
+<span id="cb83-192"><a href="source-code.html#cb83-192" tabindex="-1"></a>           list_files3,</span>
+<span id="cb83-193"><a href="source-code.html#cb83-193" tabindex="-1"></a>           size,</span>
+<span id="cb83-194"><a href="source-code.html#cb83-194" tabindex="-1"></a>           legend_position) {</span>
+<span id="cb83-195"><a href="source-code.html#cb83-195" tabindex="-1"></a>    cells <span class="ot">&lt;-</span> <span class="fu">c</span>(list_files1, list_files2, list_files3)</span>
+<span id="cb83-196"><a href="source-code.html#cb83-196" tabindex="-1"></a>    </span>
+<span id="cb83-197"><a href="source-code.html#cb83-197" tabindex="-1"></a>    </span>
+<span id="cb83-198"><a href="source-code.html#cb83-198" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">plot_pca</span>(</span>
+<span id="cb83-199"><a href="source-code.html#cb83-199" tabindex="-1"></a>      cells,</span>
+<span id="cb83-200"><a href="source-code.html#cb83-200" tabindex="-1"></a>      <span class="at">colorBy =</span> classes,</span>
+<span id="cb83-201"><a href="source-code.html#cb83-201" tabindex="-1"></a>      <span class="at">PC1 =</span> <span class="dv">1</span>,</span>
+<span id="cb83-202"><a href="source-code.html#cb83-202" tabindex="-1"></a>      <span class="at">PC2 =</span> <span class="dv">2</span>,</span>
+<span id="cb83-203"><a href="source-code.html#cb83-203" tabindex="-1"></a>      <span class="at">plot =</span> F</span>
+<span id="cb83-204"><a href="source-code.html#cb83-204" tabindex="-1"></a>    )</span>
+<span id="cb83-205"><a href="source-code.html#cb83-205" tabindex="-1"></a>    </span>
+<span id="cb83-206"><a href="source-code.html#cb83-206" tabindex="-1"></a>    df<span class="sc">$</span>class <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(<span class="fu">rownames</span>(df),  <span class="st">&#39;KRA-0</span><span class="sc">\\</span><span class="st">d+&#39;</span>)</span>
+<span id="cb83-207"><a href="source-code.html#cb83-207" tabindex="-1"></a>    num <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(<span class="fu">rownames</span>(df),  <span class="st">&#39;_</span><span class="sc">\\</span><span class="st">d+</span><span class="sc">\\</span><span class="st">.&#39;</span>)</span>
+<span id="cb83-208"><a href="source-code.html#cb83-208" tabindex="-1"></a>    num <span class="ot">&lt;-</span> <span class="fu">str_remove_all</span>(num, <span class="at">pattern =</span> <span class="st">&#39;</span><span class="sc">\\</span><span class="st">.&#39;</span>)</span>
+<span id="cb83-209"><a href="source-code.html#cb83-209" tabindex="-1"></a>    df<span class="sc">$</span>label <span class="ot">&lt;-</span> <span class="fu">paste0</span>(df<span class="sc">$</span>class, num)</span>
+<span id="cb83-210"><a href="source-code.html#cb83-210" tabindex="-1"></a>    pc1 <span class="ot">&lt;-</span> <span class="fu">colnames</span>(df)[<span class="dv">1</span>]</span>
+<span id="cb83-211"><a href="source-code.html#cb83-211" tabindex="-1"></a>    pc2 <span class="ot">&lt;-</span> <span class="fu">colnames</span>(df)[<span class="dv">2</span>]</span>
+<span id="cb83-212"><a href="source-code.html#cb83-212" tabindex="-1"></a>    </span>
+<span id="cb83-213"><a href="source-code.html#cb83-213" tabindex="-1"></a>    <span class="fu">colnames</span>(df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;PC1&#39;</span>, <span class="st">&#39;PC2&#39;</span>, <span class="st">&#39;class&#39;</span>, <span class="st">&#39;label&#39;</span>)</span>
+<span id="cb83-214"><a href="source-code.html#cb83-214" tabindex="-1"></a>    </span>
+<span id="cb83-215"><a href="source-code.html#cb83-215" tabindex="-1"></a>    </span>
+<span id="cb83-216"><a href="source-code.html#cb83-216" tabindex="-1"></a>    p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">label =</span> label)) <span class="sc">+</span></span>
+<span id="cb83-217"><a href="source-code.html#cb83-217" tabindex="-1"></a>      <span class="fu">geom_point</span>(<span class="at">size =</span> size, <span class="fu">aes</span>(<span class="at">x =</span> PC1,</span>
+<span id="cb83-218"><a href="source-code.html#cb83-218" tabindex="-1"></a>                                  <span class="at">y =</span> PC2,</span>
+<span id="cb83-219"><a href="source-code.html#cb83-219" tabindex="-1"></a>                                  <span class="at">col =</span> class)) <span class="sc">+</span></span>
+<span id="cb83-220"><a href="source-code.html#cb83-220" tabindex="-1"></a>      <span class="co"># scale_color_manual(values = c(&quot;#FFDB6D&quot;, &quot;#00AFBB&quot;)) +</span></span>
+<span id="cb83-221"><a href="source-code.html#cb83-221" tabindex="-1"></a>      <span class="fu">scale_color_manual</span>(</span>
+<span id="cb83-222"><a href="source-code.html#cb83-222" tabindex="-1"></a>        <span class="at">name =</span> <span class="st">&#39;&#39;</span>,</span>
+<span id="cb83-223"><a href="source-code.html#cb83-223" tabindex="-1"></a>        <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;#999999&quot;</span>, <span class="st">&quot;#D69C4E&quot;</span>, <span class="st">&#39;#d65c4e&#39;</span>),</span>
+<span id="cb83-224"><a href="source-code.html#cb83-224" tabindex="-1"></a>        <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&#39;Baseline&#39;</span>, <span class="st">&#39;Recurrence Cycle 1&#39;</span>, <span class="st">&#39;Recurrence Cycle 2&#39;</span>)</span>
+<span id="cb83-225"><a href="source-code.html#cb83-225" tabindex="-1"></a>      ) <span class="sc">+</span></span>
+<span id="cb83-226"><a href="source-code.html#cb83-226" tabindex="-1"></a>      </span>
+<span id="cb83-227"><a href="source-code.html#cb83-227" tabindex="-1"></a>      <span class="co"># or consider &#39;#9e1303&#39; for second cycle of recurrence</span></span>
+<span id="cb83-228"><a href="source-code.html#cb83-228" tabindex="-1"></a>      </span>
+<span id="cb83-229"><a href="source-code.html#cb83-229" tabindex="-1"></a>      <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
+<span id="cb83-230"><a href="source-code.html#cb83-230" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">legend.position =</span> legend_position,</span>
+<span id="cb83-231"><a href="source-code.html#cb83-231" tabindex="-1"></a>            <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">17</span>),</span>
+<span id="cb83-232"><a href="source-code.html#cb83-232" tabindex="-1"></a>            <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>)) <span class="sc">+</span></span>
+<span id="cb83-233"><a href="source-code.html#cb83-233" tabindex="-1"></a>      </span>
+<span id="cb83-234"><a href="source-code.html#cb83-234" tabindex="-1"></a>      </span>
+<span id="cb83-235"><a href="source-code.html#cb83-235" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x =</span> pc1, <span class="at">y =</span> pc2)</span>
+<span id="cb83-236"><a href="source-code.html#cb83-236" tabindex="-1"></a>    <span class="fu">return</span>(p)</span>
+<span id="cb83-237"><a href="source-code.html#cb83-237" tabindex="-1"></a>    </span>
+<span id="cb83-238"><a href="source-code.html#cb83-238" tabindex="-1"></a>    <span class="co"># ggplotly(p)</span></span>
+<span id="cb83-239"><a href="source-code.html#cb83-239" tabindex="-1"></a>    </span>
+<span id="cb83-240"><a href="source-code.html#cb83-240" tabindex="-1"></a>  }</span>
+<span id="cb83-241"><a href="source-code.html#cb83-241" tabindex="-1"></a></span>
+<span id="cb83-242"><a href="source-code.html#cb83-242" tabindex="-1"></a></span>
+<span id="cb83-243"><a href="source-code.html#cb83-243" tabindex="-1"></a>k_cluster_double <span class="ot">&lt;-</span> <span class="cf">function</span>(list_files1,</span>
+<span id="cb83-244"><a href="source-code.html#cb83-244" tabindex="-1"></a>                             list_files2,</span>
+<span id="cb83-245"><a href="source-code.html#cb83-245" tabindex="-1"></a>                             list_files3,</span>
+<span id="cb83-246"><a href="source-code.html#cb83-246" tabindex="-1"></a>                             </span>
+<span id="cb83-247"><a href="source-code.html#cb83-247" tabindex="-1"></a>                             cluster_n,</span>
+<span id="cb83-248"><a href="source-code.html#cb83-248" tabindex="-1"></a>                             cols,</span>
+<span id="cb83-249"><a href="source-code.html#cb83-249" tabindex="-1"></a>                             labels,</span>
+<span id="cb83-250"><a href="source-code.html#cb83-250" tabindex="-1"></a>                             legend_position,</span>
+<span id="cb83-251"><a href="source-code.html#cb83-251" tabindex="-1"></a>                             normalize,</span>
+<span id="cb83-252"><a href="source-code.html#cb83-252" tabindex="-1"></a>                             <span class="at">return_elbow =</span> F) {</span>
+<span id="cb83-253"><a href="source-code.html#cb83-253" tabindex="-1"></a>  </span>
+<span id="cb83-254"><a href="source-code.html#cb83-254" tabindex="-1"></a>  <span class="fu">require</span>(factoextra)</span>
+<span id="cb83-255"><a href="source-code.html#cb83-255" tabindex="-1"></a>  </span>
+<span id="cb83-256"><a href="source-code.html#cb83-256" tabindex="-1"></a>  cells <span class="ot">&lt;-</span> <span class="fu">c</span>(list_files1, list_files2, list_files3)</span>
+<span id="cb83-257"><a href="source-code.html#cb83-257" tabindex="-1"></a>  </span>
+<span id="cb83-258"><a href="source-code.html#cb83-258" tabindex="-1"></a>  </span>
+<span id="cb83-259"><a href="source-code.html#cb83-259" tabindex="-1"></a>  df12 <span class="ot">&lt;-</span> <span class="fu">plot_pca</span>(</span>
+<span id="cb83-260"><a href="source-code.html#cb83-260" tabindex="-1"></a>    cells,</span>
+<span id="cb83-261"><a href="source-code.html#cb83-261" tabindex="-1"></a>    <span class="at">colorBy =</span> classes,</span>
+<span id="cb83-262"><a href="source-code.html#cb83-262" tabindex="-1"></a>    <span class="at">PC1 =</span> <span class="dv">1</span>,</span>
+<span id="cb83-263"><a href="source-code.html#cb83-263" tabindex="-1"></a>    <span class="at">PC2 =</span> <span class="dv">2</span>,</span>
+<span id="cb83-264"><a href="source-code.html#cb83-264" tabindex="-1"></a>    <span class="at">plot =</span> F</span>
+<span id="cb83-265"><a href="source-code.html#cb83-265" tabindex="-1"></a>  )</span>
+<span id="cb83-266"><a href="source-code.html#cb83-266" tabindex="-1"></a>  </span>
+<span id="cb83-267"><a href="source-code.html#cb83-267" tabindex="-1"></a>  </span>
+<span id="cb83-268"><a href="source-code.html#cb83-268" tabindex="-1"></a>  df34 <span class="ot">&lt;-</span> <span class="fu">plot_pca</span>(</span>
+<span id="cb83-269"><a href="source-code.html#cb83-269" tabindex="-1"></a>    cells,</span>
+<span id="cb83-270"><a href="source-code.html#cb83-270" tabindex="-1"></a>    <span class="at">colorBy =</span> classes,</span>
+<span id="cb83-271"><a href="source-code.html#cb83-271" tabindex="-1"></a>    <span class="at">PC1 =</span> <span class="dv">3</span>,</span>
+<span id="cb83-272"><a href="source-code.html#cb83-272" tabindex="-1"></a>    <span class="at">PC2 =</span> <span class="dv">4</span>,</span>
+<span id="cb83-273"><a href="source-code.html#cb83-273" tabindex="-1"></a>    <span class="at">plot =</span> F</span>
+<span id="cb83-274"><a href="source-code.html#cb83-274" tabindex="-1"></a>  )</span>
+<span id="cb83-275"><a href="source-code.html#cb83-275" tabindex="-1"></a>  </span>
+<span id="cb83-276"><a href="source-code.html#cb83-276" tabindex="-1"></a>  df56 <span class="ot">&lt;-</span> <span class="fu">plot_pca</span>(</span>
+<span id="cb83-277"><a href="source-code.html#cb83-277" tabindex="-1"></a>    cells,</span>
+<span id="cb83-278"><a href="source-code.html#cb83-278" tabindex="-1"></a>    <span class="at">colorBy =</span> classes,</span>
+<span id="cb83-279"><a href="source-code.html#cb83-279" tabindex="-1"></a>    <span class="at">PC1 =</span> <span class="dv">5</span>,</span>
+<span id="cb83-280"><a href="source-code.html#cb83-280" tabindex="-1"></a>    <span class="at">PC2 =</span> <span class="dv">6</span>,</span>
+<span id="cb83-281"><a href="source-code.html#cb83-281" tabindex="-1"></a>    <span class="at">plot =</span> F</span>
+<span id="cb83-282"><a href="source-code.html#cb83-282" tabindex="-1"></a>  )</span>
+<span id="cb83-283"><a href="source-code.html#cb83-283" tabindex="-1"></a>  </span>
+<span id="cb83-284"><a href="source-code.html#cb83-284" tabindex="-1"></a>  df78 <span class="ot">&lt;-</span> <span class="fu">plot_pca</span>(</span>
+<span id="cb83-285"><a href="source-code.html#cb83-285" tabindex="-1"></a>    cells,</span>
+<span id="cb83-286"><a href="source-code.html#cb83-286" tabindex="-1"></a>    <span class="at">colorBy =</span> classes,</span>
+<span id="cb83-287"><a href="source-code.html#cb83-287" tabindex="-1"></a>    <span class="at">PC1 =</span> <span class="dv">7</span>,</span>
+<span id="cb83-288"><a href="source-code.html#cb83-288" tabindex="-1"></a>    <span class="at">PC2 =</span> <span class="dv">8</span>,</span>
+<span id="cb83-289"><a href="source-code.html#cb83-289" tabindex="-1"></a>    <span class="at">plot =</span> F</span>
+<span id="cb83-290"><a href="source-code.html#cb83-290" tabindex="-1"></a>  )</span>
+<span id="cb83-291"><a href="source-code.html#cb83-291" tabindex="-1"></a>  </span>
+<span id="cb83-292"><a href="source-code.html#cb83-292" tabindex="-1"></a>  df910 <span class="ot">&lt;-</span> <span class="fu">plot_pca</span>(</span>
+<span id="cb83-293"><a href="source-code.html#cb83-293" tabindex="-1"></a>    cells,</span>
+<span id="cb83-294"><a href="source-code.html#cb83-294" tabindex="-1"></a>    <span class="at">colorBy =</span> classes,</span>
+<span id="cb83-295"><a href="source-code.html#cb83-295" tabindex="-1"></a>    <span class="at">PC1 =</span> <span class="dv">9</span>,</span>
+<span id="cb83-296"><a href="source-code.html#cb83-296" tabindex="-1"></a>    <span class="at">PC2 =</span> <span class="dv">10</span>,</span>
+<span id="cb83-297"><a href="source-code.html#cb83-297" tabindex="-1"></a>    <span class="at">plot =</span> F</span>
+<span id="cb83-298"><a href="source-code.html#cb83-298" tabindex="-1"></a>  )</span>
+<span id="cb83-299"><a href="source-code.html#cb83-299" tabindex="-1"></a>  </span>
+<span id="cb83-300"><a href="source-code.html#cb83-300" tabindex="-1"></a>  </span>
+<span id="cb83-301"><a href="source-code.html#cb83-301" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">cbind</span>(df12, df34, df56, df78, df910)</span>
+<span id="cb83-302"><a href="source-code.html#cb83-302" tabindex="-1"></a>  </span>
+<span id="cb83-303"><a href="source-code.html#cb83-303" tabindex="-1"></a>  </span>
+<span id="cb83-304"><a href="source-code.html#cb83-304" tabindex="-1"></a>  <span class="cf">if</span> (normalize) {</span>
+<span id="cb83-305"><a href="source-code.html#cb83-305" tabindex="-1"></a>    <span class="co"># extract variance explained for each pca</span></span>
+<span id="cb83-306"><a href="source-code.html#cb83-306" tabindex="-1"></a>    pca_var <span class="ot">&lt;-</span></span>
+<span id="cb83-307"><a href="source-code.html#cb83-307" tabindex="-1"></a>      <span class="fu">as.numeric</span>(<span class="fu">str_match</span>(<span class="fu">colnames</span>(df), <span class="st">&quot;</span><span class="sc">\\</span><span class="st">(</span><span class="sc">\\</span><span class="st">s*(.*?)</span><span class="sc">\\</span><span class="st">s*%&quot;</span>)[, <span class="dv">2</span>])</span>
+<span id="cb83-308"><a href="source-code.html#cb83-308" tabindex="-1"></a>    </span>
+<span id="cb83-309"><a href="source-code.html#cb83-309" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(pca_var)) {</span>
+<span id="cb83-310"><a href="source-code.html#cb83-310" tabindex="-1"></a>      <span class="co"># calculate normalized pca values</span></span>
+<span id="cb83-311"><a href="source-code.html#cb83-311" tabindex="-1"></a>      norm_pca <span class="ot">&lt;-</span> df[, i] <span class="sc">/</span> <span class="dv">100</span> <span class="sc">*</span> pca_var[i]</span>
+<span id="cb83-312"><a href="source-code.html#cb83-312" tabindex="-1"></a>      <span class="co">#repopulate the dataframe</span></span>
+<span id="cb83-313"><a href="source-code.html#cb83-313" tabindex="-1"></a>      df[, i] <span class="ot">&lt;-</span> norm_pca</span>
+<span id="cb83-314"><a href="source-code.html#cb83-314" tabindex="-1"></a>    }</span>
+<span id="cb83-315"><a href="source-code.html#cb83-315" tabindex="-1"></a>    </span>
+<span id="cb83-316"><a href="source-code.html#cb83-316" tabindex="-1"></a>    </span>
+<span id="cb83-317"><a href="source-code.html#cb83-317" tabindex="-1"></a>    </span>
+<span id="cb83-318"><a href="source-code.html#cb83-318" tabindex="-1"></a>    </span>
+<span id="cb83-319"><a href="source-code.html#cb83-319" tabindex="-1"></a>    </span>
+<span id="cb83-320"><a href="source-code.html#cb83-320" tabindex="-1"></a>  }</span>
+<span id="cb83-321"><a href="source-code.html#cb83-321" tabindex="-1"></a>  </span>
+<span id="cb83-322"><a href="source-code.html#cb83-322" tabindex="-1"></a>  <span class="co">#check best k for k-means clustering method</span></span>
+<span id="cb83-323"><a href="source-code.html#cb83-323" tabindex="-1"></a>  <span class="cf">if</span> (return_elbow) {</span>
+<span id="cb83-324"><a href="source-code.html#cb83-324" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">fviz_nbclust</span>(df, kmeans, <span class="at">method =</span> <span class="st">&quot;silhouette&quot;</span>) <span class="sc">+</span></span>
+<span id="cb83-325"><a href="source-code.html#cb83-325" tabindex="-1"></a>             <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;Silhouette method&quot;</span>))</span>
+<span id="cb83-326"><a href="source-code.html#cb83-326" tabindex="-1"></a>    </span>
+<span id="cb83-327"><a href="source-code.html#cb83-327" tabindex="-1"></a>  }</span>
+<span id="cb83-328"><a href="source-code.html#cb83-328" tabindex="-1"></a>  </span>
+<span id="cb83-329"><a href="source-code.html#cb83-329" tabindex="-1"></a>  <span class="co"># #</span></span>
+<span id="cb83-330"><a href="source-code.html#cb83-330" tabindex="-1"></a>  <span class="co"># fviz_nbclust(df, kmeans, method = &quot;silhouette&quot;)+</span></span>
+<span id="cb83-331"><a href="source-code.html#cb83-331" tabindex="-1"></a>  <span class="co">#   labs(subtitle = &quot;Silhouette method&quot;)</span></span>
+<span id="cb83-332"><a href="source-code.html#cb83-332" tabindex="-1"></a>  <span class="co">#</span></span>
+<span id="cb83-333"><a href="source-code.html#cb83-333" tabindex="-1"></a>  <span class="co"># fviz_nbclust(df, kmeans, nstart = 25,  method = &quot;gap_stat&quot;, nboot = 50)+</span></span>
+<span id="cb83-334"><a href="source-code.html#cb83-334" tabindex="-1"></a>  <span class="co">#   labs(subtitle = &quot;Gap statistic method&quot;)</span></span>
+<span id="cb83-335"><a href="source-code.html#cb83-335" tabindex="-1"></a>  </span>
+<span id="cb83-336"><a href="source-code.html#cb83-336" tabindex="-1"></a>  <span class="co"># compute k-means clustering</span></span>
+<span id="cb83-337"><a href="source-code.html#cb83-337" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb83-338"><a href="source-code.html#cb83-338" tabindex="-1"></a>  res.km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(df, cluster_n, <span class="at">nstart =</span> <span class="dv">1000</span>)</span>
+<span id="cb83-339"><a href="source-code.html#cb83-339" tabindex="-1"></a>  </span>
+<span id="cb83-340"><a href="source-code.html#cb83-340" tabindex="-1"></a>  <span class="co"># change colnames so it works for our plot</span></span>
+<span id="cb83-341"><a href="source-code.html#cb83-341" tabindex="-1"></a>  df12<span class="sc">$</span>class <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(<span class="fu">rownames</span>(df12),  <span class="st">&#39;KRA-0</span><span class="sc">\\</span><span class="st">d+&#39;</span>)</span>
+<span id="cb83-342"><a href="source-code.html#cb83-342" tabindex="-1"></a>  num <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(<span class="fu">rownames</span>(df),  <span class="st">&#39;_</span><span class="sc">\\</span><span class="st">d+</span><span class="sc">\\</span><span class="st">.&#39;</span>)</span>
+<span id="cb83-343"><a href="source-code.html#cb83-343" tabindex="-1"></a>  num <span class="ot">&lt;-</span> <span class="fu">str_remove_all</span>(num, <span class="at">pattern =</span> <span class="st">&#39;</span><span class="sc">\\</span><span class="st">.&#39;</span>)</span>
+<span id="cb83-344"><a href="source-code.html#cb83-344" tabindex="-1"></a>  df12<span class="sc">$</span>label <span class="ot">&lt;-</span> <span class="fu">paste0</span>(df12<span class="sc">$</span>class, num)</span>
+<span id="cb83-345"><a href="source-code.html#cb83-345" tabindex="-1"></a>  pc1 <span class="ot">&lt;-</span> <span class="fu">colnames</span>(df12)[<span class="dv">1</span>]</span>
+<span id="cb83-346"><a href="source-code.html#cb83-346" tabindex="-1"></a>  pc2 <span class="ot">&lt;-</span> <span class="fu">colnames</span>(df12)[<span class="dv">2</span>]</span>
+<span id="cb83-347"><a href="source-code.html#cb83-347" tabindex="-1"></a>  </span>
+<span id="cb83-348"><a href="source-code.html#cb83-348" tabindex="-1"></a>  <span class="fu">colnames</span>(df12) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;PC1&#39;</span>, <span class="st">&#39;PC2&#39;</span>, <span class="st">&#39;class&#39;</span>, <span class="st">&#39;label&#39;</span>)</span>
+<span id="cb83-349"><a href="source-code.html#cb83-349" tabindex="-1"></a>  </span>
+<span id="cb83-350"><a href="source-code.html#cb83-350" tabindex="-1"></a>  <span class="co"># plot nicely</span></span>
+<span id="cb83-351"><a href="source-code.html#cb83-351" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> df12, <span class="fu">aes</span>(<span class="at">label =</span> label)) <span class="sc">+</span></span>
+<span id="cb83-352"><a href="source-code.html#cb83-352" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">1.0</span>,</span>
+<span id="cb83-353"><a href="source-code.html#cb83-353" tabindex="-1"></a>               <span class="fu">aes</span>(</span>
+<span id="cb83-354"><a href="source-code.html#cb83-354" tabindex="-1"></a>                 <span class="at">x =</span> PC1,</span>
+<span id="cb83-355"><a href="source-code.html#cb83-355" tabindex="-1"></a>                 <span class="at">y =</span> PC2,</span>
+<span id="cb83-356"><a href="source-code.html#cb83-356" tabindex="-1"></a>                 <span class="at">col =</span> <span class="fu">as.factor</span>(res.km<span class="sc">$</span>cluster)</span>
+<span id="cb83-357"><a href="source-code.html#cb83-357" tabindex="-1"></a>               )) <span class="sc">+</span></span>
+<span id="cb83-358"><a href="source-code.html#cb83-358" tabindex="-1"></a>    </span>
+<span id="cb83-359"><a href="source-code.html#cb83-359" tabindex="-1"></a>    </span>
+<span id="cb83-360"><a href="source-code.html#cb83-360" tabindex="-1"></a>    <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
+<span id="cb83-361"><a href="source-code.html#cb83-361" tabindex="-1"></a>    </span>
+<span id="cb83-362"><a href="source-code.html#cb83-362" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> pc1, <span class="at">y =</span> pc2) <span class="sc">+</span></span>
+<span id="cb83-363"><a href="source-code.html#cb83-363" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">labels =</span> labels,</span>
+<span id="cb83-364"><a href="source-code.html#cb83-364" tabindex="-1"></a>                       <span class="at">values =</span> cols,</span>
+<span id="cb83-365"><a href="source-code.html#cb83-365" tabindex="-1"></a>                       <span class="at">name =</span> <span class="st">&quot;Clone&quot;</span>) <span class="sc">+</span></span>
+<span id="cb83-366"><a href="source-code.html#cb83-366" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> legend_position,</span>
+<span id="cb83-367"><a href="source-code.html#cb83-367" tabindex="-1"></a>          <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">17</span>),</span>
+<span id="cb83-368"><a href="source-code.html#cb83-368" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>)) </span>
+<span id="cb83-369"><a href="source-code.html#cb83-369" tabindex="-1"></a>  </span>
+<span id="cb83-370"><a href="source-code.html#cb83-370" tabindex="-1"></a>  p</span>
+<span id="cb83-371"><a href="source-code.html#cb83-371" tabindex="-1"></a>  </span>
+<span id="cb83-372"><a href="source-code.html#cb83-372" tabindex="-1"></a>}</span>
+<span id="cb83-373"><a href="source-code.html#cb83-373" tabindex="-1"></a></span>
+<span id="cb83-374"><a href="source-code.html#cb83-374" tabindex="-1"></a>  </span>
+<span id="cb83-375"><a href="source-code.html#cb83-375" tabindex="-1"></a><span class="er">}</span></span></code></pre></div>
+</div>
+<div id="divide_subclone_functions-script-extract_other_cells-extract_square-l_g-and-subclone_classes_for_genomeheatmap-functions" class="section level2 hasAnchor" number="6.7">
+<h2><span class="header-section-number">6.7</span> divide_subclone_functions script: ‘extract_other_cells’, ‘extract_square’, ‘l_g’ and ‘subclone_classes_for_genomeheatmap’ functions<a href="source-code.html#divide_subclone_functions-script-extract_other_cells-extract_square-l_g-and-subclone_classes_for_genomeheatmap-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="source-code.html#cb84-1" tabindex="-1"></a>extract_other_cells <span class="ot">&lt;-</span> <span class="cf">function</span>(kra_name, list_of_subclones) {</span>
+<span id="cb84-2"><a href="source-code.html#cb84-2" tabindex="-1"></a>  i <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">names</span>(man_select_files_edivisive) <span class="sc">==</span> kra_name)</span>
+<span id="cb84-3"><a href="source-code.html#cb84-3" tabindex="-1"></a>  all <span class="ot">&lt;-</span>  <span class="fu">str_extract</span>(man_select_files_edivisive[[i]],  <span class="st">&#39;_</span><span class="sc">\\</span><span class="st">d+</span><span class="sc">\\</span><span class="st">.&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">str_remove</span>(<span class="st">&#39;_&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">str_remove</span>(<span class="st">&#39;</span><span class="sc">\\</span><span class="st">.&#39;</span>) </span>
+<span id="cb84-4"><a href="source-code.html#cb84-4" tabindex="-1"></a>  rest <span class="ot">&lt;-</span> all[<span class="fu">which</span>(<span class="sc">!</span>all <span class="sc">%in%</span> list_of_subclones)]</span>
+<span id="cb84-5"><a href="source-code.html#cb84-5" tabindex="-1"></a>  <span class="fu">return</span>(rest)</span>
+<span id="cb84-6"><a href="source-code.html#cb84-6" tabindex="-1"></a>}</span>
+<span id="cb84-7"><a href="source-code.html#cb84-7" tabindex="-1"></a></span>
+<span id="cb84-8"><a href="source-code.html#cb84-8" tabindex="-1"></a></span>
+<span id="cb84-9"><a href="source-code.html#cb84-9" tabindex="-1"></a>extract_square <span class="ot">&lt;-</span> <span class="cf">function</span>(list_files1, list_files2, square, x, y) {</span>
+<span id="cb84-10"><a href="source-code.html#cb84-10" tabindex="-1"></a>  <span class="co"># extracts all cells that lie within a square of a pca plot defined by </span></span>
+<span id="cb84-11"><a href="source-code.html#cb84-11" tabindex="-1"></a>  <span class="co"># user. For example square c(0.1, 0.0) will extract all cells with</span></span>
+<span id="cb84-12"><a href="source-code.html#cb84-12" tabindex="-1"></a>  <span class="co"># pc1 lower or higher that 0.1 and pc2 lower or higher than 0.0. User has to rearange functon</span></span>
+<span id="cb84-13"><a href="source-code.html#cb84-13" tabindex="-1"></a>  <span class="co"># if he wants x lower or higher than 0.1</span></span>
+<span id="cb84-14"><a href="source-code.html#cb84-14" tabindex="-1"></a>  cells <span class="ot">&lt;-</span> <span class="fu">c</span>(list_files1, list_files2)</span>
+<span id="cb84-15"><a href="source-code.html#cb84-15" tabindex="-1"></a>  </span>
+<span id="cb84-16"><a href="source-code.html#cb84-16" tabindex="-1"></a>  df12 <span class="ot">&lt;-</span> <span class="fu">plot_pca</span>(cells,</span>
+<span id="cb84-17"><a href="source-code.html#cb84-17" tabindex="-1"></a>                   <span class="at">colorBy =</span> classes, </span>
+<span id="cb84-18"><a href="source-code.html#cb84-18" tabindex="-1"></a>                   <span class="at">PC1=</span><span class="dv">1</span>, </span>
+<span id="cb84-19"><a href="source-code.html#cb84-19" tabindex="-1"></a>                   <span class="at">PC2=</span><span class="dv">2</span>,</span>
+<span id="cb84-20"><a href="source-code.html#cb84-20" tabindex="-1"></a>                   <span class="at">plot =</span> F)</span>
+<span id="cb84-21"><a href="source-code.html#cb84-21" tabindex="-1"></a>  </span>
+<span id="cb84-22"><a href="source-code.html#cb84-22" tabindex="-1"></a>  <span class="fu">colnames</span>(df12) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;PC1&#39;</span>, <span class="st">&#39;PC2&#39;</span>)</span>
+<span id="cb84-23"><a href="source-code.html#cb84-23" tabindex="-1"></a>  </span>
+<span id="cb84-24"><a href="source-code.html#cb84-24" tabindex="-1"></a>  </span>
+<span id="cb84-25"><a href="source-code.html#cb84-25" tabindex="-1"></a>  <span class="co"># extracting dataframe with correct square</span></span>
+<span id="cb84-26"><a href="source-code.html#cb84-26" tabindex="-1"></a>  <span class="cf">if</span>(x <span class="sc">==</span> <span class="st">&#39;&lt;&#39;</span> <span class="sc">&amp;</span> y <span class="sc">==</span> <span class="st">&#39;&lt;&#39;</span>) {</span>
+<span id="cb84-27"><a href="source-code.html#cb84-27" tabindex="-1"></a>    df12 <span class="ot">&lt;-</span> <span class="fu">subset</span>(df12, PC1 <span class="sc">&lt;</span> square[<span class="dv">1</span>] <span class="sc">&amp;</span> PC2 <span class="sc">&lt;</span> square[<span class="dv">2</span>])</span>
+<span id="cb84-28"><a href="source-code.html#cb84-28" tabindex="-1"></a>  }</span>
+<span id="cb84-29"><a href="source-code.html#cb84-29" tabindex="-1"></a>  </span>
+<span id="cb84-30"><a href="source-code.html#cb84-30" tabindex="-1"></a>  <span class="cf">if</span>(x <span class="sc">==</span> <span class="st">&#39;&lt;&#39;</span> <span class="sc">&amp;</span> y <span class="sc">==</span> <span class="st">&#39;&gt;&#39;</span>) {</span>
+<span id="cb84-31"><a href="source-code.html#cb84-31" tabindex="-1"></a>    df12 <span class="ot">&lt;-</span> <span class="fu">subset</span>(df12, PC1 <span class="sc">&lt;</span> square[<span class="dv">1</span>] <span class="sc">&amp;</span> PC2 <span class="sc">&gt;</span> square[<span class="dv">2</span>])</span>
+<span id="cb84-32"><a href="source-code.html#cb84-32" tabindex="-1"></a>  }</span>
+<span id="cb84-33"><a href="source-code.html#cb84-33" tabindex="-1"></a>  </span>
+<span id="cb84-34"><a href="source-code.html#cb84-34" tabindex="-1"></a>  <span class="cf">if</span>(x <span class="sc">==</span> <span class="st">&#39;&gt;&#39;</span> <span class="sc">&amp;</span> y <span class="sc">==</span> <span class="st">&#39;&lt;&#39;</span>) {</span>
+<span id="cb84-35"><a href="source-code.html#cb84-35" tabindex="-1"></a>    df12 <span class="ot">&lt;-</span> <span class="fu">subset</span>(df12, PC1 <span class="sc">&gt;</span> square[<span class="dv">1</span>] <span class="sc">&amp;</span> PC2 <span class="sc">&lt;</span> square[<span class="dv">2</span>])</span>
+<span id="cb84-36"><a href="source-code.html#cb84-36" tabindex="-1"></a>  }</span>
+<span id="cb84-37"><a href="source-code.html#cb84-37" tabindex="-1"></a>  </span>
+<span id="cb84-38"><a href="source-code.html#cb84-38" tabindex="-1"></a>  <span class="cf">if</span>(x <span class="sc">==</span> <span class="st">&#39;&gt;&#39;</span> <span class="sc">&amp;</span> y <span class="sc">==</span> <span class="st">&#39;&gt;&#39;</span>) {</span>
+<span id="cb84-39"><a href="source-code.html#cb84-39" tabindex="-1"></a>    df12 <span class="ot">&lt;-</span> <span class="fu">subset</span>(df12, PC1 <span class="sc">&gt;</span> square[<span class="dv">1</span>] <span class="sc">&amp;</span> PC2 <span class="sc">&gt;</span> square[<span class="dv">2</span>])</span>
+<span id="cb84-40"><a href="source-code.html#cb84-40" tabindex="-1"></a>  }</span>
+<span id="cb84-41"><a href="source-code.html#cb84-41" tabindex="-1"></a>  </span>
+<span id="cb84-42"><a href="source-code.html#cb84-42" tabindex="-1"></a>  <span class="co"># numbers is: </span></span>
+<span id="cb84-43"><a href="source-code.html#cb84-43" tabindex="-1"></a>  cell_id <span class="ot">&lt;-</span>  <span class="fu">str_extract</span>(<span class="fu">rownames</span>(df12),  <span class="st">&#39;_</span><span class="sc">\\</span><span class="st">d+</span><span class="sc">\\</span><span class="st">.&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">str_remove</span>(<span class="st">&#39;_&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">str_remove</span>(<span class="st">&#39;</span><span class="sc">\\</span><span class="st">.&#39;</span>)  </span>
+<span id="cb84-44"><a href="source-code.html#cb84-44" tabindex="-1"></a>  </span>
+<span id="cb84-45"><a href="source-code.html#cb84-45" tabindex="-1"></a>  <span class="fu">return</span>(cell_id)</span>
+<span id="cb84-46"><a href="source-code.html#cb84-46" tabindex="-1"></a>  </span>
+<span id="cb84-47"><a href="source-code.html#cb84-47" tabindex="-1"></a>}</span>
+<span id="cb84-48"><a href="source-code.html#cb84-48" tabindex="-1"></a></span>
+<span id="cb84-49"><a href="source-code.html#cb84-49" tabindex="-1"></a>l_g <span class="ot">&lt;-</span> <span class="cf">function</span>(x, kra_num, list_cells) {</span>
+<span id="cb84-50"><a href="source-code.html#cb84-50" tabindex="-1"></a>  select <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="fu">paste0</span>(kra_num,<span class="st">&#39;_&#39;</span>,x,<span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>), list_cells)</span>
+<span id="cb84-51"><a href="source-code.html#cb84-51" tabindex="-1"></a>  i <span class="ot">&lt;-</span> <span class="fu">which</span>(select)</span>
+<span id="cb84-52"><a href="source-code.html#cb84-52" tabindex="-1"></a>  <span class="fu">return</span>(list_cells[i])</span>
+<span id="cb84-53"><a href="source-code.html#cb84-53" tabindex="-1"></a>  </span>
+<span id="cb84-54"><a href="source-code.html#cb84-54" tabindex="-1"></a>  </span>
+<span id="cb84-55"><a href="source-code.html#cb84-55" tabindex="-1"></a>}</span>
+<span id="cb84-56"><a href="source-code.html#cb84-56" tabindex="-1"></a></span>
+<span id="cb84-57"><a href="source-code.html#cb84-57" tabindex="-1"></a></span>
+<span id="cb84-58"><a href="source-code.html#cb84-58" tabindex="-1"></a>subclone_classes_for_genomeheatmap <span class="ot">&lt;-</span> <span class="cf">function</span>(list_of_subclones, cline) {</span>
+<span id="cb84-59"><a href="source-code.html#cb84-59" tabindex="-1"></a>  <span class="co">#&#39; @param </span></span>
+<span id="cb84-60"><a href="source-code.html#cb84-60" tabindex="-1"></a>  <span class="co">#&#39; list of subclones is the full list of rda files that have been assigned a subclone_classes_for_genomeheatmap</span></span>
+<span id="cb84-61"><a href="source-code.html#cb84-61" tabindex="-1"></a>  <span class="co">#&#39; cline is the line (hub005, hub183 etc.)</span></span>
+<span id="cb84-62"><a href="source-code.html#cb84-62" tabindex="-1"></a>  <span class="co">#&#39; rad is either prerad or rad</span></span>
+<span id="cb84-63"><a href="source-code.html#cb84-63" tabindex="-1"></a>  <span class="co">#&#39; @return </span></span>
+<span id="cb84-64"><a href="source-code.html#cb84-64" tabindex="-1"></a>  <span class="co">#&#39; returns a vector with that assigns a subclone</span></span>
+<span id="cb84-65"><a href="source-code.html#cb84-65" tabindex="-1"></a>  </span>
+<span id="cb84-66"><a href="source-code.html#cb84-66" tabindex="-1"></a>  extract_subclones <span class="ot">&lt;-</span> list_of_subclones[<span class="fu">grepl</span>(<span class="fu">names</span>(list_of_subclones), <span class="at">pattern =</span> <span class="fu">paste0</span>(cline))]</span>
+<span id="cb84-67"><a href="source-code.html#cb84-67" tabindex="-1"></a>  </span>
+<span id="cb84-68"><a href="source-code.html#cb84-68" tabindex="-1"></a>  size_subclones <span class="ot">&lt;-</span> <span class="fu">lapply</span>(extract_subclones, length)</span>
+<span id="cb84-69"><a href="source-code.html#cb84-69" tabindex="-1"></a>  </span>
+<span id="cb84-70"><a href="source-code.html#cb84-70" tabindex="-1"></a>  classes <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">names</span>(size_subclones), size_subclones)</span>
+<span id="cb84-71"><a href="source-code.html#cb84-71" tabindex="-1"></a>  </span>
+<span id="cb84-72"><a href="source-code.html#cb84-72" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">path =</span> <span class="fu">unlist</span>(extract_subclones),</span>
+<span id="cb84-73"><a href="source-code.html#cb84-73" tabindex="-1"></a>                   <span class="at">class =</span> classes)</span>
+<span id="cb84-74"><a href="source-code.html#cb84-74" tabindex="-1"></a>  </span>
+<span id="cb84-75"><a href="source-code.html#cb84-75" tabindex="-1"></a>  <span class="fu">return</span>(df)</span>
+<span id="cb84-76"><a href="source-code.html#cb84-76" tabindex="-1"></a>  </span>
+<span id="cb84-77"><a href="source-code.html#cb84-77" tabindex="-1"></a>  </span>
+<span id="cb84-78"><a href="source-code.html#cb84-78" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="plot_genomeheatmap-script-genomeheatmap-function" class="section level2 hasAnchor" number="6.8">
+<h2><span class="header-section-number">6.8</span> plot_genomeheatmap script: ‘genomeheatmap’ function<a href="source-code.html#plot_genomeheatmap-script-genomeheatmap-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="source-code.html#cb85-1" tabindex="-1"></a>genomeheatmap <span class="ot">&lt;-</span> <span class="cf">function</span>(selected.files, </span>
+<span id="cb85-2"><a href="source-code.html#cb85-2" tabindex="-1"></a>                          path, </span>
+<span id="cb85-3"><a href="source-code.html#cb85-3" tabindex="-1"></a>                          <span class="at">classes_daan =</span> <span class="cn">NULL</span>, </span>
+<span id="cb85-4"><a href="source-code.html#cb85-4" tabindex="-1"></a>                          <span class="at">class.col =</span> <span class="cn">NULL</span>, </span>
+<span id="cb85-5"><a href="source-code.html#cb85-5" tabindex="-1"></a>                          <span class="at">dendogram =</span> F,</span>
+<span id="cb85-6"><a href="source-code.html#cb85-6" tabindex="-1"></a>                          <span class="at">daan_colours =</span> T,</span>
+<span id="cb85-7"><a href="source-code.html#cb85-7" tabindex="-1"></a>                          name) {</span>
+<span id="cb85-8"><a href="source-code.html#cb85-8" tabindex="-1"></a>  <span class="co"># This code was adapted from the AneuFinder package</span></span>
+<span id="cb85-9"><a href="source-code.html#cb85-9" tabindex="-1"></a>  <span class="co"># plots and saves genome heatmap of selected.files</span></span>
+<span id="cb85-10"><a href="source-code.html#cb85-10" tabindex="-1"></a>  <span class="co"># @param </span></span>
+<span id="cb85-11"><a href="source-code.html#cb85-11" tabindex="-1"></a>  <span class="co"># selected.files: vector of location of selected files.</span></span>
+<span id="cb85-12"><a href="source-code.html#cb85-12" tabindex="-1"></a>  <span class="co"># output path: path were plots should be saved. </span></span>
+<span id="cb85-13"><a href="source-code.html#cb85-13" tabindex="-1"></a>  <span class="co"># name: how you want to name the plot</span></span>
+<span id="cb85-14"><a href="source-code.html#cb85-14" tabindex="-1"></a>  </span>
+<span id="cb85-15"><a href="source-code.html#cb85-15" tabindex="-1"></a>  <span class="co"># get platename</span></span>
+<span id="cb85-16"><a href="source-code.html#cb85-16" tabindex="-1"></a>  platename <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(selected.files[<span class="dv">1</span>],  <span class="st">&#39;KRA-0</span><span class="sc">\\</span><span class="st">d+&#39;</span>)</span>
+<span id="cb85-17"><a href="source-code.html#cb85-17" tabindex="-1"></a>  </span>
+<span id="cb85-18"><a href="source-code.html#cb85-18" tabindex="-1"></a>  <span class="co"># AneuFinder functions: </span></span>
+<span id="cb85-19"><a href="source-code.html#cb85-19" tabindex="-1"></a>  startTimedMessage <span class="ot">&lt;-</span> <span class="cf">function</span>(...) {</span>
+<span id="cb85-20"><a href="source-code.html#cb85-20" tabindex="-1"></a>    </span>
+<span id="cb85-21"><a href="source-code.html#cb85-21" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">paste0</span>(..., <span class="at">collapse=</span><span class="st">&#39;&#39;</span>)</span>
+<span id="cb85-22"><a href="source-code.html#cb85-22" tabindex="-1"></a>    <span class="fu">message</span>(x, <span class="at">appendLF=</span><span class="cn">FALSE</span>)</span>
+<span id="cb85-23"><a href="source-code.html#cb85-23" tabindex="-1"></a>    ptm <span class="ot">&lt;-</span> <span class="fu">proc.time</span>()</span>
+<span id="cb85-24"><a href="source-code.html#cb85-24" tabindex="-1"></a>    <span class="fu">return</span>(ptm)</span>
+<span id="cb85-25"><a href="source-code.html#cb85-25" tabindex="-1"></a>    </span>
+<span id="cb85-26"><a href="source-code.html#cb85-26" tabindex="-1"></a>  }</span>
+<span id="cb85-27"><a href="source-code.html#cb85-27" tabindex="-1"></a>  </span>
+<span id="cb85-28"><a href="source-code.html#cb85-28" tabindex="-1"></a>  transCoord <span class="ot">&lt;-</span> <span class="cf">function</span> (gr) </span>
+<span id="cb85-29"><a href="source-code.html#cb85-29" tabindex="-1"></a>  {</span>
+<span id="cb85-30"><a href="source-code.html#cb85-30" tabindex="-1"></a>    cum.seqlengths <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(<span class="fu">as.numeric</span>(<span class="fu">seqlengths</span>(gr)))</span>
+<span id="cb85-31"><a href="source-code.html#cb85-31" tabindex="-1"></a>    cum.seqlengths<span class="fl">.0</span> <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, cum.seqlengths[<span class="sc">-</span><span class="fu">length</span>(cum.seqlengths)])</span>
+<span id="cb85-32"><a href="source-code.html#cb85-32" tabindex="-1"></a>    <span class="fu">names</span>(cum.seqlengths<span class="fl">.0</span>) <span class="ot">&lt;-</span> <span class="fu">seqlevels</span>(gr)</span>
+<span id="cb85-33"><a href="source-code.html#cb85-33" tabindex="-1"></a>    gr<span class="sc">$</span>start.genome <span class="ot">&lt;-</span> <span class="fu">start</span>(gr) <span class="sc">+</span> cum.seqlengths<span class="fl">.0</span>[<span class="fu">as.character</span>(<span class="fu">seqnames</span>(gr))]</span>
+<span id="cb85-34"><a href="source-code.html#cb85-34" tabindex="-1"></a>    gr<span class="sc">$</span>end.genome <span class="ot">&lt;-</span> <span class="fu">end</span>(gr) <span class="sc">+</span> cum.seqlengths<span class="fl">.0</span>[<span class="fu">as.character</span>(<span class="fu">seqnames</span>(gr))]</span>
+<span id="cb85-35"><a href="source-code.html#cb85-35" tabindex="-1"></a>    <span class="fu">return</span>(gr)</span>
+<span id="cb85-36"><a href="source-code.html#cb85-36" tabindex="-1"></a>  }</span>
+<span id="cb85-37"><a href="source-code.html#cb85-37" tabindex="-1"></a>  </span>
+<span id="cb85-38"><a href="source-code.html#cb85-38" tabindex="-1"></a>  stopTimedMessage <span class="ot">&lt;-</span> <span class="cf">function</span>(ptm) {</span>
+<span id="cb85-39"><a href="source-code.html#cb85-39" tabindex="-1"></a>    </span>
+<span id="cb85-40"><a href="source-code.html#cb85-40" tabindex="-1"></a>    time <span class="ot">&lt;-</span> <span class="fu">proc.time</span>() <span class="sc">-</span> ptm</span>
+<span id="cb85-41"><a href="source-code.html#cb85-41" tabindex="-1"></a>    <span class="fu">message</span>(<span class="st">&quot; &quot;</span>, <span class="fu">round</span>(time[<span class="dv">3</span>],<span class="dv">2</span>), <span class="st">&quot;s&quot;</span>)</span>
+<span id="cb85-42"><a href="source-code.html#cb85-42" tabindex="-1"></a>    </span>
+<span id="cb85-43"><a href="source-code.html#cb85-43" tabindex="-1"></a>  }</span>
+<span id="cb85-44"><a href="source-code.html#cb85-44" tabindex="-1"></a>  </span>
+<span id="cb85-45"><a href="source-code.html#cb85-45" tabindex="-1"></a>  initializeStates <span class="ot">&lt;-</span> <span class="cf">function</span> (states) </span>
+<span id="cb85-46"><a href="source-code.html#cb85-46" tabindex="-1"></a>  {</span>
+<span id="cb85-47"><a href="source-code.html#cb85-47" tabindex="-1"></a>    somy.states <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;somy&quot;</span>, states, <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb85-48"><a href="source-code.html#cb85-48" tabindex="-1"></a>    somy.numbers <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="fu">sapply</span>(<span class="fu">strsplit</span>(somy.states, <span class="st">&quot;-somy&quot;</span>), </span>
+<span id="cb85-49"><a href="source-code.html#cb85-49" tabindex="-1"></a>                                      <span class="st">&quot;[[&quot;</span>, <span class="dv">1</span>))</span>
+<span id="cb85-50"><a href="source-code.html#cb85-50" tabindex="-1"></a>    <span class="fu">names</span>(somy.numbers) <span class="ot">&lt;-</span> somy.states</span>
+<span id="cb85-51"><a href="source-code.html#cb85-51" tabindex="-1"></a>    <span class="cf">if</span> (<span class="st">&quot;zero-inflation&quot;</span> <span class="sc">%in%</span> states) {</span>
+<span id="cb85-52"><a href="source-code.html#cb85-52" tabindex="-1"></a>      multiplicity <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">zero-inflation</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">0</span>, somy.numbers)</span>
+<span id="cb85-53"><a href="source-code.html#cb85-53" tabindex="-1"></a>    }</span>
+<span id="cb85-54"><a href="source-code.html#cb85-54" tabindex="-1"></a>    <span class="cf">else</span> {</span>
+<span id="cb85-55"><a href="source-code.html#cb85-55" tabindex="-1"></a>      multiplicity <span class="ot">&lt;-</span> somy.numbers</span>
+<span id="cb85-56"><a href="source-code.html#cb85-56" tabindex="-1"></a>    }</span>
+<span id="cb85-57"><a href="source-code.html#cb85-57" tabindex="-1"></a>    levels.distributions <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;delta&quot;</span>, <span class="st">&quot;dgeom&quot;</span>, <span class="st">&quot;dnbinom&quot;</span>, <span class="st">&quot;dbinom&quot;</span>)</span>
+<span id="cb85-58"><a href="source-code.html#cb85-58" tabindex="-1"></a>    distributions <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(states))</span>
+<span id="cb85-59"><a href="source-code.html#cb85-59" tabindex="-1"></a>    <span class="fu">names</span>(distributions) <span class="ot">&lt;-</span> states</span>
+<span id="cb85-60"><a href="source-code.html#cb85-60" tabindex="-1"></a>    distributions[states <span class="sc">==</span> <span class="st">&quot;zero-inflation&quot;</span>] <span class="ot">&lt;-</span> <span class="st">&quot;delta&quot;</span></span>
+<span id="cb85-61"><a href="source-code.html#cb85-61" tabindex="-1"></a>    distributions[states <span class="sc">==</span> <span class="st">&quot;0-somy&quot;</span>] <span class="ot">&lt;-</span> <span class="st">&quot;dgeom&quot;</span></span>
+<span id="cb85-62"><a href="source-code.html#cb85-62" tabindex="-1"></a>    distributions[(states <span class="sc">!=</span> <span class="st">&quot;zero-inflation&quot;</span>) <span class="sc">&amp;</span> (states <span class="sc">!=</span> <span class="st">&quot;0-somy&quot;</span>)] <span class="ot">&lt;-</span> <span class="st">&quot;dnbinom&quot;</span></span>
+<span id="cb85-63"><a href="source-code.html#cb85-63" tabindex="-1"></a>    states <span class="ot">&lt;-</span> <span class="fu">factor</span>(states, <span class="at">levels =</span> states)</span>
+<span id="cb85-64"><a href="source-code.html#cb85-64" tabindex="-1"></a>    distributions <span class="ot">&lt;-</span> <span class="fu">factor</span>(distributions, <span class="at">levels =</span> levels.distributions)</span>
+<span id="cb85-65"><a href="source-code.html#cb85-65" tabindex="-1"></a>    l <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">states =</span> states, <span class="at">distributions =</span> distributions, </span>
+<span id="cb85-66"><a href="source-code.html#cb85-66" tabindex="-1"></a>              <span class="at">multiplicity =</span> multiplicity)</span>
+<span id="cb85-67"><a href="source-code.html#cb85-67" tabindex="-1"></a>    <span class="fu">return</span>(l)</span>
+<span id="cb85-68"><a href="source-code.html#cb85-68" tabindex="-1"></a>  }</span>
+<span id="cb85-69"><a href="source-code.html#cb85-69" tabindex="-1"></a>  </span>
+<span id="cb85-70"><a href="source-code.html#cb85-70" tabindex="-1"></a>  <span class="co">#  colours</span></span>
+<span id="cb85-71"><a href="source-code.html#cb85-71" tabindex="-1"></a>  <span class="cf">if</span> (daan_colours) {</span>
+<span id="cb85-72"><a href="source-code.html#cb85-72" tabindex="-1"></a>    stateColors <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">states =</span> <span class="fu">c</span>(<span class="st">&quot;zero-inflation&quot;</span>, <span class="fu">paste0</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>, <span class="st">&quot;-somy&quot;</span>),</span>
+<span id="cb85-73"><a href="source-code.html#cb85-73" tabindex="-1"></a>                                       <span class="st">&quot;total&quot;</span>)) {</span>
+<span id="cb85-74"><a href="source-code.html#cb85-74" tabindex="-1"></a>      </span>
+<span id="cb85-75"><a href="source-code.html#cb85-75" tabindex="-1"></a>      state.colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">zero-inflation</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;#1d4661&quot;</span>, <span class="st">`</span><span class="at">0-somy</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;#1d4661&quot;</span>,</span>
+<span id="cb85-76"><a href="source-code.html#cb85-76" tabindex="-1"></a>                        <span class="st">`</span><span class="at">1-somy</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;#3787BA&quot;</span>, <span class="st">`</span><span class="at">2-somy</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;#95B8C5&quot;</span>,</span>
+<span id="cb85-77"><a href="source-code.html#cb85-77" tabindex="-1"></a>                        <span class="st">`</span><span class="at">3-somy</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;#F0ECEB&quot;</span>, <span class="st">`</span><span class="at">4-somy</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;#D7A290&quot;</span>, <span class="st">`</span><span class="at">5-somy</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;#BF583B&quot;</span>,</span>
+<span id="cb85-78"><a href="source-code.html#cb85-78" tabindex="-1"></a>                        <span class="st">`</span><span class="at">6-somy</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;#8D1128&quot;</span>, <span class="st">`</span><span class="at">7-somy</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;#3C0912&quot;</span>, <span class="st">`</span><span class="at">8-somy</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb85-79"><a href="source-code.html#cb85-79" tabindex="-1"></a>                        <span class="at">total =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb85-80"><a href="source-code.html#cb85-80" tabindex="-1"></a>      </span>
+<span id="cb85-81"><a href="source-code.html#cb85-81" tabindex="-1"></a>      states.with.color <span class="ot">&lt;-</span> <span class="fu">intersect</span>(states, <span class="fu">names</span>(state.colors))</span>
+<span id="cb85-82"><a href="source-code.html#cb85-82" tabindex="-1"></a>      cols <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="fu">length</span>(states))</span>
+<span id="cb85-83"><a href="source-code.html#cb85-83" tabindex="-1"></a>      <span class="fu">names</span>(cols) <span class="ot">&lt;-</span> states</span>
+<span id="cb85-84"><a href="source-code.html#cb85-84" tabindex="-1"></a>      cols[states.with.color] <span class="ot">&lt;-</span> state.colors[states.with.color]</span>
+<span id="cb85-85"><a href="source-code.html#cb85-85" tabindex="-1"></a>      <span class="fu">return</span>(cols)</span>
+<span id="cb85-86"><a href="source-code.html#cb85-86" tabindex="-1"></a>    }</span>
+<span id="cb85-87"><a href="source-code.html#cb85-87" tabindex="-1"></a>    </span>
+<span id="cb85-88"><a href="source-code.html#cb85-88" tabindex="-1"></a>  }</span>
+<span id="cb85-89"><a href="source-code.html#cb85-89" tabindex="-1"></a></span>
+<span id="cb85-90"><a href="source-code.html#cb85-90" tabindex="-1"></a>  </span>
+<span id="cb85-91"><a href="source-code.html#cb85-91" tabindex="-1"></a>  </span>
+<span id="cb85-92"><a href="source-code.html#cb85-92" tabindex="-1"></a>  <span class="co"># heatmapgenomewide adapted form AneuFinder package</span></span>
+<span id="cb85-93"><a href="source-code.html#cb85-93" tabindex="-1"></a>  heatmapGenomewide_daan <span class="ot">&lt;-</span> <span class="cf">function</span> (hmms, <span class="at">ylabels =</span> <span class="cn">NULL</span>, classes, <span class="at">reorder.by.class =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb85-94"><a href="source-code.html#cb85-94" tabindex="-1"></a>                                      classes.color, <span class="at">file =</span> <span class="cn">NULL</span>, <span class="at">cluster =</span> <span class="cn">TRUE</span>, <span class="at">plot.breakpoints =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb85-95"><a href="source-code.html#cb85-95" tabindex="-1"></a>                                      <span class="at">hotspots =</span> <span class="cn">NULL</span>, <span class="at">exclude.regions =</span> <span class="cn">NULL</span>) </span>
+<span id="cb85-96"><a href="source-code.html#cb85-96" tabindex="-1"></a>  {</span>
+<span id="cb85-97"><a href="source-code.html#cb85-97" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(ylabels)) {</span>
+<span id="cb85-98"><a href="source-code.html#cb85-98" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">length</span>(ylabels) <span class="sc">!=</span> <span class="fu">length</span>(hmms)) {</span>
+<span id="cb85-99"><a href="source-code.html#cb85-99" tabindex="-1"></a>        <span class="fu">stop</span>(<span class="st">&quot;length(ylabels) must equal length(hmms)&quot;</span>)</span>
+<span id="cb85-100"><a href="source-code.html#cb85-100" tabindex="-1"></a>      }</span>
+<span id="cb85-101"><a href="source-code.html#cb85-101" tabindex="-1"></a>    }</span>
+<span id="cb85-102"><a href="source-code.html#cb85-102" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(classes)) {</span>
+<span id="cb85-103"><a href="source-code.html#cb85-103" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">length</span>(classes) <span class="sc">!=</span> <span class="fu">length</span>(hmms)) {</span>
+<span id="cb85-104"><a href="source-code.html#cb85-104" tabindex="-1"></a>        <span class="fu">stop</span>(<span class="st">&quot;length(classes) must equal length(hmms)&quot;</span>)</span>
+<span id="cb85-105"><a href="source-code.html#cb85-105" tabindex="-1"></a>      }</span>
+<span id="cb85-106"><a href="source-code.html#cb85-106" tabindex="-1"></a>    }</span>
+<span id="cb85-107"><a href="source-code.html#cb85-107" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(classes.color) <span class="sc">!=</span> <span class="fu">length</span>(<span class="fu">unique</span>(classes))) {</span>
+<span id="cb85-108"><a href="source-code.html#cb85-108" tabindex="-1"></a>      <span class="fu">stop</span>(<span class="st">&quot;&#39;classes.color&#39; must have the same length as unique(classes)&quot;</span>)</span>
+<span id="cb85-109"><a href="source-code.html#cb85-109" tabindex="-1"></a>    }</span>
+<span id="cb85-110"><a href="source-code.html#cb85-110" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">is.null</span>(<span class="fu">names</span>(classes.color))) {</span>
+<span id="cb85-111"><a href="source-code.html#cb85-111" tabindex="-1"></a>      <span class="fu">names</span>(classes.color) <span class="ot">&lt;-</span> <span class="fu">unique</span>(classes)</span>
+<span id="cb85-112"><a href="source-code.html#cb85-112" tabindex="-1"></a>    }</span>
+<span id="cb85-113"><a href="source-code.html#cb85-113" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">setequal</span>(<span class="fu">names</span>(classes.color), <span class="fu">unique</span>(classes))) {</span>
+<span id="cb85-114"><a href="source-code.html#cb85-114" tabindex="-1"></a>      <span class="fu">stop</span>(<span class="st">&quot;The names of &#39;classes.color&#39; must be equal to the unique elements in &#39;classes&#39;&quot;</span>)</span>
+<span id="cb85-115"><a href="source-code.html#cb85-115" tabindex="-1"></a>    }</span>
+<span id="cb85-116"><a href="source-code.html#cb85-116" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(hmms) <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> cluster <span class="sc">==</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb85-117"><a href="source-code.html#cb85-117" tabindex="-1"></a>      cluster <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb85-118"><a href="source-code.html#cb85-118" tabindex="-1"></a>      <span class="fu">warning</span>(<span class="st">&quot;Cannot do clustering because only one object was given.&quot;</span>)</span>
+<span id="cb85-119"><a href="source-code.html#cb85-119" tabindex="-1"></a>    }</span>
+<span id="cb85-120"><a href="source-code.html#cb85-120" tabindex="-1"></a>    hmms <span class="ot">&lt;-</span> <span class="fu">loadFromFiles</span>(hmms, <span class="at">check.class =</span> <span class="fu">c</span>(<span class="st">&quot;aneuHMM&quot;</span>, <span class="st">&quot;aneuBiHMM&quot;</span>))</span>
+<span id="cb85-121"><a href="source-code.html#cb85-121" tabindex="-1"></a>    class.data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ID =</span> <span class="fu">sapply</span>(hmms, <span class="st">&quot;[[&quot;</span>, <span class="st">&quot;ID&quot;</span>))</span>
+<span id="cb85-122"><a href="source-code.html#cb85-122" tabindex="-1"></a>    class.data<span class="sc">$</span>ID <span class="ot">&lt;-</span> <span class="fu">factor</span>(class.data<span class="sc">$</span>ID, <span class="at">levels =</span> class.data<span class="sc">$</span>ID)</span>
+<span id="cb85-123"><a href="source-code.html#cb85-123" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">is.null</span>(ylabels)) {</span>
+<span id="cb85-124"><a href="source-code.html#cb85-124" tabindex="-1"></a>      class.data<span class="sc">$</span>ylabel <span class="ot">&lt;-</span> <span class="fu">as.character</span>(class.data<span class="sc">$</span>ID)</span>
+<span id="cb85-125"><a href="source-code.html#cb85-125" tabindex="-1"></a>    }</span>
+<span id="cb85-126"><a href="source-code.html#cb85-126" tabindex="-1"></a>    <span class="cf">else</span> {</span>
+<span id="cb85-127"><a href="source-code.html#cb85-127" tabindex="-1"></a>      class.data<span class="sc">$</span>ylabel <span class="ot">&lt;-</span> <span class="fu">as.character</span>(ylabels)</span>
+<span id="cb85-128"><a href="source-code.html#cb85-128" tabindex="-1"></a>    }</span>
+<span id="cb85-129"><a href="source-code.html#cb85-129" tabindex="-1"></a>    class.data<span class="sc">$</span>class <span class="ot">&lt;-</span> classes</span>
+<span id="cb85-130"><a href="source-code.html#cb85-130" tabindex="-1"></a>    mapping <span class="ot">&lt;-</span> class.data<span class="sc">$</span>ylabel</span>
+<span id="cb85-131"><a href="source-code.html#cb85-131" tabindex="-1"></a>    <span class="fu">names</span>(mapping) <span class="ot">&lt;-</span> class.data<span class="sc">$</span>ID</span>
+<span id="cb85-132"><a href="source-code.html#cb85-132" tabindex="-1"></a>    <span class="cf">if</span> (reorder.by.class) {</span>
+<span id="cb85-133"><a href="source-code.html#cb85-133" tabindex="-1"></a>      cl <span class="ot">&lt;-</span> <span class="fu">clusterHMMs</span>(hmms, <span class="at">cluster =</span> cluster, <span class="at">classes =</span> classes, </span>
+<span id="cb85-134"><a href="source-code.html#cb85-134" tabindex="-1"></a>                        <span class="at">exclude.regions =</span> exclude.regions)</span>
+<span id="cb85-135"><a href="source-code.html#cb85-135" tabindex="-1"></a>    }</span>
+<span id="cb85-136"><a href="source-code.html#cb85-136" tabindex="-1"></a>    <span class="cf">else</span> {</span>
+<span id="cb85-137"><a href="source-code.html#cb85-137" tabindex="-1"></a>      cl <span class="ot">&lt;-</span> <span class="fu">clusterHMMs</span>(hmms, <span class="at">cluster =</span> cluster, <span class="at">exclude.regions =</span> exclude.regions)</span>
+<span id="cb85-138"><a href="source-code.html#cb85-138" tabindex="-1"></a>    }</span>
+<span id="cb85-139"><a href="source-code.html#cb85-139" tabindex="-1"></a>    hmms <span class="ot">&lt;-</span> hmms[cl<span class="sc">$</span>IDorder]</span>
+<span id="cb85-140"><a href="source-code.html#cb85-140" tabindex="-1"></a>    class.data <span class="ot">&lt;-</span> class.data[cl<span class="sc">$</span>IDorder, ]</span>
+<span id="cb85-141"><a href="source-code.html#cb85-141" tabindex="-1"></a>    class.data<span class="sc">$</span>ID <span class="ot">&lt;-</span> <span class="fu">factor</span>(class.data<span class="sc">$</span>ID, <span class="at">levels =</span> class.data<span class="sc">$</span>ID)</span>
+<span id="cb85-142"><a href="source-code.html#cb85-142" tabindex="-1"></a>    segments.list <span class="ot">&lt;-</span> <span class="fu">GRangesList</span>()</span>
+<span id="cb85-143"><a href="source-code.html#cb85-143" tabindex="-1"></a>    <span class="cf">for</span> (i1 <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(hmms)) {</span>
+<span id="cb85-144"><a href="source-code.html#cb85-144" tabindex="-1"></a>      hmm <span class="ot">&lt;-</span> hmms[[i1]]</span>
+<span id="cb85-145"><a href="source-code.html#cb85-145" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">is.null</span>(hmm<span class="sc">$</span>segments)) {</span>
+<span id="cb85-146"><a href="source-code.html#cb85-146" tabindex="-1"></a>        segments.list[[hmm<span class="sc">$</span>ID]] <span class="ot">&lt;-</span> <span class="fu">GRanges</span>()</span>
+<span id="cb85-147"><a href="source-code.html#cb85-147" tabindex="-1"></a>      }</span>
+<span id="cb85-148"><a href="source-code.html#cb85-148" tabindex="-1"></a>      <span class="cf">else</span> {</span>
+<span id="cb85-149"><a href="source-code.html#cb85-149" tabindex="-1"></a>        segments.list[[hmm<span class="sc">$</span>ID]] <span class="ot">&lt;-</span> hmm<span class="sc">$</span>segments</span>
+<span id="cb85-150"><a href="source-code.html#cb85-150" tabindex="-1"></a>      }</span>
+<span id="cb85-151"><a href="source-code.html#cb85-151" tabindex="-1"></a>    }</span>
+<span id="cb85-152"><a href="source-code.html#cb85-152" tabindex="-1"></a>    <span class="cf">if</span> (plot.breakpoints) {</span>
+<span id="cb85-153"><a href="source-code.html#cb85-153" tabindex="-1"></a>      breakpoints <span class="ot">&lt;-</span> <span class="fu">GRangesList</span>()</span>
+<span id="cb85-154"><a href="source-code.html#cb85-154" tabindex="-1"></a>      <span class="cf">for</span> (i1 <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(hmms)) {</span>
+<span id="cb85-155"><a href="source-code.html#cb85-155" tabindex="-1"></a>        hmm <span class="ot">&lt;-</span> hmms[[i1]]</span>
+<span id="cb85-156"><a href="source-code.html#cb85-156" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">is.null</span>(hmm<span class="sc">$</span>breakpoints)) {</span>
+<span id="cb85-157"><a href="source-code.html#cb85-157" tabindex="-1"></a>          breakpoints[[hmm<span class="sc">$</span>ID]] <span class="ot">&lt;-</span> <span class="fu">GRanges</span>()</span>
+<span id="cb85-158"><a href="source-code.html#cb85-158" tabindex="-1"></a>        }</span>
+<span id="cb85-159"><a href="source-code.html#cb85-159" tabindex="-1"></a>        <span class="cf">else</span> {</span>
+<span id="cb85-160"><a href="source-code.html#cb85-160" tabindex="-1"></a>          breakpoints[[hmm<span class="sc">$</span>ID]] <span class="ot">&lt;-</span> hmm<span class="sc">$</span>breakpoints</span>
+<span id="cb85-161"><a href="source-code.html#cb85-161" tabindex="-1"></a>        }</span>
+<span id="cb85-162"><a href="source-code.html#cb85-162" tabindex="-1"></a>      }</span>
+<span id="cb85-163"><a href="source-code.html#cb85-163" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">length</span>(breakpoints) <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb85-164"><a href="source-code.html#cb85-164" tabindex="-1"></a>        plot.breakpoints <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb85-165"><a href="source-code.html#cb85-165" tabindex="-1"></a>      }</span>
+<span id="cb85-166"><a href="source-code.html#cb85-166" tabindex="-1"></a>    }</span>
+<span id="cb85-167"><a href="source-code.html#cb85-167" tabindex="-1"></a>    ptm <span class="ot">&lt;-</span> <span class="fu">startTimedMessage</span>(<span class="st">&quot;Transforming coordinates ...&quot;</span>)</span>
+<span id="cb85-168"><a href="source-code.html#cb85-168" tabindex="-1"></a>    segments.list <span class="ot">&lt;-</span> <span class="fu">endoapply</span>(segments.list, transCoord)</span>
+<span id="cb85-169"><a href="source-code.html#cb85-169" tabindex="-1"></a>    <span class="cf">if</span> (plot.breakpoints) {</span>
+<span id="cb85-170"><a href="source-code.html#cb85-170" tabindex="-1"></a>      breakpoints <span class="ot">&lt;-</span> <span class="fu">endoapply</span>(breakpoints, transCoord)</span>
+<span id="cb85-171"><a href="source-code.html#cb85-171" tabindex="-1"></a>    }</span>
+<span id="cb85-172"><a href="source-code.html#cb85-172" tabindex="-1"></a>    <span class="fu">stopTimedMessage</span>(ptm)</span>
+<span id="cb85-173"><a href="source-code.html#cb85-173" tabindex="-1"></a>    ptm <span class="ot">&lt;-</span> <span class="fu">startTimedMessage</span>(<span class="st">&quot;Making the plot ...&quot;</span>)</span>
+<span id="cb85-174"><a href="source-code.html#cb85-174" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb85-175"><a href="source-code.html#cb85-175" tabindex="-1"></a>    <span class="cf">for</span> (i1 <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(segments.list)) {</span>
+<span id="cb85-176"><a href="source-code.html#cb85-176" tabindex="-1"></a>      df[[<span class="fu">length</span>(df) <span class="sc">+</span> <span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">start =</span> segments.list[[i1]]<span class="sc">$</span>start.genome, </span>
+<span id="cb85-177"><a href="source-code.html#cb85-177" tabindex="-1"></a>                                         <span class="at">end =</span> segments.list[[i1]]<span class="sc">$</span>end.genome, <span class="at">seqnames =</span> <span class="fu">seqnames</span>(segments.list[[i1]]), </span>
+<span id="cb85-178"><a href="source-code.html#cb85-178" tabindex="-1"></a>                                         <span class="at">ID =</span> <span class="fu">names</span>(segments.list)[i1], <span class="at">state =</span> segments.list[[i1]]<span class="sc">$</span>state)</span>
+<span id="cb85-179"><a href="source-code.html#cb85-179" tabindex="-1"></a>    }</span>
+<span id="cb85-180"><a href="source-code.html#cb85-180" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, df)</span>
+<span id="cb85-181"><a href="source-code.html#cb85-181" tabindex="-1"></a>    df<span class="sc">$</span>ID <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>ID, <span class="at">levels =</span> <span class="fu">levels</span>(class.data<span class="sc">$</span>ID))</span>
+<span id="cb85-182"><a href="source-code.html#cb85-182" tabindex="-1"></a>    df<span class="sc">$</span>ylabel <span class="ot">&lt;-</span> mapping[<span class="fu">as.character</span>(df<span class="sc">$</span>ID)]</span>
+<span id="cb85-183"><a href="source-code.html#cb85-183" tabindex="-1"></a>    <span class="cf">if</span> (plot.breakpoints) {</span>
+<span id="cb85-184"><a href="source-code.html#cb85-184" tabindex="-1"></a>      df.breakpoints <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb85-185"><a href="source-code.html#cb85-185" tabindex="-1"></a>      <span class="cf">for</span> (i1 <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(breakpoints)) {</span>
+<span id="cb85-186"><a href="source-code.html#cb85-186" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">length</span>(breakpoints[[i1]]) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb85-187"><a href="source-code.html#cb85-187" tabindex="-1"></a>          df.breakpoints[[<span class="fu">length</span>(df.breakpoints) <span class="sc">+</span> <span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">start =</span> breakpoints[[i1]]<span class="sc">$</span>start.genome, </span>
+<span id="cb85-188"><a href="source-code.html#cb85-188" tabindex="-1"></a>                                                                     <span class="at">end =</span> breakpoints[[i1]]<span class="sc">$</span>end.genome, <span class="at">seqnames =</span> <span class="fu">seqnames</span>(breakpoints[[i1]]), </span>
+<span id="cb85-189"><a href="source-code.html#cb85-189" tabindex="-1"></a>                                                                     <span class="at">ID =</span> <span class="fu">names</span>(segments.list)[i1], <span class="at">mid =</span> (breakpoints[[i1]]<span class="sc">$</span>start.genome <span class="sc">+</span> </span>
+<span id="cb85-190"><a href="source-code.html#cb85-190" tabindex="-1"></a>                                                                                                             breakpoints[[i1]]<span class="sc">$</span>end.genome)<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb85-191"><a href="source-code.html#cb85-191" tabindex="-1"></a>        }</span>
+<span id="cb85-192"><a href="source-code.html#cb85-192" tabindex="-1"></a>        <span class="cf">else</span> {</span>
+<span id="cb85-193"><a href="source-code.html#cb85-193" tabindex="-1"></a>          df.breakpoints[[<span class="fu">length</span>(df.breakpoints) <span class="sc">+</span> <span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">start =</span> <span class="fu">numeric</span>(), </span>
+<span id="cb85-194"><a href="source-code.html#cb85-194" tabindex="-1"></a>                                                                     <span class="at">end =</span> <span class="fu">numeric</span>(), <span class="at">seqnames =</span> <span class="fu">character</span>(), <span class="at">ID =</span> <span class="fu">character</span>(), </span>
+<span id="cb85-195"><a href="source-code.html#cb85-195" tabindex="-1"></a>                                                                     <span class="at">mid =</span> <span class="fu">numeric</span>())</span>
+<span id="cb85-196"><a href="source-code.html#cb85-196" tabindex="-1"></a>        }</span>
+<span id="cb85-197"><a href="source-code.html#cb85-197" tabindex="-1"></a>      }</span>
+<span id="cb85-198"><a href="source-code.html#cb85-198" tabindex="-1"></a>      df.breakpoints <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, df.breakpoints)</span>
+<span id="cb85-199"><a href="source-code.html#cb85-199" tabindex="-1"></a>      df.breakpoints<span class="sc">$</span>ID <span class="ot">&lt;-</span> <span class="fu">factor</span>(df.breakpoints<span class="sc">$</span>ID, <span class="at">levels =</span> <span class="fu">levels</span>(class.data<span class="sc">$</span>ID))</span>
+<span id="cb85-200"><a href="source-code.html#cb85-200" tabindex="-1"></a>      df.breakpoints<span class="sc">$</span>ylabel <span class="ot">&lt;-</span> mapping[<span class="fu">as.character</span>(df.breakpoints<span class="sc">$</span>ID)]</span>
+<span id="cb85-201"><a href="source-code.html#cb85-201" tabindex="-1"></a>    }</span>
+<span id="cb85-202"><a href="source-code.html#cb85-202" tabindex="-1"></a>    cum.seqlengths <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(<span class="fu">as.numeric</span>(<span class="fu">seqlengths</span>(segments.list[[<span class="dv">1</span>]])))</span>
+<span id="cb85-203"><a href="source-code.html#cb85-203" tabindex="-1"></a>    <span class="fu">names</span>(cum.seqlengths) <span class="ot">&lt;-</span> <span class="fu">seqlevels</span>(segments.list[[<span class="dv">1</span>]])</span>
+<span id="cb85-204"><a href="source-code.html#cb85-204" tabindex="-1"></a>    cum.seqlengths<span class="fl">.0</span> <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, cum.seqlengths[<span class="sc">-</span><span class="fu">length</span>(cum.seqlengths)])</span>
+<span id="cb85-205"><a href="source-code.html#cb85-205" tabindex="-1"></a>    <span class="fu">names</span>(cum.seqlengths<span class="fl">.0</span>) <span class="ot">&lt;-</span> <span class="fu">seqlevels</span>(segments.list[[<span class="dv">1</span>]])</span>
+<span id="cb85-206"><a href="source-code.html#cb85-206" tabindex="-1"></a>    label.pos <span class="ot">&lt;-</span> <span class="fu">round</span>(cum.seqlengths<span class="fl">.0</span> <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> <span class="fu">seqlengths</span>(segments.list[[<span class="dv">1</span>]]))</span>
+<span id="cb85-207"><a href="source-code.html#cb85-207" tabindex="-1"></a>    df.chroms <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, cum.seqlengths), <span class="at">x =</span> <span class="dv">1</span>, </span>
+<span id="cb85-208"><a href="source-code.html#cb85-208" tabindex="-1"></a>                            <span class="at">xend =</span> <span class="fu">length</span>(segments.list))</span>
+<span id="cb85-209"><a href="source-code.html#cb85-209" tabindex="-1"></a>    pltlist <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb85-210"><a href="source-code.html#cb85-210" tabindex="-1"></a>    widths <span class="ot">&lt;-</span> <span class="fu">vector</span>()</span>
+<span id="cb85-211"><a href="source-code.html#cb85-211" tabindex="-1"></a>    df<span class="sc">$</span>state <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>state, <span class="at">levels =</span> <span class="fu">names</span>(<span class="fu">sort</span>(<span class="fu">initializeStates</span>(<span class="fu">levels</span>(df<span class="sc">$</span>state))<span class="sc">$</span>multiplicity)))</span>
+<span id="cb85-212"><a href="source-code.html#cb85-212" tabindex="-1"></a>    df<span class="sc">$</span>x <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>ID)</span>
+<span id="cb85-213"><a href="source-code.html#cb85-213" tabindex="-1"></a>    ggplt <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df) <span class="sc">+</span> <span class="fu">geom_linerange</span>(<span class="fu">aes_string</span>(<span class="at">ymin =</span> <span class="st">&quot;start&quot;</span>, </span>
+<span id="cb85-214"><a href="source-code.html#cb85-214" tabindex="-1"></a>                                                    <span class="at">ymax =</span> <span class="st">&quot;end&quot;</span>, <span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">col =</span> <span class="st">&quot;state&quot;</span>), <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> label.pos, </span>
+<span id="cb85-215"><a href="source-code.html#cb85-215" tabindex="-1"></a>                                                                                                                          <span class="at">labels =</span> <span class="fu">names</span>(label.pos))</span>
+<span id="cb85-216"><a href="source-code.html#cb85-216" tabindex="-1"></a>    </span>
+<span id="cb85-217"><a href="source-code.html#cb85-217" tabindex="-1"></a></span>
+<span id="cb85-218"><a href="source-code.html#cb85-218" tabindex="-1"></a>    <span class="co"># ggplt &lt;- ggplt + scale_x_continuous(name = &quot;&quot;,</span></span>
+<span id="cb85-219"><a href="source-code.html#cb85-219" tabindex="-1"></a>    <span class="co">#                      breaks = 1:length(unique(df$ylabel)),</span></span>
+<span id="cb85-220"><a href="source-code.html#cb85-220" tabindex="-1"></a>    <span class="co">#                      labels = unique(df$ylabel))</span></span>
+<span id="cb85-221"><a href="source-code.html#cb85-221" tabindex="-1"></a>    </span>
+<span id="cb85-222"><a href="source-code.html#cb85-222" tabindex="-1"></a>    ggplt <span class="ot">&lt;-</span> ggplt <span class="sc">+</span> <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">stateColors</span>(<span class="fu">levels</span>(df<span class="sc">$</span>state))) <span class="co"># adding custom colours</span></span>
+<span id="cb85-223"><a href="source-code.html#cb85-223" tabindex="-1"></a>    <span class="co"># adjusintg x axis</span></span>
+<span id="cb85-224"><a href="source-code.html#cb85-224" tabindex="-1"></a>    ggplt <span class="ot">&lt;-</span> ggplt <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">panel.background =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb85-225"><a href="source-code.html#cb85-225" tabindex="-1"></a>                           <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb85-226"><a href="source-code.html#cb85-226" tabindex="-1"></a>                           <span class="at">axis.line =</span> <span class="fu">element_blank</span>(), <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb85-227"><a href="source-code.html#cb85-227" tabindex="-1"></a>    </span>
+<span id="cb85-228"><a href="source-code.html#cb85-228" tabindex="-1"></a>    ggplt <span class="ot">&lt;-</span> ggplt <span class="sc">+</span> <span class="fu">geom_segment</span>(<span class="fu">aes_string</span>(<span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">xend =</span> <span class="st">&quot;xend&quot;</span>,</span>
+<span id="cb85-229"><a href="source-code.html#cb85-229" tabindex="-1"></a>                                             <span class="at">y =</span> <span class="st">&quot;y&quot;</span>, <span class="at">yend =</span> <span class="st">&quot;y&quot;</span>), <span class="at">data =</span> df.chroms, <span class="at">col =</span> <span class="st">&quot;grey13&quot;</span>)</span>
+<span id="cb85-230"><a href="source-code.html#cb85-230" tabindex="-1"></a>    </span>
+<span id="cb85-231"><a href="source-code.html#cb85-231" tabindex="-1"></a>    </span>
+<span id="cb85-232"><a href="source-code.html#cb85-232" tabindex="-1"></a>    </span>
+<span id="cb85-233"><a href="source-code.html#cb85-233" tabindex="-1"></a>    <span class="co"># adjusting y axis</span></span>
+<span id="cb85-234"><a href="source-code.html#cb85-234" tabindex="-1"></a>    ggplt <span class="ot">&lt;-</span> ggplt <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb85-235"><a href="source-code.html#cb85-235" tabindex="-1"></a>                           <span class="at">axis.line =</span> <span class="fu">element_blank</span>(), <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb85-236"><a href="source-code.html#cb85-236" tabindex="-1"></a>    </span>
+<span id="cb85-237"><a href="source-code.html#cb85-237" tabindex="-1"></a>    <span class="co"># removing legend</span></span>
+<span id="cb85-238"><a href="source-code.html#cb85-238" tabindex="-1"></a>    ggplt <span class="ot">&lt;-</span> ggplt <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)</span>
+<span id="cb85-239"><a href="source-code.html#cb85-239" tabindex="-1"></a>    </span>
+<span id="cb85-240"><a href="source-code.html#cb85-240" tabindex="-1"></a>    ggplt <span class="ot">&lt;-</span> ggplt <span class="sc">+</span> <span class="fu">coord_flip</span>()</span>
+<span id="cb85-241"><a href="source-code.html#cb85-241" tabindex="-1"></a>    </span>
+<span id="cb85-242"><a href="source-code.html#cb85-242" tabindex="-1"></a>    <span class="co"># removing all axis names</span></span>
+<span id="cb85-243"><a href="source-code.html#cb85-243" tabindex="-1"></a>    ggplt <span class="ot">&lt;-</span> ggplt <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>)</span>
+<span id="cb85-244"><a href="source-code.html#cb85-244" tabindex="-1"></a>    </span>
+<span id="cb85-245"><a href="source-code.html#cb85-245" tabindex="-1"></a>    <span class="co"># add numeber of cells sequenced text</span></span>
+<span id="cb85-246"><a href="source-code.html#cb85-246" tabindex="-1"></a>    ggplt <span class="ot">&lt;-</span> ggplt <span class="sc">+</span> <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, </span>
+<span id="cb85-247"><a href="source-code.html#cb85-247" tabindex="-1"></a>                              <span class="at">label =</span> <span class="fu">paste</span>(<span class="fu">length</span>(hmms), <span class="st">&#39;cells&#39;</span>), </span>
+<span id="cb85-248"><a href="source-code.html#cb85-248" tabindex="-1"></a>                              <span class="at">x =</span> <span class="fu">length</span>(hmms)<span class="sc">/</span><span class="dv">2</span>, </span>
+<span id="cb85-249"><a href="source-code.html#cb85-249" tabindex="-1"></a>                              <span class="at">y =</span> <span class="dv">3100000000</span>,</span>
+<span id="cb85-250"><a href="source-code.html#cb85-250" tabindex="-1"></a>                              <span class="at">angle =</span> <span class="dv">270</span>,</span>
+<span id="cb85-251"><a href="source-code.html#cb85-251" tabindex="-1"></a>                              <span class="at">size =</span> <span class="dv">50</span>)</span>
+<span id="cb85-252"><a href="source-code.html#cb85-252" tabindex="-1"></a>    </span>
+<span id="cb85-253"><a href="source-code.html#cb85-253" tabindex="-1"></a>    <span class="co"># decreasing plot margin</span></span>
+<span id="cb85-254"><a href="source-code.html#cb85-254" tabindex="-1"></a>    ggplt <span class="ot">&lt;-</span> ggplt <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="st">&quot;cm&quot;</span>))</span>
+<span id="cb85-255"><a href="source-code.html#cb85-255" tabindex="-1"></a>    </span>
+<span id="cb85-256"><a href="source-code.html#cb85-256" tabindex="-1"></a>    </span>
+<span id="cb85-257"><a href="source-code.html#cb85-257" tabindex="-1"></a>    <span class="cf">if</span> (plot.breakpoints) {</span>
+<span id="cb85-258"><a href="source-code.html#cb85-258" tabindex="-1"></a>      df.breakpoints<span class="sc">$</span>x <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df.breakpoints<span class="sc">$</span>ID)</span>
+<span id="cb85-259"><a href="source-code.html#cb85-259" tabindex="-1"></a>      ggplt <span class="ot">&lt;-</span> ggplt <span class="sc">+</span> <span class="fu">geom_linerange</span>(<span class="at">data =</span> df.breakpoints, </span>
+<span id="cb85-260"><a href="source-code.html#cb85-260" tabindex="-1"></a>                                      <span class="at">mapping =</span> <span class="fu">aes_string</span>(<span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ymin =</span> <span class="st">&quot;start&quot;</span>, <span class="at">ymax =</span> <span class="st">&quot;end&quot;</span>), </span>
+<span id="cb85-261"><a href="source-code.html#cb85-261" tabindex="-1"></a>                                      <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">data =</span> df.breakpoints, </span>
+<span id="cb85-262"><a href="source-code.html#cb85-262" tabindex="-1"></a>                                                                        <span class="at">mapping =</span> <span class="fu">aes_string</span>(<span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">y =</span> <span class="st">&quot;mid&quot;</span>))</span>
+<span id="cb85-263"><a href="source-code.html#cb85-263" tabindex="-1"></a>    }</span>
+<span id="cb85-264"><a href="source-code.html#cb85-264" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(hotspots)) {</span>
+<span id="cb85-265"><a href="source-code.html#cb85-265" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">length</span>(hotspots) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb85-266"><a href="source-code.html#cb85-266" tabindex="-1"></a>        df.hot <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">transCoord</span>(hotspots))</span>
+<span id="cb85-267"><a href="source-code.html#cb85-267" tabindex="-1"></a>        df.hot<span class="sc">$</span>xmin <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb85-268"><a href="source-code.html#cb85-268" tabindex="-1"></a>        df.hot<span class="sc">$</span>xmax <span class="ot">&lt;-</span> <span class="fu">length</span>(class.data<span class="sc">$</span>ID) <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb85-269"><a href="source-code.html#cb85-269" tabindex="-1"></a>        ggplt <span class="ot">&lt;-</span> ggplt <span class="sc">+</span> <span class="fu">geom_rect</span>(<span class="at">data =</span> df.hot, <span class="at">mapping =</span> <span class="fu">aes_string</span>(<span class="at">xmin =</span> <span class="st">&quot;xmin&quot;</span>, </span>
+<span id="cb85-270"><a href="source-code.html#cb85-270" tabindex="-1"></a>                                                                       <span class="at">xmax =</span> <span class="st">&quot;xmax&quot;</span>, <span class="at">ymin =</span> <span class="st">&quot;start.genome&quot;</span>, <span class="at">ymax =</span> <span class="st">&quot;end.genome&quot;</span>, </span>
+<span id="cb85-271"><a href="source-code.html#cb85-271" tabindex="-1"></a>                                                                       <span class="at">alpha =</span> <span class="st">&quot;num.events&quot;</span>), <span class="at">fill =</span> <span class="st">&quot;hotpink4&quot;</span>) <span class="sc">+</span> <span class="fu">scale_alpha_continuous</span>(<span class="at">name =</span> <span class="st">&quot;breakpoints&quot;</span>, </span>
+<span id="cb85-272"><a href="source-code.html#cb85-272" tabindex="-1"></a>                                                                                                                                          <span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.4</span>, <span class="fl">0.8</span>))</span>
+<span id="cb85-273"><a href="source-code.html#cb85-273" tabindex="-1"></a>      }</span>
+<span id="cb85-274"><a href="source-code.html#cb85-274" tabindex="-1"></a>    }</span>
+<span id="cb85-275"><a href="source-code.html#cb85-275" tabindex="-1"></a>    </span>
+<span id="cb85-276"><a href="source-code.html#cb85-276" tabindex="-1"></a>    </span>
+<span id="cb85-277"><a href="source-code.html#cb85-277" tabindex="-1"></a>    width.heatmap <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">as.numeric</span>(<span class="fu">seqlengths</span>(hmms[[<span class="dv">1</span>]]<span class="sc">$</span>bins)))<span class="sc">/</span><span class="fl">3e+09</span> <span class="sc">*</span> </span>
+<span id="cb85-278"><a href="source-code.html#cb85-278" tabindex="-1"></a>      <span class="dv">150</span></span>
+<span id="cb85-279"><a href="source-code.html#cb85-279" tabindex="-1"></a>    height <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="fu">length</span>(hmms) <span class="sc">*</span> <span class="fl">0.5</span>, <span class="dv">2</span>)</span>
+<span id="cb85-280"><a href="source-code.html#cb85-280" tabindex="-1"></a>    pltlist[[<span class="st">&quot;heatmap&quot;</span>]] <span class="ot">&lt;-</span> ggplt</span>
+<span id="cb85-281"><a href="source-code.html#cb85-281" tabindex="-1"></a>    widths[<span class="st">&quot;heatmap&quot;</span>] <span class="ot">&lt;-</span> width.heatmap</span>
+<span id="cb85-282"><a href="source-code.html#cb85-282" tabindex="-1"></a>    <span class="co"># adding class colors</span></span>
+<span id="cb85-283"><a href="source-code.html#cb85-283" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(classes)) {</span>
+<span id="cb85-284"><a href="source-code.html#cb85-284" tabindex="-1"></a>      width.classes <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb85-285"><a href="source-code.html#cb85-285" tabindex="-1"></a>      class.data<span class="sc">$</span>x <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(class.data<span class="sc">$</span>ID)</span>
+<span id="cb85-286"><a href="source-code.html#cb85-286" tabindex="-1"></a>      ggclass <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(class.data) <span class="sc">+</span> <span class="fu">geom_linerange</span>(<span class="fu">aes_string</span>(<span class="at">ymin =</span> <span class="dv">0</span>, </span>
+<span id="cb85-287"><a href="source-code.html#cb85-287" tabindex="-1"></a>                                                                <span class="at">ymax =</span> <span class="dv">1</span>, <span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">col =</span> <span class="st">&quot;class&quot;</span>), <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="fu">guides</span>(<span class="at">col =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb85-288"><a href="source-code.html#cb85-288" tabindex="-1"></a>        <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>)</span>
+<span id="cb85-289"><a href="source-code.html#cb85-289" tabindex="-1"></a>      ggclass <span class="ot">&lt;-</span> ggclass <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">panel.background =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb85-290"><a href="source-code.html#cb85-290" tabindex="-1"></a>                                 <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb85-291"><a href="source-code.html#cb85-291" tabindex="-1"></a>                                 <span class="at">axis.line =</span> <span class="fu">element_blank</span>(), <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb85-292"><a href="source-code.html#cb85-292" tabindex="-1"></a>      ggclass <span class="ot">&lt;-</span> ggclass <span class="sc">+</span> <span class="fu">coord_flip</span>()</span>
+<span id="cb85-293"><a href="source-code.html#cb85-293" tabindex="-1"></a>      </span>
+<span id="cb85-294"><a href="source-code.html#cb85-294" tabindex="-1"></a>      <span class="co"># decreasing plot margin</span></span>
+<span id="cb85-295"><a href="source-code.html#cb85-295" tabindex="-1"></a>      ggclass <span class="ot">&lt;-</span> ggclass <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="st">&quot;cm&quot;</span>))</span>
+<span id="cb85-296"><a href="source-code.html#cb85-296" tabindex="-1"></a>      </span>
+<span id="cb85-297"><a href="source-code.html#cb85-297" tabindex="-1"></a>      <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(classes.color)) {</span>
+<span id="cb85-298"><a href="source-code.html#cb85-298" tabindex="-1"></a>        ggclass <span class="ot">&lt;-</span> ggclass <span class="sc">+</span> <span class="fu">scale_color_manual</span>(<span class="at">breaks =</span> <span class="fu">names</span>(classes.color), </span>
+<span id="cb85-299"><a href="source-code.html#cb85-299" tabindex="-1"></a>                                                <span class="at">values =</span> classes.color)</span>
+<span id="cb85-300"><a href="source-code.html#cb85-300" tabindex="-1"></a>      }</span>
+<span id="cb85-301"><a href="source-code.html#cb85-301" tabindex="-1"></a>      pltlist[[<span class="st">&quot;classbar&quot;</span>]] <span class="ot">&lt;-</span> ggclass</span>
+<span id="cb85-302"><a href="source-code.html#cb85-302" tabindex="-1"></a>      widths[<span class="st">&quot;classbar&quot;</span>] <span class="ot">&lt;-</span> width.classes</span>
+<span id="cb85-303"><a href="source-code.html#cb85-303" tabindex="-1"></a>    }</span>
+<span id="cb85-304"><a href="source-code.html#cb85-304" tabindex="-1"></a>    <span class="co"># adding dendogram</span></span>
+<span id="cb85-305"><a href="source-code.html#cb85-305" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(cl<span class="sc">$</span>hclust) <span class="sc">&amp;</span> dendogram) {</span>
+<span id="cb85-306"><a href="source-code.html#cb85-306" tabindex="-1"></a>      dhc <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">as.dendrogram</span>(cl<span class="sc">$</span>hclust)</span>
+<span id="cb85-307"><a href="source-code.html#cb85-307" tabindex="-1"></a>      ddata <span class="ot">&lt;-</span> ggdendro<span class="sc">::</span><span class="fu">dendro_data</span>(dhc, <span class="at">type =</span> <span class="st">&quot;rectangle&quot;</span>)</span>
+<span id="cb85-308"><a href="source-code.html#cb85-308" tabindex="-1"></a>      ggdndr <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ddata<span class="sc">$</span>segments) <span class="sc">+</span> <span class="fu">geom_segment</span>(<span class="fu">aes_string</span>(<span class="at">x =</span> <span class="st">&quot;x&quot;</span>, </span>
+<span id="cb85-309"><a href="source-code.html#cb85-309" tabindex="-1"></a>                                                                 <span class="at">xend =</span> <span class="st">&quot;xend&quot;</span>, <span class="at">y =</span> <span class="st">&quot;y&quot;</span>, <span class="at">yend =</span> <span class="st">&quot;yend&quot;</span>)) <span class="sc">+</span> <span class="fu">scale_y_reverse</span>()</span>
+<span id="cb85-310"><a href="source-code.html#cb85-310" tabindex="-1"></a>      ggdndr <span class="ot">&lt;-</span> ggdndr <span class="sc">+</span> <span class="fu">coord_flip</span>()</span>
+<span id="cb85-311"><a href="source-code.html#cb85-311" tabindex="-1"></a>      ggdndr <span class="ot">&lt;-</span> ggdndr <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">panel.background =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb85-312"><a href="source-code.html#cb85-312" tabindex="-1"></a>                               <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb85-313"><a href="source-code.html#cb85-313" tabindex="-1"></a>                               <span class="at">axis.line =</span> <span class="fu">element_blank</span>(), <span class="at">axis.title =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb85-314"><a href="source-code.html#cb85-314" tabindex="-1"></a>      width.dendro <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb85-315"><a href="source-code.html#cb85-315" tabindex="-1"></a>      pltlist[[<span class="st">&quot;dendro&quot;</span>]] <span class="ot">&lt;-</span> ggdndr</span>
+<span id="cb85-316"><a href="source-code.html#cb85-316" tabindex="-1"></a>      widths[<span class="st">&quot;dendro&quot;</span>] <span class="ot">&lt;-</span> width.dendro</span>
+<span id="cb85-317"><a href="source-code.html#cb85-317" tabindex="-1"></a>    }</span>
+<span id="cb85-318"><a href="source-code.html#cb85-318" tabindex="-1"></a>    <span class="co"># alligning ggpllt with dendogram and classes</span></span>
+<span id="cb85-319"><a href="source-code.html#cb85-319" tabindex="-1"></a>    cowplt <span class="ot">&lt;-</span> cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(<span class="at">plotlist =</span> <span class="fu">rev</span>(pltlist), <span class="at">align =</span> <span class="st">&quot;h&quot;</span>, </span>
+<span id="cb85-320"><a href="source-code.html#cb85-320" tabindex="-1"></a>                                 <span class="at">ncol =</span> <span class="fu">length</span>(pltlist), <span class="at">rel_widths =</span> <span class="fu">rev</span>(widths))</span>
+<span id="cb85-321"><a href="source-code.html#cb85-321" tabindex="-1"></a>    </span>
+<span id="cb85-322"><a href="source-code.html#cb85-322" tabindex="-1"></a>    </span>
+<span id="cb85-323"><a href="source-code.html#cb85-323" tabindex="-1"></a>    <span class="fu">stopTimedMessage</span>(ptm)</span>
+<span id="cb85-324"><a href="source-code.html#cb85-324" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(file)) {</span>
+<span id="cb85-325"><a href="source-code.html#cb85-325" tabindex="-1"></a>      ptm <span class="ot">&lt;-</span> <span class="fu">startTimedMessage</span>(<span class="st">&quot;Plotting to file &quot;</span>, file, <span class="st">&quot; ...&quot;</span>)</span>
+<span id="cb85-326"><a href="source-code.html#cb85-326" tabindex="-1"></a>      <span class="fu">ggsave</span>(file, cowplt, <span class="at">width =</span> <span class="fu">sum</span>(widths), <span class="at">height =</span> height, </span>
+<span id="cb85-327"><a href="source-code.html#cb85-327" tabindex="-1"></a>             <span class="at">units =</span> <span class="st">&quot;cm&quot;</span>, <span class="at">limitsize =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb85-328"><a href="source-code.html#cb85-328" tabindex="-1"></a>      <span class="fu">stopTimedMessage</span>(ptm)</span>
+<span id="cb85-329"><a href="source-code.html#cb85-329" tabindex="-1"></a>    }</span>
+<span id="cb85-330"><a href="source-code.html#cb85-330" tabindex="-1"></a>    <span class="cf">else</span> {</span>
+<span id="cb85-331"><a href="source-code.html#cb85-331" tabindex="-1"></a>      <span class="fu">return</span>(cowplt)</span>
+<span id="cb85-332"><a href="source-code.html#cb85-332" tabindex="-1"></a>    }</span>
+<span id="cb85-333"><a href="source-code.html#cb85-333" tabindex="-1"></a>  }</span>
+<span id="cb85-334"><a href="source-code.html#cb85-334" tabindex="-1"></a>  </span>
+<span id="cb85-335"><a href="source-code.html#cb85-335" tabindex="-1"></a>  <span class="co">#make heatmap and safe</span></span>
+<span id="cb85-336"><a href="source-code.html#cb85-336" tabindex="-1"></a>  <span class="fu">suppressWarnings</span>(<span class="fu">heatmapGenomewide_daan</span>(selected.files, <span class="at">classes =</span> classes_daan, <span class="at">classes.color =</span> class.col,</span>
+<span id="cb85-337"><a href="source-code.html#cb85-337" tabindex="-1"></a>                         <span class="at">file =</span> <span class="fu">paste0</span>(path, <span class="st">&#39;/&#39;</span>, name, <span class="st">&#39;_&#39;</span>, platename, <span class="st">&#39;.pdf&#39;</span>)))</span>
+<span id="cb85-338"><a href="source-code.html#cb85-338" tabindex="-1"></a>  </span>
+<span id="cb85-339"><a href="source-code.html#cb85-339" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">print</span>(<span class="fu">paste0</span>(name, <span class="st">&#39; done.&#39;</span>)))</span>
+<span id="cb85-340"><a href="source-code.html#cb85-340" tabindex="-1"></a>  </span>
+<span id="cb85-341"><a href="source-code.html#cb85-341" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="fisher_test-script-perform_fisher-function" class="section level2 hasAnchor" number="6.9">
+<h2><span class="header-section-number">6.9</span> fisher_test script: ‘perform_fisher’ function<a href="source-code.html#fisher_test-script-perform_fisher-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="source-code.html#cb86-1" tabindex="-1"></a>perform_fisher <span class="ot">&lt;-</span> <span class="cf">function</span>(dataframe,</span>
+<span id="cb86-2"><a href="source-code.html#cb86-2" tabindex="-1"></a>                           population1,</span>
+<span id="cb86-3"><a href="source-code.html#cb86-3" tabindex="-1"></a>                           population2) {</span>
+<span id="cb86-4"><a href="source-code.html#cb86-4" tabindex="-1"></a>  <span class="co">#&#39; @param </span></span>
+<span id="cb86-5"><a href="source-code.html#cb86-5" tabindex="-1"></a>  <span class="co">#&#39; dataframe is a df with columns paths and class with values &#39;hub015_rad_a&#39;, &#39;hub015_prerad_a&#39; etc.</span></span>
+<span id="cb86-6"><a href="source-code.html#cb86-6" tabindex="-1"></a>  <span class="co">#&#39; population 1 and population two are the two pops you want to compare, for example prerad vs rad</span></span>
+<span id="cb86-7"><a href="source-code.html#cb86-7" tabindex="-1"></a>  <span class="co">#&#39; or prerad versus rad cycle 2</span></span>
+<span id="cb86-8"><a href="source-code.html#cb86-8" tabindex="-1"></a>  <span class="co">#&#39; @return</span></span>
+<span id="cb86-9"><a href="source-code.html#cb86-9" tabindex="-1"></a>  <span class="co">#&#39; returns the p value of a Fisher&#39;s exact test. If the p value is above 0.05, the distributions</span></span>
+<span id="cb86-10"><a href="source-code.html#cb86-10" tabindex="-1"></a>  <span class="co">#&#39; pre and post rad are the same. </span></span>
+<span id="cb86-11"><a href="source-code.html#cb86-11" tabindex="-1"></a>  <span class="co">#&#39; </span></span>
+<span id="cb86-12"><a href="source-code.html#cb86-12" tabindex="-1"></a>  </span>
+<span id="cb86-13"><a href="source-code.html#cb86-13" tabindex="-1"></a>  dataframe<span class="sc">$</span>rad <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(dataframe<span class="sc">$</span>class <span class="sc">%in%</span> population1, <span class="st">&#39;pop1&#39;</span>,</span>
+<span id="cb86-14"><a href="source-code.html#cb86-14" tabindex="-1"></a>                          <span class="fu">ifelse</span>(dataframe<span class="sc">$</span>class <span class="sc">%in%</span> population2, <span class="st">&#39;pop2&#39;</span>,</span>
+<span id="cb86-15"><a href="source-code.html#cb86-15" tabindex="-1"></a>                                 <span class="cn">NA</span>))</span>
+<span id="cb86-16"><a href="source-code.html#cb86-16" tabindex="-1"></a>  </span>
+<span id="cb86-17"><a href="source-code.html#cb86-17" tabindex="-1"></a>  org_id <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">str_extract</span>(<span class="fu">unique</span>(dataframe<span class="sc">$</span>class), <span class="st">&#39;hub</span><span class="sc">\\</span><span class="st">d{3}&#39;</span>))</span>
+<span id="cb86-18"><a href="source-code.html#cb86-18" tabindex="-1"></a>  </span>
+<span id="cb86-19"><a href="source-code.html#cb86-19" tabindex="-1"></a>  <span class="co"># remove na</span></span>
+<span id="cb86-20"><a href="source-code.html#cb86-20" tabindex="-1"></a>  dataframe <span class="ot">&lt;-</span> dataframe[<span class="fu">which</span>(<span class="sc">!</span><span class="fu">is.na</span>(dataframe<span class="sc">$</span>rad)),]</span>
+<span id="cb86-21"><a href="source-code.html#cb86-21" tabindex="-1"></a>  </span>
+<span id="cb86-22"><a href="source-code.html#cb86-22" tabindex="-1"></a>  simple_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(string) {</span>
+<span id="cb86-23"><a href="source-code.html#cb86-23" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">tail</span>(string,<span class="dv">1</span>))</span>
+<span id="cb86-24"><a href="source-code.html#cb86-24" tabindex="-1"></a>  }</span>
+<span id="cb86-25"><a href="source-code.html#cb86-25" tabindex="-1"></a>  </span>
+<span id="cb86-26"><a href="source-code.html#cb86-26" tabindex="-1"></a>  dataframe<span class="sc">$</span>clone <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(stringr<span class="sc">::</span><span class="fu">str_split</span>(dataframe<span class="sc">$</span>class, <span class="at">pattern =</span> <span class="st">&#39;_&#39;</span>), simple_fun))</span>
+<span id="cb86-27"><a href="source-code.html#cb86-27" tabindex="-1"></a>  </span>
+<span id="cb86-28"><a href="source-code.html#cb86-28" tabindex="-1"></a>  <span class="co"># in hub015 and hub005, we defined subclones. These are actually part of the same clone, so should be </span></span>
+<span id="cb86-29"><a href="source-code.html#cb86-29" tabindex="-1"></a>  <span class="co"># analysed together</span></span>
+<span id="cb86-30"><a href="source-code.html#cb86-30" tabindex="-1"></a>  <span class="cf">if</span> (org_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;hub005&#39;</span>, <span class="st">&#39;hub015&#39;</span>)){</span>
+<span id="cb86-31"><a href="source-code.html#cb86-31" tabindex="-1"></a>    dataframe<span class="sc">$</span>clone <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(dataframe<span class="sc">$</span>clone, <span class="at">pattern =</span> <span class="st">&#39;a.a|a.b&#39;</span>, <span class="at">replacement =</span> <span class="st">&#39;a&#39;</span>)</span>
+<span id="cb86-32"><a href="source-code.html#cb86-32" tabindex="-1"></a>    </span>
+<span id="cb86-33"><a href="source-code.html#cb86-33" tabindex="-1"></a>  }</span>
+<span id="cb86-34"><a href="source-code.html#cb86-34" tabindex="-1"></a>  </span>
+<span id="cb86-35"><a href="source-code.html#cb86-35" tabindex="-1"></a>  tab <span class="ot">&lt;-</span> <span class="fu">table</span>(dataframe<span class="sc">$</span>clone, dataframe<span class="sc">$</span>rad)</span>
+<span id="cb86-36"><a href="source-code.html#cb86-36" tabindex="-1"></a>  </span>
+<span id="cb86-37"><a href="source-code.html#cb86-37" tabindex="-1"></a>  </span>
+<span id="cb86-38"><a href="source-code.html#cb86-38" tabindex="-1"></a>  <span class="co"># df &lt;- data.frame(cline &lt;- org_id, p_val &lt;- fisher.test(tab)$p.value)</span></span>
+<span id="cb86-39"><a href="source-code.html#cb86-39" tabindex="-1"></a>  <span class="co"># </span></span>
+<span id="cb86-40"><a href="source-code.html#cb86-40" tabindex="-1"></a>  <span class="co"># return(df) </span></span>
+<span id="cb86-41"><a href="source-code.html#cb86-41" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">fisher.test</span>(tab)<span class="sc">$</span>p.value)</span>
+<span id="cb86-42"><a href="source-code.html#cb86-42" tabindex="-1"></a>  </span>
+<span id="cb86-43"><a href="source-code.html#cb86-43" tabindex="-1"></a>}</span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="copy-number-pattern-analyses.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dshandel/subclonal_evolution_paper/edit/main/06-source.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/dshandel/subclonal_evolution_paper/blob/main/06-source.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

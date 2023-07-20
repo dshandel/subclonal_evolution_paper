@@ -1,0 +1,1163 @@
+# Source code
+
+The source code in this here is arranged in a loose chronological order, reflecting the sequence in which it is called in the scripts presented throughout this book.
+
+## AUC_rad script: 'AUC_fun' function
+
+```{r AUC_rad: AUC_fun, eval = F, echo = T}
+# returns the AUC of the actual data.
+AUC_fun <- function(df) {
+  
+  # defining variables to work with
+  d <- df
+  
+  lines <- character()
+  # for loop, checks if CF$cline is in vector lines, if so, do nothing, else append to vector. 
+  for (line in d$cline) (
+    ifelse(line %in% lines, NA, lines <- c(lines, line)))
+  
+  # separate into dataframes according to cline
+  per_line <- split(d, f = d$cline, drop = TRUE)
+  
+  # define dose_vetor
+  dose_vector <- unique(d$dose)
+  
+  
+  # computes AUC for given predicted survival and dose given by dose_vector
+  AUC_calc <- function(df) {
+    # extract actual data
+    rel_mean <- df$relative_mean
+    
+    # extracts number of experiemnts 
+    n <- length(unique(d$Exp))
+    #remove 2th and 3th number (are duplicates)
+    rel_mean <- rel_mean[seq(1, length(rel_mean), n)]
+    
+    # compute maximal 
+    max_AUC <- max(dose_vector)*1
+    
+    #compute AUC
+    act_AUC <- AUC(x=dose_vector, y = rel_mean)
+    
+    # make dataframe
+    datafr <- data.frame(max_AUC = max_AUC,
+                         act_AUC = act_AUC, 
+                         rel_AUC = act_AUC/max_AUC,
+                         expcode = unique(df$expcode),
+                         cline= unique(df$cline),
+                         treatment = unique(df$treatment ) )
+    
+    
+    return(datafr)
+  }
+  
+  # Store in vector
+  AUC_vector <- lapply(per_line, AUC_calc) 
+  
+  #merge dataframes
+  df = do.call(rbind, AUC_vector)
+  
+  return(df) 
+  
+}
+
+```
+
+## fitter_rad script: 'fitter' function
+```{r fitter_rad: fitter, eval = F,echo = T}
+fitter <- function(df) {
+  
+  # defining variables to work with
+  d <- df
+  
+  
+  lines <- character()
+  # for loop, checks if CF$cline is in vector lines, if so, do nothing, else append to vector. 
+  for (line in d$cline) (
+    ifelse(line %in% lines, NA, lines <- c(lines, line)))
+  
+  # separate into dataframes according to cline
+  per_line <- split(d, f = d$cline, drop = TRUE)
+  
+  
+  # Function to make model for every line and dataframe with predicted data for each line. 
+  fit_model= function(line) {
+    # line is a dataframe. Outputs the fits of norm and dose
+    fit <- drm(relative ~ dose, # define y -axis (ncolonies) and x-axis (dose)
+               data = line, # defines dataframe
+               fct = LL.4 (names = c('Slope', "Lower Limit", "Upper Limit", "IC50"))) # defines to fit a log-losistic model)
+    
+    newdata <- expand.grid(dose=exp(seq(log(0.00000001), log(max(df$dose) + 1000), length=1000))) # new data with doses. Note: lowest dose is not
+    # log 0 but log('very small number') because otherwise this will hamper the scaling in ggplot later on. 
+    pm <- predict(fit, newdata=newdata, interval="confidence") # new data with predictions and confidence intervals
+    newdata$pred <- pm[,1] # add prediction values to new data.
+    newdata$predmin <- pm[,2] # add lower bounderies to new data 
+    newdata$predmax <- pm[,3] # add upper bounderies to new data 
+    newdata$cline <- line$cline[1] # add column with cline.
+    newdata$expcode = unique(df$expcode)
+    return(newdata)
+  }
+  
+  # Store in vector
+  data_frames <- lapply(per_line, fit_model) 
+  
+  
+  #merge dataframes
+  df = do.call(rbind, data_frames)
+  
+  return(df) 
+  
+}
+```
+
+## ic50_rad script: 'IC50_fun' function
+```{r ic50_rad: IC50_fun, eval = F,echo = T}
+IC50_fun <- function(df, rad) {
+  
+  # defining variables to work with
+  ifelse(is.null(rad), d<-df, d <- subset(df, rec_rad == rad))
+  
+  lines <- character()
+  # for loop, checks if CF$cline is in vector lines, if so, do nothing, else append to vector. 
+  for (line in d$cline) (
+    ifelse(line %in% lines, NA, lines <- c(lines, line)))
+  
+  # separate into dataframes according to cline
+  per_line <- split(d, f = d$cline, drop =TRUE)
+  
+  
+  # Function to make model for every line and dataframe with predicted data for each line. 
+  ic50= function(line) {
+    # line is a dataframe. Outputs the fits of norm and dose
+    fit <- drm(relative ~ dose, # define y -axis (ncolonies) and x-axis (dose)
+               data = line, # defines dataframe
+               fct = LL.4 (names = c('Slope', "Lower Limit", "Upper Limit", "IC50"))) # defines to fit a log-losistic model)
+    
+    return(coef(fit)[4])
+  }
+  
+  # Store in vector
+  IC50_vector <- lapply(per_line, ic50) 
+  
+  #merge dataframes
+  df = do.call(rbind, IC50_vector)
+  
+  return(df) 
+  
+} 
+```
+
+## relativize_dr script: 'relative' function
+
+```{r relativize_dr: relative, eval = F,echo = T}
+relative <- function(df, rad) {
+  #' @param df with dose response data and columns cline, dose, Exp, 
+  #' rec_rad, expcode, ncolonies
+  #' @param rad if line received radiation (T or F), stored in column rec_rad
+  #' @return relativized data where dose = 0 is used as 100%
+  
+  # defining variables to work with
+  ifelse(rad == T, d<-subset(df, rec_rad == 1), d<-subset(df, rec_rad == 0) )
+  
+  # define ncolonies
+  column <- "ncolonies"
+  
+  # Extracts the column name.
+  col <- d[c(column)]
+  
+  # extracts number of experiemnts 
+  n <- length(unique(d$Exp))
+  
+  # Takes mean every nth row
+  
+  mean_fun <- function(x) {
+    m <- mean(x, na.rm = TRUE)
+    return(m)
+  }
+  
+  mean <- aggregate(col,list(rep(1:(nrow(col)%/%n+1),each=n,len=nrow(col))), mean_fun)[-1]
+  # Duplicates (n=2) or triplicates (n=3) the rows.
+  mean <- mean[rep(seq_len(nrow(mean)), each = n), ]
+  # Adds everything to the dataframe. 
+  d["mean"] <- mean
+  
+  # Select mean values of 0 concentration
+  d <- d %>%
+    group_by(cline) %>%
+    arrange(cline,dose)
+  
+  first <- d[d$dose==0, ] %>%
+    dplyr::select(cline, value100=mean)
+  
+  # Make cline a factor
+  d$cline<-factor(d$cline)
+  
+  # Merge first original (d)
+  d <- d %>%
+    merge(first,by=c("cline"))
+  
+  # Extract only every nth row.
+  d = d[seq(1, nrow(d), n), ]
+  
+  # make new column with relative, called relative
+  d$relative = d$ncolonies/d$value100
+  d$relative_mean = d$mean/d$value100
+  
+  d<-subset(d, select=-c(mean,value100))
+  
+  # compute relative standard error of the mean
+  # define the column with sem in it
+  column <- "relative"
+  
+  # Extracts the column name.
+  col <- d[c(column)]
+  
+  
+  sem_fun <- function(x) {
+    std <- sd(x, na.rm = TRUE)
+    vector <- na.omit(x)
+    
+    sem <- std/sqrt(length(vector))
+    return(sem)
+  }
+  
+  sem <- aggregate(col,list(rep(1:(nrow(col)%/%n+1),each=n,len=nrow(col))),sem_fun)[-1]
+  sem <- sem[rep(seq_len(nrow(sem)), each = n), ]
+  d["relative_sem"] <- sem
+  
+  return(d)
+  
+}
+```
+
+## quality_functions script: 'quality_check', 'quality_select' and 'check_quality' functions
+```{r quality_functions, eval = F,echo = T}
+quality_check <- function(inputdir, model) {
+  #' @param inputdir is directory containing the standard aneufinder output for each plate
+  #' model is which model to use for the quality check: either dnacopy, edivisive or HMM
+  #' quality_check will make quality metrics for each plate
+  #' quality_check assumes that rdaBaseDirectory contains folder with models for each plate
+  #' each plate folder has to contain a MODEL folder and a method-'dnacopy, edivisive, or HMM' folder
+  #' @example quality_check(inputdir = rdaBaseDirectory, model = 'edivisive')
+  
+  # go to folder with appropiate files
+  rda_folder <- paste0(inputdir, '/MODELS', '/method-', model)
+  
+  # extract files
+  rda_files <- list.files(rda_folder, full.names = TRUE)
+  
+  # run quality check on each file
+  cl <-
+    clusterByQuality(
+      rda_files,
+      measures = c(
+        'spikiness',
+        'num.segments',
+        'entropy',
+        'bhattacharyya',
+        'sos'
+      )
+    )
+  
+  return(cl)
+  
+}
+
+quality_select <- function(cl, spik, bhat) {
+  #' selects all files that meets the defined quality requirements
+  #' @param cl output of the clusterByQuality function in AneuFinder
+  #' @param spik the spikiness treshhold. All clusters with spikiness above
+  #' the treshold will be removed
+  #' @param bhat the bhattacharrya score. All clusters with bhattacharrya below
+  #' the treshold will be removed
+  #' @return returns a vector of selected files paths
+  
+  # convert to df to allow easy wrangling
+  cl_df <- as.data.frame(cl$parameters)
+  
+  # remove higher than spik
+  spik <- subset(cl_df, spikiness < spik)
+  
+  # remove lower than bhat
+  spik_bhat <- subset(spik,  bhattacharyya > bhat)
+  
+  cluster_n <- nrow(spik_bhat)
+  
+  # create vector of selected files
+  selected.files <- unlist(cl$classification[0:cluster_n])
+  
+  return(selected.files)
+  
+}
+
+check_quality <- function(cl) {
+  return(cl$parameters)
+}
+  
+}
+```
+
+## plot_pca_kmeans script: 'draw_pca', 'k_cluster', 'draw_pca_double' and 'k_cluster_double' functions
+```{r plot_pca_kmeans, eval = F,echo = T}
+draw_pca <-
+  function(list_files1,
+           list_files2,
+           size,
+           legend_position,
+           baseline_kra,
+           recurrence_kra,
+           ssdna004 = F) {
+    cells <- c(list_files1, list_files2)
+    
+    df <- plot_pca(
+      cells,
+      colorBy = classes,
+      PC1 = 1,
+      PC2 = 2,
+      plot = F
+    )
+    
+    df$class <- str_extract(rownames(df),  'KRA-0\\d+')
+    num <- str_extract(rownames(df),  '_\\d+\\.')
+    num <- str_remove_all(num, pattern = '\\.')
+    df$label <- paste0(df$class, num)
+    pc1 <- colnames(df)[1]
+    pc2 <- colnames(df)[2]
+    
+    colnames(df) <- c('PC1', 'PC2', 'class', 'label')
+    
+    col_vals <- ifelse(ssdna004 == T, list(c("#D69C4E", "#999999")), list(c("#999999", "#D69C4E")))
+    label_vals <- ifelse(ssdna004 == T, list(c('Recurrence', 'Baseline')), list(c('Baseline', 'Recurrence')))
+    
+    p <- ggplot(data = df, aes(label = label)) +
+      geom_point(size = size, aes(x = PC1,
+                                  y = PC2,
+                                  col = class)) +
+      # scale_color_manual(values = c("#FFDB6D", "#00AFBB")) +
+      scale_color_manual(
+        name = '',
+        values = col_vals[[1]],
+        labels = label_vals[[1]]
+      ) +
+      
+      # or consider '#9e1303' for second cycle of recurrence
+      
+      theme_cowplot() +
+      theme(legend.position = legend_position,
+            text = element_text(size = 17),
+            axis.text = element_text(size = 15)) +
+      
+      labs(x = pc1, y = pc2)
+    p
+    
+  
+    
+    # ggplotly(p)
+    
+  }
+
+
+k_cluster <- function(list_files1,
+                      list_files2,
+                      cluster_n,
+                      cols,
+                      labels,
+                      legend_position,
+                      normalize,
+                      return_elbow = F) {
+  
+  require(factoextra)
+  
+  cells <- c(list_files1, list_files2)
+  
+  df12 <- plot_pca(
+    cells,
+    colorBy = classes,
+    PC1 = 1,
+    PC2 = 2,
+    plot = F
+  )
+
+  
+  df34 <- plot_pca(
+    cells,
+    colorBy = classes,
+    PC1 = 3,
+    PC2 = 4,
+    plot = F
+  )
+  
+  df56 <- plot_pca(
+    cells,
+    colorBy = classes,
+    PC1 = 5,
+    PC2 = 6,
+    plot = F
+  )
+  
+  df78 <- plot_pca(
+    cells,
+    colorBy = classes,
+    PC1 = 7,
+    PC2 = 8,
+    plot = F
+  )
+  
+  df910 <- plot_pca(
+    cells,
+    colorBy = classes,
+    PC1 = 9,
+    PC2 = 10,
+    plot = F
+  )
+  
+  
+  df <- cbind(df12, df34, df56, df78, df910)
+  
+  
+  if (normalize) {
+    # extract variance explained for each pca
+    pca_var <-
+      as.numeric(str_match(colnames(df), "\\(\\s*(.*?)\\s*%")[, 2])
+    
+    for (i in 1:length(pca_var)) {
+      # calculate normalized pca values
+      norm_pca <- df[, i] / 100 * pca_var[i]
+      #repopulate the dataframe
+      df[, i] <- norm_pca
+    }
+    
+    
+    
+    
+    
+  }
+  
+  #check best k for k-means clustering method
+  if (return_elbow) {
+    return(fviz_nbclust(df, kmeans, method = "silhouette") +
+             labs(subtitle = "Elbow method"))
+    
+  }
+  
+  # #
+  # fviz_nbclust(df, kmeans, method = "silhouette")+
+  #   labs(subtitle = "Silhouette method")
+  #
+  # fviz_nbclust(df, kmeans, nstart = 25,  method = "gap_stat", nboot = 50)+
+  #   labs(subtitle = "Gap statistic method")
+  
+  # compute k-means clustering
+  set.seed(1)
+  res.km <- kmeans(df, cluster_n, nstart = 1000)
+  
+  # change colnames so it works for our plot
+  df12$class <- str_extract(rownames(df12),  'KRA-0\\d+')
+  num <- str_extract(rownames(df),  '_\\d+\\.')
+  num <- str_remove_all(num, pattern = '\\.')
+  df12$label <- paste0(df12$class, num)
+  pc1 <- colnames(df12)[1]
+  pc2 <- colnames(df12)[2]
+  
+  colnames(df12) <- c('PC1', 'PC2', 'class', 'label')
+  
+  # plot nicely
+  p <- ggplot(data = df12, aes(label = label)) +
+    geom_point(alpha = 1.0,
+               aes(
+                 x = PC1,
+                 y = PC2,
+                 col = as.factor(res.km$cluster)
+               )) +
+    
+    
+    theme_cowplot() +
+    
+    labs(x = pc1, y = pc2) +
+    scale_color_manual(labels = labels,
+                       values = cols,
+                       name = "Clone") +
+    theme(legend.position = legend_position,
+          text = element_text(size = 17),
+          axis.text = element_text(size = 15)) 
+  
+  return(p)
+  
+  #ggplotly(p)
+  
+}
+
+draw_pca_double <-
+  function(list_files1,
+           list_files2,
+           list_files3,
+           size,
+           legend_position) {
+    cells <- c(list_files1, list_files2, list_files3)
+    
+    
+    df <- plot_pca(
+      cells,
+      colorBy = classes,
+      PC1 = 1,
+      PC2 = 2,
+      plot = F
+    )
+    
+    df$class <- str_extract(rownames(df),  'KRA-0\\d+')
+    num <- str_extract(rownames(df),  '_\\d+\\.')
+    num <- str_remove_all(num, pattern = '\\.')
+    df$label <- paste0(df$class, num)
+    pc1 <- colnames(df)[1]
+    pc2 <- colnames(df)[2]
+    
+    colnames(df) <- c('PC1', 'PC2', 'class', 'label')
+    
+    
+    p <- ggplot(data = df, aes(label = label)) +
+      geom_point(size = size, aes(x = PC1,
+                                  y = PC2,
+                                  col = class)) +
+      # scale_color_manual(values = c("#FFDB6D", "#00AFBB")) +
+      scale_color_manual(
+        name = '',
+        values = c("#999999", "#D69C4E", '#d65c4e'),
+        labels = c('Baseline', 'Recurrence Cycle 1', 'Recurrence Cycle 2')
+      ) +
+      
+      # or consider '#9e1303' for second cycle of recurrence
+      
+      theme_cowplot() +
+      theme(legend.position = legend_position,
+            text = element_text(size = 17),
+            axis.text = element_text(size = 15)) +
+      
+      
+      labs(x = pc1, y = pc2)
+    return(p)
+    
+    # ggplotly(p)
+    
+  }
+
+
+k_cluster_double <- function(list_files1,
+                             list_files2,
+                             list_files3,
+                             
+                             cluster_n,
+                             cols,
+                             labels,
+                             legend_position,
+                             normalize,
+                             return_elbow = F) {
+  
+  require(factoextra)
+  
+  cells <- c(list_files1, list_files2, list_files3)
+  
+  
+  df12 <- plot_pca(
+    cells,
+    colorBy = classes,
+    PC1 = 1,
+    PC2 = 2,
+    plot = F
+  )
+  
+  
+  df34 <- plot_pca(
+    cells,
+    colorBy = classes,
+    PC1 = 3,
+    PC2 = 4,
+    plot = F
+  )
+  
+  df56 <- plot_pca(
+    cells,
+    colorBy = classes,
+    PC1 = 5,
+    PC2 = 6,
+    plot = F
+  )
+  
+  df78 <- plot_pca(
+    cells,
+    colorBy = classes,
+    PC1 = 7,
+    PC2 = 8,
+    plot = F
+  )
+  
+  df910 <- plot_pca(
+    cells,
+    colorBy = classes,
+    PC1 = 9,
+    PC2 = 10,
+    plot = F
+  )
+  
+  
+  df <- cbind(df12, df34, df56, df78, df910)
+  
+  
+  if (normalize) {
+    # extract variance explained for each pca
+    pca_var <-
+      as.numeric(str_match(colnames(df), "\\(\\s*(.*?)\\s*%")[, 2])
+    
+    for (i in 1:length(pca_var)) {
+      # calculate normalized pca values
+      norm_pca <- df[, i] / 100 * pca_var[i]
+      #repopulate the dataframe
+      df[, i] <- norm_pca
+    }
+    
+    
+    
+    
+    
+  }
+  
+  #check best k for k-means clustering method
+  if (return_elbow) {
+    return(fviz_nbclust(df, kmeans, method = "silhouette") +
+             labs(subtitle = "Silhouette method"))
+    
+  }
+  
+  # #
+  # fviz_nbclust(df, kmeans, method = "silhouette")+
+  #   labs(subtitle = "Silhouette method")
+  #
+  # fviz_nbclust(df, kmeans, nstart = 25,  method = "gap_stat", nboot = 50)+
+  #   labs(subtitle = "Gap statistic method")
+  
+  # compute k-means clustering
+  set.seed(1)
+  res.km <- kmeans(df, cluster_n, nstart = 1000)
+  
+  # change colnames so it works for our plot
+  df12$class <- str_extract(rownames(df12),  'KRA-0\\d+')
+  num <- str_extract(rownames(df),  '_\\d+\\.')
+  num <- str_remove_all(num, pattern = '\\.')
+  df12$label <- paste0(df12$class, num)
+  pc1 <- colnames(df12)[1]
+  pc2 <- colnames(df12)[2]
+  
+  colnames(df12) <- c('PC1', 'PC2', 'class', 'label')
+  
+  # plot nicely
+  p <- ggplot(data = df12, aes(label = label)) +
+    geom_point(alpha = 1.0,
+               aes(
+                 x = PC1,
+                 y = PC2,
+                 col = as.factor(res.km$cluster)
+               )) +
+    
+    
+    theme_cowplot() +
+    
+    labs(x = pc1, y = pc2) +
+    scale_color_manual(labels = labels,
+                       values = cols,
+                       name = "Clone") +
+    theme(legend.position = legend_position,
+          text = element_text(size = 17),
+          axis.text = element_text(size = 15)) 
+  
+  p
+  
+}
+
+  
+}
+```
+
+
+
+## divide_subclone_functions script: 'extract_other_cells', 'extract_square', 'l_g' and 'subclone_classes_for_genomeheatmap' functions
+
+```{r divide_subclone_functions, eval = F,echo = T}
+extract_other_cells <- function(kra_name, list_of_subclones) {
+  i <- which(names(man_select_files_edivisive) == kra_name)
+  all <-  str_extract(man_select_files_edivisive[[i]],  '_\\d+\\.') %>% str_remove('_') %>% str_remove('\\.') 
+  rest <- all[which(!all %in% list_of_subclones)]
+  return(rest)
+}
+
+
+extract_square <- function(list_files1, list_files2, square, x, y) {
+  # extracts all cells that lie within a square of a pca plot defined by 
+  # user. For example square c(0.1, 0.0) will extract all cells with
+  # pc1 lower or higher that 0.1 and pc2 lower or higher than 0.0. User has to rearange functon
+  # if he wants x lower or higher than 0.1
+  cells <- c(list_files1, list_files2)
+  
+  df12 <- plot_pca(cells,
+                   colorBy = classes, 
+                   PC1=1, 
+                   PC2=2,
+                   plot = F)
+  
+  colnames(df12) <- c('PC1', 'PC2')
+  
+  
+  # extracting dataframe with correct square
+  if(x == '<' & y == '<') {
+    df12 <- subset(df12, PC1 < square[1] & PC2 < square[2])
+  }
+  
+  if(x == '<' & y == '>') {
+    df12 <- subset(df12, PC1 < square[1] & PC2 > square[2])
+  }
+  
+  if(x == '>' & y == '<') {
+    df12 <- subset(df12, PC1 > square[1] & PC2 < square[2])
+  }
+  
+  if(x == '>' & y == '>') {
+    df12 <- subset(df12, PC1 > square[1] & PC2 > square[2])
+  }
+  
+  # numbers is: 
+  cell_id <-  str_extract(rownames(df12),  '_\\d+\\.') %>% str_remove('_') %>% str_remove('\\.')  
+  
+  return(cell_id)
+  
+}
+
+l_g <- function(x, kra_num, list_cells) {
+  select <- grepl(paste0(kra_num,'_',x,"\\."), list_cells)
+  i <- which(select)
+  return(list_cells[i])
+  
+  
+}
+
+
+subclone_classes_for_genomeheatmap <- function(list_of_subclones, cline) {
+  #' @param 
+  #' list of subclones is the full list of rda files that have been assigned a subclone_classes_for_genomeheatmap
+  #' cline is the line (hub005, hub183 etc.)
+  #' rad is either prerad or rad
+  #' @return 
+  #' returns a vector with that assigns a subclone
+  
+  extract_subclones <- list_of_subclones[grepl(names(list_of_subclones), pattern = paste0(cline))]
+  
+  size_subclones <- lapply(extract_subclones, length)
+  
+  classes <- rep(names(size_subclones), size_subclones)
+  
+  df <- data.frame(path = unlist(extract_subclones),
+                   class = classes)
+  
+  return(df)
+  
+  
+}
+
+
+```
+
+## plot_genomeheatmap script: 'genomeheatmap' function
+```{r plot_genomeheatmap.R, eval = F,echo = T}
+genomeheatmap <- function(selected.files, 
+                          path, 
+                          classes_daan = NULL, 
+                          class.col = NULL, 
+                          dendogram = F,
+                          daan_colours = T,
+                          name) {
+  # This code was adapted from the AneuFinder package
+  # plots and saves genome heatmap of selected.files
+  # @param 
+  # selected.files: vector of location of selected files.
+  # output path: path were plots should be saved. 
+  # name: how you want to name the plot
+  
+  # get platename
+  platename <- str_extract(selected.files[1],  'KRA-0\\d+')
+  
+  # AneuFinder functions: 
+  startTimedMessage <- function(...) {
+    
+    x <- paste0(..., collapse='')
+    message(x, appendLF=FALSE)
+    ptm <- proc.time()
+    return(ptm)
+    
+  }
+  
+  transCoord <- function (gr) 
+  {
+    cum.seqlengths <- cumsum(as.numeric(seqlengths(gr)))
+    cum.seqlengths.0 <- c(0, cum.seqlengths[-length(cum.seqlengths)])
+    names(cum.seqlengths.0) <- seqlevels(gr)
+    gr$start.genome <- start(gr) + cum.seqlengths.0[as.character(seqnames(gr))]
+    gr$end.genome <- end(gr) + cum.seqlengths.0[as.character(seqnames(gr))]
+    return(gr)
+  }
+  
+  stopTimedMessage <- function(ptm) {
+    
+    time <- proc.time() - ptm
+    message(" ", round(time[3],2), "s")
+    
+  }
+  
+  initializeStates <- function (states) 
+  {
+    somy.states <- grep("somy", states, value = TRUE)
+    somy.numbers <- as.integer(sapply(strsplit(somy.states, "-somy"), 
+                                      "[[", 1))
+    names(somy.numbers) <- somy.states
+    if ("zero-inflation" %in% states) {
+      multiplicity <- c(`zero-inflation` = 0, somy.numbers)
+    }
+    else {
+      multiplicity <- somy.numbers
+    }
+    levels.distributions <- c("delta", "dgeom", "dnbinom", "dbinom")
+    distributions <- rep(NA, length(states))
+    names(distributions) <- states
+    distributions[states == "zero-inflation"] <- "delta"
+    distributions[states == "0-somy"] <- "dgeom"
+    distributions[(states != "zero-inflation") & (states != "0-somy")] <- "dnbinom"
+    states <- factor(states, levels = states)
+    distributions <- factor(distributions, levels = levels.distributions)
+    l <- list(states = states, distributions = distributions, 
+              multiplicity = multiplicity)
+    return(l)
+  }
+  
+  #  colours
+  if (daan_colours) {
+    stateColors <- function(states = c("zero-inflation", paste0(0:10, "-somy"),
+                                       "total")) {
+      
+      state.colors <- c(`zero-inflation` = "#1d4661", `0-somy` = "#1d4661",
+                        `1-somy` = "#3787BA", `2-somy` = "#95B8C5",
+                        `3-somy` = "#F0ECEB", `4-somy` = "#D7A290", `5-somy` = "#BF583B",
+                        `6-somy` = "#8D1128", `7-somy` = "#3C0912", `8-somy` = "black",
+                        total = "black")
+      
+      states.with.color <- intersect(states, names(state.colors))
+      cols <- rep("black", length(states))
+      names(cols) <- states
+      cols[states.with.color] <- state.colors[states.with.color]
+      return(cols)
+    }
+    
+  }
+
+  
+  
+  # heatmapgenomewide adapted form AneuFinder package
+  heatmapGenomewide_daan <- function (hmms, ylabels = NULL, classes, reorder.by.class = TRUE, 
+                                      classes.color, file = NULL, cluster = TRUE, plot.breakpoints = FALSE, 
+                                      hotspots = NULL, exclude.regions = NULL) 
+  {
+    if (!is.null(ylabels)) {
+      if (length(ylabels) != length(hmms)) {
+        stop("length(ylabels) must equal length(hmms)")
+      }
+    }
+    if (!is.null(classes)) {
+      if (length(classes) != length(hmms)) {
+        stop("length(classes) must equal length(hmms)")
+      }
+    }
+    if (length(classes.color) != length(unique(classes))) {
+      stop("'classes.color' must have the same length as unique(classes)")
+    }
+    if (is.null(names(classes.color))) {
+      names(classes.color) <- unique(classes)
+    }
+    if (!setequal(names(classes.color), unique(classes))) {
+      stop("The names of 'classes.color' must be equal to the unique elements in 'classes'")
+    }
+    if (length(hmms) == 1 & cluster == TRUE) {
+      cluster <- FALSE
+      warning("Cannot do clustering because only one object was given.")
+    }
+    hmms <- loadFromFiles(hmms, check.class = c("aneuHMM", "aneuBiHMM"))
+    class.data <- data.frame(ID = sapply(hmms, "[[", "ID"))
+    class.data$ID <- factor(class.data$ID, levels = class.data$ID)
+    if (is.null(ylabels)) {
+      class.data$ylabel <- as.character(class.data$ID)
+    }
+    else {
+      class.data$ylabel <- as.character(ylabels)
+    }
+    class.data$class <- classes
+    mapping <- class.data$ylabel
+    names(mapping) <- class.data$ID
+    if (reorder.by.class) {
+      cl <- clusterHMMs(hmms, cluster = cluster, classes = classes, 
+                        exclude.regions = exclude.regions)
+    }
+    else {
+      cl <- clusterHMMs(hmms, cluster = cluster, exclude.regions = exclude.regions)
+    }
+    hmms <- hmms[cl$IDorder]
+    class.data <- class.data[cl$IDorder, ]
+    class.data$ID <- factor(class.data$ID, levels = class.data$ID)
+    segments.list <- GRangesList()
+    for (i1 in 1:length(hmms)) {
+      hmm <- hmms[[i1]]
+      if (is.null(hmm$segments)) {
+        segments.list[[hmm$ID]] <- GRanges()
+      }
+      else {
+        segments.list[[hmm$ID]] <- hmm$segments
+      }
+    }
+    if (plot.breakpoints) {
+      breakpoints <- GRangesList()
+      for (i1 in 1:length(hmms)) {
+        hmm <- hmms[[i1]]
+        if (is.null(hmm$breakpoints)) {
+          breakpoints[[hmm$ID]] <- GRanges()
+        }
+        else {
+          breakpoints[[hmm$ID]] <- hmm$breakpoints
+        }
+      }
+      if (length(breakpoints) == 0) {
+        plot.breakpoints <- FALSE
+      }
+    }
+    ptm <- startTimedMessage("Transforming coordinates ...")
+    segments.list <- endoapply(segments.list, transCoord)
+    if (plot.breakpoints) {
+      breakpoints <- endoapply(breakpoints, transCoord)
+    }
+    stopTimedMessage(ptm)
+    ptm <- startTimedMessage("Making the plot ...")
+    df <- list()
+    for (i1 in 1:length(segments.list)) {
+      df[[length(df) + 1]] <- data.frame(start = segments.list[[i1]]$start.genome, 
+                                         end = segments.list[[i1]]$end.genome, seqnames = seqnames(segments.list[[i1]]), 
+                                         ID = names(segments.list)[i1], state = segments.list[[i1]]$state)
+    }
+    df <- do.call(rbind, df)
+    df$ID <- factor(df$ID, levels = levels(class.data$ID))
+    df$ylabel <- mapping[as.character(df$ID)]
+    if (plot.breakpoints) {
+      df.breakpoints <- list()
+      for (i1 in 1:length(breakpoints)) {
+        if (length(breakpoints[[i1]]) > 0) {
+          df.breakpoints[[length(df.breakpoints) + 1]] <- data.frame(start = breakpoints[[i1]]$start.genome, 
+                                                                     end = breakpoints[[i1]]$end.genome, seqnames = seqnames(breakpoints[[i1]]), 
+                                                                     ID = names(segments.list)[i1], mid = (breakpoints[[i1]]$start.genome + 
+                                                                                                             breakpoints[[i1]]$end.genome)/2)
+        }
+        else {
+          df.breakpoints[[length(df.breakpoints) + 1]] <- data.frame(start = numeric(), 
+                                                                     end = numeric(), seqnames = character(), ID = character(), 
+                                                                     mid = numeric())
+        }
+      }
+      df.breakpoints <- do.call(rbind, df.breakpoints)
+      df.breakpoints$ID <- factor(df.breakpoints$ID, levels = levels(class.data$ID))
+      df.breakpoints$ylabel <- mapping[as.character(df.breakpoints$ID)]
+    }
+    cum.seqlengths <- cumsum(as.numeric(seqlengths(segments.list[[1]])))
+    names(cum.seqlengths) <- seqlevels(segments.list[[1]])
+    cum.seqlengths.0 <- c(0, cum.seqlengths[-length(cum.seqlengths)])
+    names(cum.seqlengths.0) <- seqlevels(segments.list[[1]])
+    label.pos <- round(cum.seqlengths.0 + 0.5 * seqlengths(segments.list[[1]]))
+    df.chroms <- data.frame(y = c(0, cum.seqlengths), x = 1, 
+                            xend = length(segments.list))
+    pltlist <- list()
+    widths <- vector()
+    df$state <- factor(df$state, levels = names(sort(initializeStates(levels(df$state))$multiplicity)))
+    df$x <- as.numeric(df$ID)
+    ggplt <- ggplot(df) + geom_linerange(aes_string(ymin = "start", 
+                                                    ymax = "end", x = "x", col = "state"), size = 5) + scale_y_continuous(breaks = label.pos, 
+                                                                                                                          labels = names(label.pos))
+    
+
+    # ggplt <- ggplt + scale_x_continuous(name = "",
+    #                      breaks = 1:length(unique(df$ylabel)),
+    #                      labels = unique(df$ylabel))
+    
+    ggplt <- ggplt + scale_color_manual(values = stateColors(levels(df$state))) # adding custom colours
+    # adjusintg x axis
+    ggplt <- ggplt + theme(panel.background = element_blank(), 
+                           axis.ticks.x = element_blank(), axis.text.x = element_blank(), 
+                           axis.line = element_blank(), axis.title.x = element_blank())
+    
+    ggplt <- ggplt + geom_segment(aes_string(x = "x", xend = "xend",
+                                             y = "y", yend = "y"), data = df.chroms, col = "grey13")
+    
+    
+    
+    # adjusting y axis
+    ggplt <- ggplt + theme(axis.ticks.y = element_blank(), axis.text.y = element_blank(), 
+                           axis.line = element_blank(), axis.title.x = element_blank())
+    
+    # removing legend
+    ggplt <- ggplt + theme(legend.position="none")
+    
+    ggplt <- ggplt + coord_flip()
+    
+    # removing all axis names
+    ggplt <- ggplt + ylab("") + xlab("")
+    
+    # add numeber of cells sequenced text
+    ggplt <- ggplt + annotate("text", 
+                              label = paste(length(hmms), 'cells'), 
+                              x = length(hmms)/2, 
+                              y = 3100000000,
+                              angle = 270,
+                              size = 50)
+    
+    # decreasing plot margin
+    ggplt <- ggplt + theme(plot.margin = unit(c(0,0,0,0), "cm"))
+    
+    
+    if (plot.breakpoints) {
+      df.breakpoints$x <- as.numeric(df.breakpoints$ID)
+      ggplt <- ggplt + geom_linerange(data = df.breakpoints, 
+                                      mapping = aes_string(x = "x", ymin = "start", ymax = "end"), 
+                                      size = 2) + ylab("") + geom_point(data = df.breakpoints, 
+                                                                        mapping = aes_string(x = "x", y = "mid"))
+    }
+    if (!is.null(hotspots)) {
+      if (length(hotspots) > 0) {
+        df.hot <- as.data.frame(transCoord(hotspots))
+        df.hot$xmin <- 0
+        df.hot$xmax <- length(class.data$ID) + 1
+        ggplt <- ggplt + geom_rect(data = df.hot, mapping = aes_string(xmin = "xmin", 
+                                                                       xmax = "xmax", ymin = "start.genome", ymax = "end.genome", 
+                                                                       alpha = "num.events"), fill = "hotpink4") + scale_alpha_continuous(name = "breakpoints", 
+                                                                                                                                          range = c(0.4, 0.8))
+      }
+    }
+    
+    
+    width.heatmap <- sum(as.numeric(seqlengths(hmms[[1]]$bins)))/3e+09 * 
+      150
+    height <- max(length(hmms) * 0.5, 2)
+    pltlist[["heatmap"]] <- ggplt
+    widths["heatmap"] <- width.heatmap
+    # adding class colors
+    if (!is.null(classes)) {
+      width.classes <- 5
+      class.data$x <- as.numeric(class.data$ID)
+      ggclass <- ggplot(class.data) + geom_linerange(aes_string(ymin = 0, 
+                                                                ymax = 1, x = "x", col = "class"), size = 5) + guides(col = FALSE) + 
+        xlab("")
+      ggclass <- ggclass + theme(panel.background = element_blank(), 
+                                 axis.ticks = element_blank(), axis.text = element_blank(), 
+                                 axis.line = element_blank(), axis.title.x = element_blank())
+      ggclass <- ggclass + coord_flip()
+      
+      # decreasing plot margin
+      ggclass <- ggclass + theme(plot.margin = unit(c(0,0,0,0), "cm"))
+      
+      if (!is.null(classes.color)) {
+        ggclass <- ggclass + scale_color_manual(breaks = names(classes.color), 
+                                                values = classes.color)
+      }
+      pltlist[["classbar"]] <- ggclass
+      widths["classbar"] <- width.classes
+    }
+    # adding dendogram
+    if (!is.null(cl$hclust) & dendogram) {
+      dhc <- stats::as.dendrogram(cl$hclust)
+      ddata <- ggdendro::dendro_data(dhc, type = "rectangle")
+      ggdndr <- ggplot(ddata$segments) + geom_segment(aes_string(x = "x", 
+                                                                 xend = "xend", y = "y", yend = "yend")) + scale_y_reverse()
+      ggdndr <- ggdndr + coord_flip()
+      ggdndr <- ggdndr + theme(panel.background = element_blank(), 
+                               axis.ticks = element_blank(), axis.text = element_blank(), 
+                               axis.line = element_blank(), axis.title = element_blank())
+      width.dendro <- 20
+      pltlist[["dendro"]] <- ggdndr
+      widths["dendro"] <- width.dendro
+    }
+    # alligning ggpllt with dendogram and classes
+    cowplt <- cowplot::plot_grid(plotlist = rev(pltlist), align = "h", 
+                                 ncol = length(pltlist), rel_widths = rev(widths))
+    
+    
+    stopTimedMessage(ptm)
+    if (!is.null(file)) {
+      ptm <- startTimedMessage("Plotting to file ", file, " ...")
+      ggsave(file, cowplt, width = sum(widths), height = height, 
+             units = "cm", limitsize = FALSE)
+      stopTimedMessage(ptm)
+    }
+    else {
+      return(cowplt)
+    }
+  }
+  
+  #make heatmap and safe
+  suppressWarnings(heatmapGenomewide_daan(selected.files, classes = classes_daan, classes.color = class.col,
+                         file = paste0(path, '/', name, '_', platename, '.pdf')))
+  
+  return(print(paste0(name, ' done.')))
+  
+}
+  
+
+```
+
+## fisher_test script: 'perform_fisher' function 
+```{r fisher_test.R, eval = F,echo = T}
+
+perform_fisher <- function(dataframe,
+                           population1,
+                           population2) {
+  #' @param 
+  #' dataframe is a df with columns paths and class with values 'hub015_rad_a', 'hub015_prerad_a' etc.
+  #' population 1 and population two are the two pops you want to compare, for example prerad vs rad
+  #' or prerad versus rad cycle 2
+  #' @return
+  #' returns the p value of a Fisher's exact test. If the p value is above 0.05, the distributions
+  #' pre and post rad are the same. 
+  #' 
+  
+  dataframe$rad <- ifelse(dataframe$class %in% population1, 'pop1',
+                          ifelse(dataframe$class %in% population2, 'pop2',
+                                 NA))
+  
+  org_id <- unique(str_extract(unique(dataframe$class), 'hub\\d{3}'))
+  
+  # remove na
+  dataframe <- dataframe[which(!is.na(dataframe$rad)),]
+  
+  simple_fun <- function(string) {
+    return(tail(string,1))
+  }
+  
+  dataframe$clone <- unlist(lapply(stringr::str_split(dataframe$class, pattern = '_'), simple_fun))
+  
+  # in hub015 and hub005, we defined subclones. These are actually part of the same clone, so should be 
+  # analysed together
+  if (org_id %in% c('hub005', 'hub015')){
+    dataframe$clone <- str_replace_all(dataframe$clone, pattern = 'a.a|a.b', replacement = 'a')
+    
+  }
+  
+  tab <- table(dataframe$clone, dataframe$rad)
+  
+  
+  # df <- data.frame(cline <- org_id, p_val <- fisher.test(tab)$p.value)
+  # 
+  # return(df) 
+  return(fisher.test(tab)$p.value)
+  
+}
+
+  
+
+```
+

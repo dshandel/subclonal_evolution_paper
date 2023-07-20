@@ -1,0 +1,1695 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+
+# Subclonal dynamics
+
+```{r libraries and sources for subclonal dynamics analysis, echo = T, message=FALSE, warning=FALSE}
+# Libraries and sources
+library(tidyverse)
+library(AneuFinder)
+library(GenomeInfoDb)
+library(BSgenome.Hsapiens.UCSC.hg38)
+library(stringr)
+source('R/plot_pca_kmeans.R')
+source('R/quality_functions.R')
+source('R/divide_subclone_functions.R')
+source('R/plot_genomeheatmap.R')
+source('R/fisher_test.R')
+```
+
+## AneuFinder run
+```{r running aneufinder (NOT RUN), eval=FALSE}
+###########
+# Folders #
+###########
+# define bamdirectory
+bamDirectory <- "../cna_analysis/data/subclonal_dynamics/single_cell_bams"
+
+# generates novel directories from bam-file directory to store analysis files
+inputdirs <- list.dirs(bamDirectory, recursive = F)
+outputdirs <- list.dirs(bamDirectory, full.names = F, recursive = F)
+outputdirs <-
+  paste0("rda/subclonal_dynamics/standard_aneufinder_output_pairedend_5kb/", outputdirs)
+
+# define location for correction:
+mappability <-
+  "data/subclonal_dynamics/correctionfiles/bothlymphsdiploidref.bed"
+blacklist <-
+  "data/subclonal_dynamics/correctionfiles/GRCh38_blacklist_bothlymphsdiploidref.bed"
+
+# creating a results folder in the working directory names 'result'
+dir.create(path = 'rda/subclonal_dynamics/standard_aneufinder_output_pairedend_5kb')
+
+# creating folders for each plate in the standard_aneufinder_output folder.
+for (i in 1:length(outputdirs)) {
+  dir.create(path =  outputdirs[i])
+}
+
+#######
+# Run #
+#######
+# iterates through bam-file directories and analyses results
+for (i in 4:length(inputdirs)) {
+  BamFolder <- paste0(inputdirs[i], '/split_cells')
+  Aneufinder(
+    # specifying input and outputfolder
+    inputfolder = BamFolder,
+    outputfolder = outputdirs[i],
+    
+    # general settings
+    numCPU  =  10,
+    reuse.existing.files  =  TRUE,
+    
+    # specifying binning options
+    binsizes  =  5e+05, # 500000
+    stepsizes = 5e+05,
+    variable.width.reference = mappability,
+    reads.per.bin  =  NULL,
+    pairedEndReads  =  T,
+    assembly = 'hg38',
+    chromosomes  =  c(
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
+      '10',
+      '11',
+      '12',
+      '13',
+      '14',
+      '15',
+      '16',
+      '17',
+      '18',
+      '19',
+      '20',
+      '21',
+      '22',
+      'X'
+    ),
+    remove.duplicate.reads  =  F,
+    min.mapq  =  10,
+    blacklist = blacklist,
+    reads.store = T,
+    use.bamsignals = F,
+    
+    # specifying correction options
+    correction.method = 'GC',
+    GC.BSgenome  =  BSgenome.Hsapiens.UCSC.hg38,
+    #mappability.reference = NULL,
+    
+    #specofying model options
+    method  =  c('edivisive'),
+    eps = 0.1,
+    max.time = 60,
+    max.iter = -1,
+    num.trials = 15,
+    
+    states  =  c(
+      'zero-inflation',
+      '0-somy',
+      '1-somy',
+      '2-somy',
+      '3-somy',
+      '4-somy',
+      '5-somy',
+      '6-somy',
+      '7-somy',
+      '8-somy',
+      '9-somy',
+      '+10-somy'
+    ),
+    #most.frequent.state  =  '2-somy', # maybe this should be changed given some organoids seem triploid.
+    #most.frequent.state.strandseq  =  '1-somy',
+    
+    #specifying how to detect sister chromatid exchanges
+    #resolution = c(3,6),
+    #min.segwidth  =  4,
+    #bw  =  4e+06,
+    #pval  =  0.05,
+    
+    # plotting options
+    cluster.plots = T
+  )
+}
+```
+
+
+## Quality selection
+```{r quality run (NOT RUN), eval = FALSE}
+###############
+# Description #
+###############
+# Single cell karyotyping is inherently noisy data. This script runs
+# some of the in-build quality checks provided by AneuFinder
+
+#########
+# Paths #
+#########
+#  defining rdabasedirectory
+rdaBaseDirectory <-
+  "../cna_analysis/rda/subclonal_dynamics/standard_aneufinder_output_pairedend_5kb"
+
+# list all folders within base directory (each folder contains folders the AneuFinder output: MODELS, plots etc..)
+# the files we need are in the MODELS folder
+inputdirs <- list.dirs(rdaBaseDirectory, recursive = F)
+
+# define the model we want to use (this can be 'dnacopy, edivisive, or HMM')
+model = 'edivisive'
+
+modeldirs <- list.dirs(rdaBaseDirectory, recursive = F)
+
+#######
+# Run #
+#######
+# run for edivisive
+cl_list_edivisive <- list()
+
+for (i in 1:(length(inputdirs))) {
+  # function
+  cl_list_edivisive[[paste0('kra', str_extract(pattern = '\\d{3}', inputdirs[i]))]] <-
+    quality_check(inputdir = inputdirs[i], model = 'edivisive')
+  
+}
+
+########
+# Save #
+########
+save(cl_list_edivisive, file = '../cna_analysis/rda/subclonal_dynamics/cl_list_edivisive_paired.rda')
+
+```
+
+```{r quality select (NOT RUN), eval = F, echo = T, message=FALSE, warning=FALSE}
+########
+# Data #
+########
+load('../cna_analysis/rda/subclonal_dynamics/cl_list_edivisive_paired.rda')
+
+#################
+# Quality check #
+#################
+qual_summary <- lapply(cl_list_edivisive, check_quality)
+
+#######
+# Run #
+#######
+select_files_edivisive <-
+  lapply(cl_list_edivisive,
+         quality_select,
+         spik = 0.7,
+         bhat = 0)
+
+########
+# Save #
+########
+save(select_files_edivisive, file = '../cna_analysis/rda/subclonal_dynamics/select_files_edivisive.rda')
+
+```
+
+```{r manual removal (NOT RUN), eval = F, echo = T, message=FALSE, warning=FALSE}
+###############
+# Description #
+###############
+# After AneuFinder's inbuild quaility selection, there are still some evident 
+# noisy single cells, that appear on the heatmap as if having very high and 
+# unstructured ploidy. These single cell's will be removed manually here. The cells
+# were selected by inspecting standard AneuFinder heatmaps on the post-quality
+# selected files (code not shown).
+########
+# Data #
+########
+# loading files after quality selection
+load('../cna_analysis/rda/subclonal_dynamics/select_files_edivisive.rda')
+
+##########
+# Select #
+##########
+# removing karyotypes that are clearly artefacts. The karyotypes are 
+# selected based on the figures in figs -> genomeheatmap_afterqc -> edivisive
+kra003_remove <- as.character(c( 272, 122  , 33  ,  198  ,  
+                                 372,  116  ,  105 , 104,  175  , 
+                                 341  , 30, 12  ,  280  , 215  , 
+                                 31  ,  139  ,  295 ,  370  ,  337  ,  
+                                 307  , 170  ,80  ,  357 , 34, 21  , 60  ,  
+                                 129  , 318  , 39 ,  365, 
+                                 113  ,  89  , 4  ,  57 , 162  ,  20  , 
+                                 135  , 235  , 377  , 181 , 46  , 84  , 
+                                 186  , 81,  257  , 225  , 191  , 269))
+  
+kra004_remove <- as.character(c(266, 251, 375, 256, 303, 179, 160, 290, 368, 28, 334, 211, 261, 58, 133, 115, 161, 20, 162, 112, 314, 181, 264, 268, 268, 30, 127, 98, 191, 383,
+                                232, 104, 350, 163, 377, 323, 333, 224, 242, 184, 244, 277, 102, 21, 93, 149, 101, 332, 188, 225, 135))
+                                
+
+
+kra005_remove <- as.character(c(89, 159, 61, 155, 146, 141, 30, 174, 95, 262, 264,
+                                48, 152, 103, 92, 116,
+                                297, 333))
+
+
+
+
+kra006_remove <- as.character(c(380, 176, 328, 255, 4,
+                                60, 264, 111, 173))
+
+
+
+
+kra007_remove <- as.character(c(37, 366, 213, 262, 83, 78, 10, 
+                                351))
+                                
+                                ## diploid subclone91, 363, 275))
+
+
+kra008_remove <- as.character(c(70, 143, 77, 144, 146, 189, 
+                                35, 170, 30, 119, 65, 51, 107, 
+                                362, 58 ,125, 66 ,210 ,160 ,186, 
+                                102, 37, 226, 183, 59, 159, 46, 87, 
+                                118, 285, 69, 109))
+                                
+                                
+                                # diploid subclone
+                                # 287, 302, 212, 15, 
+                                # 115, 166, 126, 17, 95, 231, 19, 104, 
+                                # 86, 138, 105, 116, 81 ,130, 88, 61)) 
+
+kra009_remove <- as.character(c(239, 347, 94, 65, 91, 
+                                163, 246, 6 ,116, 330, 126, 76, 54, 
+                                57, 107 ,181, 154, 137, 60, 114, 55, 
+                                81, 179, 241, 75, 142,
+                                329, 323))
+
+
+# diploid subclone kra009 74, 59, 375, 112, 92, 99, 
+# 105
+
+kra010_remove <- as.character(c(363, 217, 242, 238, 27, 46, 189, 28,
+                                   216, 84, 234, 71, 95, 60, 86, 181, 172,
+                                   42, 355, 58, 43, 132,
+                                   262, 176, 143,311, 203, 297,307, 3, 227,
+                                   72,
+                                   177, 115, 54, 258))
+
+kra022_remove <- as.character(c(5, 31, 161))
+
+# kra003_subclone<- as.character(c(372, 173, 274, 108, 39, 289)) 
+
+
+kra023_remove <- as.character(c(96, 199, 246, 135, 
+                                104,
+                                5))
+
+# kra004_subclone<- as.character(c(92, 102, 252, 181,
+#                                 264, 258, 290, 268) 
+
+
+
+kra024_remove <- as.character(c(193, 344, 337, 356, 
+                                85,86,309,52,
+                                188,374, 176,53,
+                                87,169,36,115,
+                                45,281,66))
+
+# kra005_subclone <- as.character(c(297, 92, 113, 103, 
+#                                   152, 48, 333))
+
+
+kra025_remove <- as.character(c(141, 257,85,183,127))
+
+# kra006_subclone <- as.character(c(380))
+
+
+kra026_remove <- as.character(c(318, 287, 260, 208, 
+                                247, 75, 285,
+                                376, 238, 200, 215, 362, 49))
+
+# kra007_subclone <- as.character(c(318, 292, 381, 319, 
+#                                   198, 208, 351, 353, 
+#                                   285, 379))
+
+kra027_remove <- as.character(c(339, 375, 141, 
+                                126, 346, 204, 
+                                69, 343, 377, 
+                                364, 298, 79))
+
+# kra008_subclone <- as.character(c(69, 87, 60, 61, 
+#                                   143, 35, 241, 202))
+
+
+kra028_remove <- as.character(c(37, 178, 167, 225, 125, 
+                                90, 249, 50,66, 327 ))
+
+# kra009_subclone1 <- as.character(c(375))
+
+
+
+kra029_remove <- as.character(c(14, 277, 353, 203,
+                                137
+))
+
+
+kra030_remove <- as.character(c(341,
+                                177, 111, 157, 226, 
+                                209, 150, 301, 158,
+                                121, 273, 190, 47, 18
+))
+
+kra031_remove <- as.character(c(159, 217, 261, 122, 
+                                60, 201, 153))
+
+
+kra032_remove <- as.character(c(349, 347, 58, 370, 
+                                284, 366, 326, 373, 
+                                306, 27, 
+                                138, 113, 348, 22, 
+                                24, 103, 218, 181))
+
+
+
+# kra010 has three subclones!!
+# kra010_subclone1 <- as.character(c(355,34,166,139,
+# 19, 213, 357, 57,
+# 72))
+
+# kra010_subclone2 <- 317 t/m 304
+# kra010_subclone2 < 235 t/m  176
+
+##########
+# Remove #
+##########
+
+kra003 <- remove_selection(select_files_edivisive$kra003, kra003_remove)
+kra004 <- remove_selection(select_files_edivisive$kra004, kra004_remove)
+
+kra005 <- remove_selection(select_files_edivisive$kra005, kra005_remove)
+kra006 <- remove_selection(select_files_edivisive$kra006, kra006_remove)
+
+kra007 <- remove_selection(select_files_edivisive$kra007, kra007_remove)
+kra008 <- remove_selection(select_files_edivisive$kra008, kra008_remove)
+
+kra009 <- remove_selection(select_files_edivisive$kra009, kra009_remove)
+kra010 <- remove_selection(select_files_edivisive$kra010, kra010_remove)
+
+kra022 <- remove_selection(select_files_edivisive$kra022, kra022_remove)
+kra023 <- remove_selection(select_files_edivisive$kra023, kra023_remove)
+
+kra024 <- remove_selection(select_files_edivisive$kra024, kra024_remove)
+kra025 <- remove_selection(select_files_edivisive$kra025, kra025_remove)
+
+kra026 <- remove_selection(select_files_edivisive$kra026, kra026_remove)
+kra027 <- remove_selection(select_files_edivisive$kra027, kra027_remove)
+kra028 <- remove_selection(select_files_edivisive$kra028, kra028_remove)
+kra029 <- remove_selection(select_files_edivisive$kra029, kra029_remove)
+kra030 <- remove_selection(select_files_edivisive$kra030, kra030_remove)
+
+kra031 <- remove_selection(select_files_edivisive$kra031, kra031_remove)
+kra032 <- remove_selection(select_files_edivisive$kra032, kra032_remove)
+
+
+man_select_files_edivisive <- list(kra003 = kra003,
+                                  kra004 = kra004,
+                                  
+                                  kra005 = kra005,
+                                  kra006 = kra006,
+                                  
+                                  kra007 = kra007,
+                                  kra008 = kra008,
+                                  
+                                  kra009 = kra009,
+                                  kra010 = kra010,
+                                  
+                                  kra022 = kra022,
+                                  kra023 = kra023,
+                                  
+                                  kra024 = kra024,
+                                  kra025 = kra025,
+                                  
+                                  kra026 = kra026,
+                                  kra027 = kra027,
+                                  kra028 = kra028,
+                                  
+                                  kra029 = kra029,
+                                  kra030 = kra030,
+                                  kra031 = kra031,
+                                  kra032 = kra032
+)
+
+########
+# Save #
+########
+
+save(man_select_files_edivisive, file = '../cna_analysis/rda/subclonal_dynamics/man_select_files_edivisive.rda' )
+
+```
+
+## Summary statistics of copy number alterations
+
+```{r summary_statistics, echo = T, message=FALSE, warning=FALSE}
+########
+# Data #
+########
+load('../cna_analysis/rda/subclonal_dynamics/man_select_files_edivisive.rda' )
+
+###########
+# Wrangle #
+###########
+# removing HUB181I kra024 en kra025
+man_select_files_edivisive <- man_select_files_edivisive[!names(man_select_files_edivisive) %in% c('kra024', 'kra025')]
+
+# !!! GITHUB SPECIFIC CODE !!! #
+# adding '../cna_analysis/' to each path within man_select_files_edivisive 
+man_select_files_edivisive <- lapply(man_select_files_edivisive, function(x) paste0("../cna_analysis/", x))
+
+#######
+# Run #
+#######
+# loading segment data from files
+files_loaded <- loadFromFiles(unlist(man_select_files_edivisive), check.class=c('GRanges', 'GRangesList', 'aneuHMM', 'aneuBiHMM'))
+
+# Computing the total number of cells sequenced
+length(files_loaded)
+# computing the total sum of unique CNAs per single cell and store in a vector
+cna_vector <- sapply(files_loaded, function(file) {
+  seg_grange <- file$segments
+  cnas_grange <- seg_grange[seg_grange$copy.number != 2,]
+  return(length(cnas_grange))
+})
+
+# Computing the mean CNA per single cell
+mean(cna_vector)
+
+# Computing the standard deviation of CNAs per single cell.
+sd(cna_vector)
+
+```
+
+## PCA and K-means plots
+```{r PCA and k-means plots, eval = T, echo = T, message=FALSE, warning=FALSE}
+
+########
+# Plot #
+########
+
+# HUB183 #
+######################################################################
+
+# PCA #
+hub183_pca <- draw_pca(
+  man_select_files_edivisive$kra003,
+  man_select_files_edivisive$kra004,
+  size = 1,
+  legend_position = c(0.65, 0.8)
+)
+
+
+hub183_pca
+
+# K-means #
+hub183_kmeans <- k_cluster(
+  man_select_files_edivisive$kra003,
+  man_select_files_edivisive$kra004,
+  cluster = 1,
+  cols = c("#C6CDF7"),
+  labels = c('A'),
+  legend_position = c(0.8, 0.85),
+  normalize = T,
+  return_elbow = F
+)
+hub183_kmeans
+
+# HUB005 #
+######################################################################
+
+# PCA #
+hub005_pca <- draw_pca(
+  man_select_files_edivisive$kra005,
+  man_select_files_edivisive$kra006,
+  size = 1,
+  legend_position = c(0.65, 0.85)
+)
+
+hub005_pca
+
+# K-means #
+hub005_kmeans <- k_cluster(
+  man_select_files_edivisive$kra005,
+  man_select_files_edivisive$kra006,
+  cluster = 3,
+  cols = c('#809aa6', # greyblue
+                    "#D69C4E", # brown,
+                    "#046C9A"),
+                    #darkblue
+
+  labels = c('A.b', 'B', 'A.a'),
+  legend_position = c(0.8, 0.85),
+  normalize = T,
+  return_elbow = F
+)
+
+hub005_kmeans
+
+
+# HUB106 #
+######################################################################
+
+# PCA #
+hub106_pca <- draw_pca(
+  man_select_files_edivisive$kra007,
+  man_select_files_edivisive$kra008,
+  size = 1,
+  legend_position = c(0.65, 0.95)
+)
+hub106_pca
+
+# K-means #
+hub106_kmeans <- k_cluster(
+  man_select_files_edivisive$kra007,
+  man_select_files_edivisive$kra008,
+  cluster = 3,
+  cols = c("#E6A0C4", # pink
+                    "#D8A499", #brownpink
+                    "#7294D4"),
+                    # blue
+
+  labels = c('A', 'C', 'B'),
+  legend_position = c(0.8, 0.85),
+  normalize = T,
+  return_elbow = F
+)
+
+
+hub106_kmeans
+
+# HUB062 #
+######################################################################
+### Biological replicate 1 ###
+
+# PCA #
+hub062_pca_double <-
+  draw_pca_double(
+    man_select_files_edivisive$kra009,
+    man_select_files_edivisive$kra010,
+    man_select_files_edivisive$kra030,
+    size = 1,
+    legend_position = c(0.05, 0.2)
+  )
+
+
+hub062_pca_double
+
+# 'zoom'
+hub062_pca_double_zoom <-
+  draw_pca_double(
+    man_select_files_edivisive$kra009,
+    man_select_files_edivisive$kra010,
+    man_select_files_edivisive$kra030,
+    size = 15,
+    legend_position = c(-0.05, 0.25)
+  )  +
+  coord_cartesian(xlim = c(-0.016, 0.030),
+                  ylim = c(0, 0.06)) +
+  theme(
+    axis.line = element_blank(),
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    legend.position = "none",
+    panel.background = element_blank(),
+    panel.border = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.background = element_blank()
+  )
+
+hub062_pca_double_zoom
+
+# K-means #
+hub062_kmeans_double <-
+  k_cluster_double(
+    man_select_files_edivisive$kra009,
+    man_select_files_edivisive$kra010,
+    man_select_files_edivisive$kra030,
+    cluster = 3,
+    cols = c("#F1BB7B", #orange like
+                      "#FD6467", # pinkish red
+                      "#5B1A18"),
+                      #brownish
+
+    labels = c('C', 'A', 'B'),
+    legend_position = c(0.05, 0.2),
+    normalize = T,
+    return_elbow = F
+  )
+
+hub062_kmeans_double
+
+### Biological replicate 2 ###
+# PCA #
+hub062_pca_rep2 <- draw_pca(
+  man_select_files_edivisive$kra028,
+  man_select_files_edivisive$kra032,
+  size = 1,
+  legend_position = c(0.05, 0.9)
+)
+hub062_pca_rep2
+
+# K-means #
+hub062_kmeans_rep2 <- k_cluster(
+  man_select_files_edivisive$kra028,
+  man_select_files_edivisive$kra032,
+  cluster = 3,
+  cols = c("#FD6467", # pinkish red
+                    "#5B1A18", #brownish
+                    "#F1BB7B"),
+                    #orange like
+  labels = c('A', 'B', 'C'),
+  legend_position = c(0.05, 0.9),
+  normalize = T
+)
+
+hub062_kmeans_rep2
+
+# HUB015 #
+######################################################################
+
+# PCA #
+hub015_pca <-
+  draw_pca(
+    man_select_files_edivisive$kra022,
+    # 10 gy radiated
+    man_select_files_edivisive$kra023,
+    # 0 gy control
+    size = 1,
+    legend_position = c(0.05, 0.8),
+    ssdna004 = T
+  ) # coordinates do not correspond with coordinates in pc1 and pc2!
+
+hub015_pca
+
+# K-means #
+hub015_kmeans <- k_cluster(
+  man_select_files_edivisive$kra022,
+  man_select_files_edivisive$kra023,
+  cluster = 3,
+  cols = c("#f5de90",
+                    '#E1AF00',
+
+                    '#F21A00'),
+                    # red
+  labels = c( 'A.a','A.b', 'B'),
+  legend_position = c(0.05, 0.8),
+  normalize = T,
+  return_elbow = F
+)
+
+hub015_kmeans
+
+# HUB197 #
+######################################################################
+
+# PCA #
+hub197_pca <- draw_pca(
+  man_select_files_edivisive$kra026,
+  # 10 gy
+  man_select_files_edivisive$kra027,
+  # 0 gy
+  # 0 Gy
+  size = 1,
+  legend_position = c(0.7, 0.8),
+  ssdna004 = T
+)
+hub197_pca
+
+# K-means #
+hub197_kmeans <- k_cluster(
+  man_select_files_edivisive$kra026,
+  man_select_files_edivisive$kra027,
+  cluster = 3,
+  cols = c("#0B775E",
+                    '#E1BD6D',
+                    '#35274A'
+                    ),
+
+  labels = c('C', 'B', 'A'),
+  legend_position = c(0.7, 0.8),
+  normalize = T
+)
+
+hub197_kmeans
+
+#######
+# END #
+#######
+
+```
+## Subclone selection 
+### Selecting subclones
+```{r subclone_divider (NOT RUN), eval =F, echo = T}
+
+####################
+# Define subclones #
+####################
+# volgorde: HUB183, 005, 106, 062, 015, 197, 181i
+
+# HUB183 #
+######################################################################
+
+# Pre-rad #
+###########
+# (kra003) has one clones
+hub183_prerad_a <- man_select_files_edivisive$kra003
+
+# post-rad #
+############
+hub183_postrad_a <- man_select_files_edivisive$kra004
+
+# HUB005 #
+######################################################################
+
+# pre-rad #
+###########
+hub005_prerad_a.a <- extract_square(man_select_files_edivisive$kra005, 
+                                    NULL, 
+                                  square = c(0.037, -0.0096), 
+                                  x = '>',
+                                  y = '<')
+
+
+# 161 is added erroneously here
+hub005_prerad_a.a <- hub005_prerad_a.a[hub005_prerad_a.a != 161]
+
+hub005_prerad_b <- extract_square(man_select_files_edivisive$kra005, 
+                                    NULL, 
+                                    square = c(0.037, 0.2), 
+                                    x = '<',
+                                    y = '<')
+
+hub005_prerad_a.b <- as.numeric(extract_other_cells('kra005', c(hub005_prerad_a.a, hub005_prerad_b)))
+
+# here we are going to locate the single cell bam files belonging to one clone.  
+hub005_prerad_a.a <- unlist(sapply(hub005_prerad_a.a, l_g, kra_num = 'KRA-005', list_cells = man_select_files_edivisive$kra005))
+hub005_prerad_a.b <- unlist(sapply(hub005_prerad_a.b, l_g, kra_num = 'KRA-005', list_cells = man_select_files_edivisive$kra005))
+hub005_prerad_b <- unlist(sapply(hub005_prerad_b, l_g, kra_num = 'KRA-005', list_cells = man_select_files_edivisive$kra005))
+
+# quick check if we did alright (should be TRUE)
+length(man_select_files_edivisive$kra005) == length(hub005_prerad_a.a) + length(hub005_prerad_a.b) + length(hub005_prerad_b)
+
+# postrad #
+###########
+
+hub005_postrad_b <- extract_square(man_select_files_edivisive$kra006, 
+                                   NULL, 
+                                   square = c(-0.06, 0.25), # groter # kleiner
+                                   x = '>',
+                                   y = '<')
+
+hub005_postrad_a.b <- c(238, 260)
+
+hub005_postrad_a.a <- as.numeric(extract_other_cells('kra006', c(hub005_postrad_b, hub005_postrad_a.b)))
+
+# here we are going to locate the single cell bam files belonging to one clone.  
+hub005_postrad_b <- unlist(sapply(hub005_postrad_b, l_g, kra_num = 'KRA-006', list_cells = man_select_files_edivisive$kra006))
+hub005_postrad_a.a <- unlist(sapply(hub005_postrad_a.a, l_g, kra_num = 'KRA-006', list_cells = man_select_files_edivisive$kra006))
+hub005_postrad_a.b <- unlist(sapply(hub005_postrad_a.b, l_g, kra_num = 'KRA-006', list_cells = man_select_files_edivisive$kra006))
+
+# quick check if we did it alright
+length(man_select_files_edivisive$kra006) == length(hub005_postrad_b) + length(hub005_postrad_a.a) + length(hub005_postrad_a.b)
+
+
+# HUB106 #
+######################################################################
+
+# prerad #
+##########
+hub106_prerad_a <- extract_square(man_select_files_edivisive$kra007, 
+                                  NULL, 
+                                  square = c(-0.006, 0.2),
+                                   
+                                  x = '>',
+                                  y = '<')
+
+hub106_prerad_b <- extract_square(man_select_files_edivisive$kra007, 
+                                  NULL, 
+                                  square = c(-0.006, 0.2),
+                                   
+                                  x = '<',
+                                  y = '<')
+
+hub106_prerad_c <- extract_square(man_select_files_edivisive$kra007, 
+                                  NULL, 
+                                  square = c(-0.3, 0.2),
+                                   
+                                  x = '>',
+                                  y = '>')
+
+hub106_prerad_a <- unlist(sapply(hub106_prerad_a, l_g, kra_num = 'KRA-007', list_cells = man_select_files_edivisive$kra007))
+hub106_prerad_b <- unlist(sapply(hub106_prerad_b, l_g, kra_num = 'KRA-007', list_cells = man_select_files_edivisive$kra007))
+hub106_prerad_c <- unlist(sapply(hub106_prerad_c, l_g, kra_num = 'KRA-007', list_cells = man_select_files_edivisive$kra007))
+
+# quick check
+length(man_select_files_edivisive$kra007) == length(hub106_prerad_a) + length(hub106_prerad_b) + length(hub106_prerad_c)
+
+# postrad #
+###########
+
+hub106_postrad_c <- extract_square(man_select_files_edivisive$kra008, 
+                                  NULL, 
+                                  square = c(-0.1, 0.2),
+                                   
+                                  x = '<',
+                                  y = '<')
+
+
+hub106_postrad_a <- extract_square(man_select_files_edivisive$kra008, 
+                                  NULL, 
+                                  square = c(-0.1, -0.014),
+                                   
+                                  x = '>',
+                                  y = '<')
+
+remove_a <- c(349, 164)
+add_a <- c(382, 12, 16)
+hub106_postrad_a <- hub106_postrad_a[!hub106_postrad_a %in% remove_a]
+hub106_postrad_a <- c(hub106_postrad_a, add_a)
+
+hub106_postrad_b <- extract_square(man_select_files_edivisive$kra008, 
+                                  NULL, 
+                                  square = c(-0.1, -0.014),
+                                   
+                                  x = '>',
+                                  y = '>')
+
+remove_b <- add_a
+add_b <- remove_a
+
+hub106_postrad_b <- hub106_postrad_b[!hub106_postrad_b %in% remove_b]
+hub106_postrad_b <- c(hub106_postrad_b, add_b)
+
+hub106_postrad_a <- unlist(sapply(hub106_postrad_a, l_g, kra_num = 'KRA-008', list_cells = man_select_files_edivisive$kra008))
+hub106_postrad_b <- unlist(sapply(hub106_postrad_b, l_g, kra_num = 'KRA-008', list_cells = man_select_files_edivisive$kra008))
+hub106_postrad_c <- unlist(sapply(hub106_postrad_c, l_g, kra_num = 'KRA-008', list_cells = man_select_files_edivisive$kra008))
+
+length(man_select_files_edivisive$kra008) == length(hub106_postrad_a) + length(hub106_postrad_b) + length(hub106_postrad_c)
+
+# HUB106 #
+######################################################################
+
+##########################
+# biological replicate 1 #
+##########################
+
+# prerad #
+##########
+hub062_prerad_a <- c(257, 352)
+hub062_prerad_c <- c(59, 99, 74, 105, 375, 112, 92)
+
+hub062_prerad_b <- as.numeric(extract_other_cells('kra009', c(hub062_prerad_a, hub062_prerad_c)))
+
+hub062_prerad_a <- unlist(sapply(hub062_prerad_a, l_g, kra_num = 'KRA-009', list_cells = man_select_files_edivisive$kra009))
+hub062_prerad_b <- unlist(sapply(hub062_prerad_b, l_g, kra_num = 'KRA-009', list_cells = man_select_files_edivisive$kra009))
+hub062_prerad_c <- unlist(sapply(hub062_prerad_c, l_g, kra_num = 'KRA-009', list_cells = man_select_files_edivisive$kra009))
+
+
+
+length(man_select_files_edivisive$kra009) == length(hub062_prerad_a) + length(hub062_prerad_b) + length(hub062_prerad_c)
+
+# counting percentage of subclone a
+length(hub062_prerad_a) / (length(hub062_prerad_a) + length(hub062_prerad_b) + length(hub062_prerad_c)) *100
+
+
+# postrad cycle 1 #
+###################
+hub062_postrad_c <- c(57, 19, 69, 139, 17, 160, 244)
+
+hub062_postrad_b <-  extract_square(man_select_files_edivisive$kra010, 
+                                    NULL, 
+                                    square = c(0.2, 0),
+                                     
+                                    x = '<',
+                                    y = '<')
+hub062_postrad_a <- as.numeric(extract_other_cells('kra010', c(hub062_postrad_c, hub062_postrad_b)))
+
+hub062_postrad_a <- unlist(sapply(hub062_postrad_a, l_g, kra_num = 'KRA-010', list_cells = man_select_files_edivisive$kra010))
+hub062_postrad_b <- unlist(sapply(hub062_postrad_b, l_g, kra_num = 'KRA-010', list_cells = man_select_files_edivisive$kra010))
+hub062_postrad_c <- unlist(sapply(hub062_postrad_c, l_g, kra_num = 'KRA-010', list_cells = man_select_files_edivisive$kra010))
+
+length(man_select_files_edivisive$kra010) == length(hub062_postrad_a) + length(hub062_postrad_b) + length(hub062_postrad_c)
+
+# counting percentage of subclone a
+length(hub062_postrad_a) / (length(hub062_postrad_b) + length(hub062_postrad_b) + length(hub062_postrad_c)) *100
+
+# postrad cycle 2 #
+###################
+hub062_postrad_c2_c <- c(221)
+hub062_postrad_c2_a <- as.numeric(extract_other_cells('kra030', c(hub062_postrad_c2_c)))
+
+
+hub062_postrad_c2_c <- unlist(sapply(hub062_postrad_c2_c, l_g, kra_num = 'KRA-030', list_cells = man_select_files_edivisive$kra030))
+hub062_postrad_c2_a <- unlist(sapply(hub062_postrad_c2_a, l_g, kra_num = 'KRA-030', list_cells = man_select_files_edivisive$kra030))
+
+length(man_select_files_edivisive$kra030) == length(hub062_postrad_c2_c) + length(hub062_postrad_c2_a)
+
+##########################
+# biological replicate 2 #
+##########################
+
+# prerad #
+#########
+hub062biological_prerad_b <- extract_square(man_select_files_edivisive$kra028, 
+                                            NULL, 
+                                            square = c(0.1, -0.1),
+                                            x = '<', 
+                                            y = '>'
+                                             )
+
+hub062biological_prerad_c <- extract_square(man_select_files_edivisive$kra028, 
+                                            NULL, 
+                                            square = c(0.1, 0.2),
+                                            x = '>', 
+                                            y = '<'
+                                             )
+
+hub062biological_prerad_a <- extract_square(man_select_files_edivisive$kra028, 
+                                            NULL, 
+                                            square = c(0.1, -0.1),
+                                            x = '<', 
+                                            y = '<'
+                                             )
+
+
+hub062biological_prerad_a <- unlist(sapply(hub062biological_prerad_a, l_g, kra_num = 'KRA-028', list_cells = man_select_files_edivisive$kra028))
+hub062biological_prerad_b <- unlist(sapply(hub062biological_prerad_b, l_g, kra_num = 'KRA-028', list_cells = man_select_files_edivisive$kra028))
+hub062biological_prerad_c <- unlist(sapply(hub062biological_prerad_c, l_g, kra_num = 'KRA-028', list_cells = man_select_files_edivisive$kra028))
+
+
+length(man_select_files_edivisive$kra028) == length(hub062biological_prerad_a)+ length(hub062biological_prerad_b)+length(hub062biological_prerad_c)
+
+
+# postrad #
+###########
+hub062biological_postrad_a <- man_select_files_edivisive$kra032
+
+# HUB106 #
+######################################################################
+
+# pre-rad #
+###########
+
+hub015_prerad_b <- c(233)
+
+hub015_prerad_a.b <- extract_other_cells('kra023', c(hub015_prerad_b))
+
+hub015_prerad_a.b <- unlist(sapply(hub015_prerad_a.b, l_g, kra_num = 'KRA-023', list_cells = man_select_files_edivisive$kra023))
+hub015_prerad_b <- unlist(sapply(hub015_prerad_b, l_g, kra_num = 'KRA-023', list_cells = man_select_files_edivisive$kra023))
+
+length(man_select_files_edivisive$kra023) == length(hub015_prerad_a.b) + length(hub015_prerad_b)
+
+# post-rad #
+############
+
+hub015_postrad_b <- extract_square(man_select_files_edivisive$kra022, 
+                                   NULL, 
+                                   square = c(-0.1, 0.15), # kleiner # kleiner
+                                    
+                                   x = '<',
+                                   y = '<')
+
+hub015_postrad_a.a <- extract_square(man_select_files_edivisive$kra022, 
+                                     NULL, 
+                                     square = c(-0.1, 0),
+                                     x = '>', # groter # kleiner
+                                     y = '<'
+                                      )
+
+hub015_postrad_a.b <- extract_other_cells('kra022', c(hub015_postrad_b, hub015_postrad_a.a))
+
+hub015_postrad_a.a <- unlist(sapply(hub015_postrad_a.a, l_g, kra_num = 'KRA-022', list_cells = man_select_files_edivisive$kra022))
+hub015_postrad_a.b <- unlist(sapply(hub015_postrad_a.b, l_g, kra_num = 'KRA-022', list_cells = man_select_files_edivisive$kra022))
+hub015_postrad_b <- unlist(sapply(hub015_postrad_b, l_g, kra_num = 'KRA-022', list_cells = man_select_files_edivisive$kra022))
+
+length(man_select_files_edivisive$kra022) == length(hub015_postrad_a.a) + length(hub015_postrad_a.b) + length(hub015_postrad_b)
+
+# HUB197 #
+######################################################################
+
+# prerad #
+##########
+
+hub197_prerad_a <- c(279, 240, 7, 242,
+                     177, 372, 338, 255, 
+                     308, 209, 334, 153, 
+                     266, 181, 284, 238, 
+                     370, 275, 272, 362, 
+                     231, 355, 226, 269)
+
+hub197_prerad_b <- c(364, 298, 47, 111,
+                     74, 341, 369, 179, 
+                     371, 363, 270, 374, 
+                     368, 235, 259, 79,
+                     197, 316, 365, 167)
+
+hub197_prerad_c <- as.numeric(extract_other_cells('kra027', 
+                                                  c(hub197_prerad_a, hub197_prerad_b)))
+
+
+hub197_prerad_a <- unlist(sapply(hub197_prerad_a, l_g, kra_num = 'KRA-027', list_cells = man_select_files_edivisive$kra027))
+hub197_prerad_b <- unlist(sapply(hub197_prerad_b, l_g, kra_num = 'KRA-027', list_cells = man_select_files_edivisive$kra027))
+hub197_prerad_c <- unlist(sapply(hub197_prerad_c, l_g, kra_num = 'KRA-027', list_cells = man_select_files_edivisive$kra027))
+
+
+length(man_select_files_edivisive$kra027) == length(hub197_prerad_a) + length(hub197_prerad_b) + length(hub197_prerad_c)
+
+
+# postrad #
+hub197_postrad_a <- man_select_files_edivisive$kra026
+
+# HUB181I #
+######################################################################
+
+# prerad #
+##########
+hub181i_prerad_a <- extract_square(man_select_files_edivisive$kra025, 
+                                   NULL, 
+                                   square = c(0, 0.1), # kleiner # kleiner
+                                   x = '<', # groter # kleiner
+                                   y = '<'
+                                    )
+
+hub181i_prerad_b <- extract_other_cells('kra025', c(hub181i_prerad_a))
+
+
+
+
+hub181i_prerad_a <- unlist(sapply(hub181i_prerad_a, l_g, kra_num = 'KRA-025', list_cells = man_select_files_edivisive$kra025))
+
+hub181i_prerad_b <- unlist(sapply(hub181i_prerad_b, l_g, kra_num = 'KRA-025', list_cells = man_select_files_edivisive$kra025))
+
+length(man_select_files_edivisive$kra025) == length(hub181i_prerad_a) + length(hub181i_prerad_b)
+
+# postrad #
+###########
+
+hub181i_postrad_a <- extract_square(man_select_files_edivisive$kra024, 
+                                    NULL, 
+                                    square = c(-0.05, 0.15), # kleiner # kleiner
+                                    x = '<', # groter # kleiner
+                                    y = '<'
+                                     )
+
+hub181i_postrad_b <- as.numeric(extract_other_cells('kra024', c(hub181i_postrad_a)))
+
+hub181i_postrad_a <- unlist(sapply(hub181i_postrad_a, l_g, kra_num = 'KRA-024', list_cells = man_select_files_edivisive$kra024))
+hub181i_postrad_b <- unlist(sapply(hub181i_postrad_b, l_g, kra_num = 'KRA-024', list_cells = man_select_files_edivisive$kra024))
+
+
+length(man_select_files_edivisive$kra024) == length(hub181i_postrad_a) + length(hub181i_postrad_b)
+
+####################
+# Subclone listing #
+####################
+
+subclone_list <- list(hub183_prerad_a, 
+                      hub183_postrad_a,
+                      hub005_prerad_a.a,   hub005_prerad_a.b, hub005_prerad_b,
+                      hub005_postrad_a.a, hub005_postrad_a.b, hub005_postrad_b,
+                      hub106_prerad_a, hub106_prerad_b, hub106_prerad_c,
+                      hub106_postrad_a, hub106_postrad_b, hub106_postrad_c,
+                      hub062_prerad_a, hub062_prerad_b,hub062_prerad_c,
+                      hub062_postrad_a, hub062_postrad_b,hub062_postrad_c,
+                      hub062_postrad_c2_a, hub062_postrad_c2_c,
+                      hub015_prerad_a.b, hub015_prerad_b,
+                      hub015_postrad_a.a, hub015_postrad_a.b, hub015_postrad_b,
+                      hub181i_prerad_a, hub181i_prerad_b,
+                      hub181i_postrad_a, hub181i_postrad_b,
+                      hub197_prerad_a, hub197_prerad_b, hub197_prerad_c,
+                      hub197_postrad_a,
+                      hub062biological_prerad_a,hub062biological_prerad_b,hub062biological_prerad_c,
+                      hub062biological_postrad_a
+ )
+
+names(subclone_list) <- c('hub183_prerad_a', 
+                          'hub183_postrad_a',
+                          'hub005_prerad_a.a',   'hub005_prerad_a.b', 'hub005_prerad_b',
+                          'hub005_postrad_a.a', 'hub005_postrad_a.b', 'hub005_postrad_b',
+                          'hub106_prerad_a', 'hub106_prerad_b', 'hub106_prerad_c',
+                          'hub106_postrad_a', 'hub106_postrad_b', 'hub106_postrad_c',
+                          'hub062_prerad_a', 'hub062_prerad_b', 'hub062_prerad_c',
+                          'hub062_postrad_a', 'hub062_postrad_b', 'hub062_postrad_c',
+                          'hub062_postrad_c2_a','hub062_postrad_c2_c',
+                          'hub015_prerad_a.b', 'hub015_prerad_b',
+                          'hub015_postrad_a.a', 'hub015_postrad_a.b', 'hub015_postrad_b',
+                          "hub181i_prerad_a", "hub181i_prerad_b",
+                          "hub181i_postrad_a", "hub181i_postrad_b",
+                          "hub197_prerad_a", "hub197_prerad_b", "hub197_prerad_c",
+                          "hub197_postrad_a",
+                          'hub062biological_prerad_a','hub062biological_prerad_b','hub062biological_prerad_c',
+                          'hub062biological_postrad_a'
+)
+
+```
+
+
+### Subclone statistics
+```{r subclone_divider_statistics, eval =T, echo = T, message=FALSE, warning=FALSE}
+# !!! This code was slightly adjusted so to run in Rmarkdown
+
+####################
+# Subclone listing #
+####################
+subclone_list <- c('hub183_prerad_a', 
+                          'hub183_postrad_a',
+                          'hub005_prerad_a.a',   'hub005_prerad_a.b', 'hub005_prerad_b',
+                          'hub005_postrad_a.a', 'hub005_postrad_a.b', 'hub005_postrad_b',
+                          'hub106_prerad_a', 'hub106_prerad_b', 'hub106_prerad_c',
+                          'hub106_postrad_a', 'hub106_postrad_b', 'hub106_postrad_c',
+                          'hub062_prerad_a', 'hub062_prerad_b', 'hub062_prerad_c',
+                          'hub062_postrad_a', 'hub062_postrad_b', 'hub062_postrad_c',
+                          'hub062_postrad_c2_a','hub062_postrad_c2_c',
+                          'hub015_prerad_a.b', 'hub015_prerad_b',
+                          'hub015_postrad_a.a', 'hub015_postrad_a.b', 'hub015_postrad_b',
+                          "hub181i_prerad_a", "hub181i_prerad_b",
+                          "hub181i_postrad_a", "hub181i_postrad_b",
+                          "hub197_prerad_a", "hub197_prerad_b", "hub197_prerad_c",
+                          "hub197_postrad_a",
+                          'hub062biological_prerad_a','hub062biological_prerad_b','hub062biological_prerad_c',
+                          'hub062biological_postrad_a'
+)
+
+##############
+# Statistics #
+##############
+# extract only prerad subclones 
+bl <- subclone_list[grep(pattern = 'prerad', subclone_list)]
+
+# remove biological replicate
+bl <- bl[1:(length(bl)-3)]
+
+# cell line list
+cline <- c('hub183', 'hub005', 'hub106', 'hub062', 'hub015', 'hub197')
+
+subclones_per_organoids <- unlist(lapply(cline, function(x){
+  length(grep(x, bl))
+}))
+
+# note that 005 and 015 have sub sub clone (variance less than 5%) so we should see them as one. 
+# hub005
+subclones_per_organoids[2] <- subclones_per_organoids[2] - 1
+
+# computing mean number of clones per organoid
+mean(subclones_per_organoids)
+
+# computing standard deviation of clones per organoids
+sd(subclones_per_organoids)
+
+```
+
+
+## Single cell copy number heatmap plots
+
+```{r set_subclones_for_genomeheatmap (NOT RUN), eval = F,echo = T}
+########
+# Data #
+########
+load('..cna/analysis/rda/subclonal_dynamics/subclone_list.rda')
+
+#######
+# Run #
+#######
+# list of patterns to grepl unique sets 
+clines <- c('hub183', 'hub005', 'hub106', 'hub062_', 'hub015', 'hub181i','hub197', 'hub062biological')
+
+subclone_classes <- lapply(clines, subclone_classes_for_genomeheatmap, list_of_subclones = subclone_list)
+
+
+########
+# Save #
+########
+save(subclone_classes, file = '../cna_analysis/rda/subclonal_dynamics/subclone_classes.rda')
+```
+
+```{r load and paths, eval = F,echo = T}
+########
+# Data #
+########
+load('../cna_analysis/rda/subclonal_dynamics/man_select_files_edivisive.rda')
+load('../cna_analysis/rda/subclonal_dynamics/subclone_classes.rda')
+
+#########
+# Paths #
+#########
+paths <- 'figs/subclonal_dynamics'
+```
+
+
+```{r HUB183 prerad code (NOT RUN), eval = F,echo = T}
+# HUB183 #
+######################################################################
+# prerad #
+hub183_prerad <-
+  subclone_classes[[1]][grepl(subclone_classes[[1]]$class, pattern = 'prerad'), ]
+
+genomeheatmap(
+  selected.files = hub183_prerad$path,
+  path = paths,
+  classes_daan = hub183_prerad$class,
+  class.col = c("#C6CDF7"),
+  name = 'hub183_gwh_prerad'
+)
+
+```
+
+HUB183 baseline
+```{r HUB183 prerad image,  eval = T, echo = F, warning=F}
+knitr::include_graphics("figs/hub183_gwh_prerad_KRA-003.jpg")
+
+```
+
+```{r HUB183 postrad code (NOT RUN), eval = F,echo = T}
+hub183_postrad <-
+  subclone_classes[[1]][grepl(subclone_classes[[1]]$class, pattern = 'postrad'), ]
+
+# postrad #
+genomeheatmap(
+  selected.files = hub183_postrad$path,
+  path = paths,
+  classes_daan = hub183_postrad$class,
+  class.col = c("#C6CDF7"),
+  name = 'hub183_gwh_postrad'
+)
+
+```
+
+HUB183 recurrence
+```{r HUB183 postrad image,  eval = T, echo = F, warning=F}
+knitr::include_graphics("figs/hub183_gwh_postrad_KRA-004.jpg")
+
+```
+
+
+```{r HUB005 prerad code (NOT RUN), eval = F,echo = T}
+# HUB005 #
+######################################################################
+# prerad #
+hub005_prerad <-
+  subclone_classes[[2]][grepl(subclone_classes[[2]]$class, pattern = 'prerad'), ]
+
+genomeheatmap(
+  selected.files = hub005_prerad$path,
+  path = paths,
+  classes_daan = hub005_prerad$class,
+  name = 'hub005_gwh_prerad',
+  class.col = c("#046C9A", #darkblue
+                 '#809aa6', # greyblue
+                 
+                 "#D69C4E") # brown
+  )
+
+```
+
+HUB005 baseline
+```{r HUB005 prerad image,  eval = T, echo = F, warning=F}
+knitr::include_graphics("figs/hub005_gwh_prerad_KRA-005.jpg")
+
+```
+
+```{r HUB005 postrad code (NOT RUN), eval = F,echo = T}
+# postrad #
+hub005_postrad <-
+  subclone_classes[[2]][grepl(subclone_classes[[2]]$class, pattern = 'postrad'), ]
+
+genomeheatmap(
+  selected.files = hub005_postrad$path,
+  path = paths,
+  classes_daan = hub005_postrad$class,
+  name = 'hub005_gwh_postrad',
+  class.col = c('#046C9A', 
+                         '#809aa6',
+                         '#D69C4E'
+                         ))
+
+```
+
+HUB005 recurrence
+```{r HUB005 postrad image,  eval = T, echo = F, warning=F}
+knitr::include_graphics("figs/hub005_gwh_postrad_KRA-006.jpg")
+
+```
+
+
+```{r HUB106 prerad code (NOT RUN), eval = F,echo = T}
+# HUB106 #
+######################################################################
+# prerad #
+hub106_prerad <-
+  subclone_classes[[3]][grepl(subclone_classes[[3]]$class, pattern = 'prerad'), ]
+
+genomeheatmap(
+  selected.files = hub106_prerad$path,
+  path = paths,
+  classes_daan = hub106_prerad$class,
+  name = 'hub106_gwh_prerad',
+  class.col = c("#E6A0C4", # pink
+                         "#7294D4", # blue
+                         "#D8A499") #brownpink
+)
+```
+
+HUB106 baseline
+```{r HUB106 prerad image,  eval = T, echo = F, warning=F}
+knitr::include_graphics("figs/hub106_gwh_prerad_KRA-007.jpg")
+
+```
+
+```{r HUB106 postrad code (NOT RUN), eval = F,echo = T}
+# postrad #
+hub106_postrad <-
+  subclone_classes[[3]][grepl(subclone_classes[[3]]$class, pattern = 'postrad'), ]
+
+genomeheatmap(
+  selected.files = hub106_postrad$path,
+  path = paths,
+  classes_daan = hub106_postrad$class,
+  name = 'hub106_gwh_postrad',
+  class.col = c("#E6A0C4", # pink
+                         "#7294D4", # blue
+                         "#D8A499") #brownpink)
+  )
+
+```
+
+HUB106 recurrence
+```{r HUB106 postrad image,  eval = T, echo = F, warning=F}
+knitr::include_graphics("figs/hub106_gwh_postrad_KRA-008.jpg")
+
+```
+
+```{r HUB062 prerad code (NOT RUN), eval = F,echo = T}
+# HUB062 #
+######################################################################
+
+### Biological replicate 1 ###
+  
+# prerad #
+hub062_prerad <-
+  subclone_classes[[4]][grepl(subclone_classes[[4]]$class, pattern = 'prerad'), ]
+
+genomeheatmap(
+  selected.files = hub062_prerad$path,
+  path = paths,
+  classes_daan = hub062_prerad$class,
+  name = 'hub062_gwh_prerad',
+  class.col = c("#FD6467", # pinkish red
+                         "#5B1A18", #brownish
+                         "#F1BB7B") # orange
+  )
+  
+```
+
+HUB062 baseline
+```{r HUB062 prerad image,  eval = T, echo = F, warning=F}
+knitr::include_graphics("figs/hub062_gwh_prerad_KRA-009.jpg")
+
+```
+
+```{r HUB062 postrad code (NOT RUN), eval = F,echo = T}
+# postrad cycle 1 #
+hub062_postrad <-
+  subclone_classes[[4]][grepl(subclone_classes[[4]]$class, pattern = 'postrad'), ]
+
+# remove postrad_c2
+hub062_postrad <-
+  hub062_postrad[!grepl(hub062_postrad$class, pattern = 'postrad_c2'), ]
+
+genomeheatmap(
+  selected.files = hub062_postrad$path,
+  path = paths,
+  name = 'hub062_gwh_postrad_c1',
+  classes_daan = hub062_postrad$class,
+  class.col = c("#FD6467", # pinkish red
+                         "#5B1A18", #brownish
+                         "#F1BB7B")  # orange
+  )
+  
+```
+
+HUB062 recurrence
+```{r hub062 postrad image,  eval = T, echo = F, warning=F}
+knitr::include_graphics("figs/hub062_gwh_postrad_c1_KRA-010.jpg")
+
+```
+
+```{r HUB062 postrad cycle 2 code (NOT RUN), eval = F,echo = T}
+hub062_postrad_c2 <-
+  subclone_classes[[4]][grepl(subclone_classes[[4]]$class, pattern = 'postrad_c2'), ]
+
+# postrad cycle 2 #
+genomeheatmap(
+  selected.files = hub062_postrad_c2$path,
+  path = paths,
+  name = 'hub062_gwh_postrad_c2',
+  classes_daan = hub062_postrad_c2$class,
+  class.col = c("#FD6467", # pinkish red
+                         "#F1BB7B") # orange
+  )
+
+  
+```
+
+HUB062 recurrence Cycle 2
+```{r hub062 postrad cycle 2 image,  eval = T, echo = F, warning=F}
+knitr::include_graphics("figs/hub062_gwh_postrad_c2_KRA-030.jpg")
+
+```
+
+```{r HUB062 prerad rep 2 code (NOT RUN), eval = F,echo = T}
+# prerad #
+hub062_biological_prerad <- subclone_classes[[8]][grepl(subclone_classes[[8]]$class, pattern = 'prerad'),]
+
+genomeheatmap(selected.files = hub062_biological_prerad$path, 
+              path = paths, 
+              classes_daan= hub062_biological_prerad$class, 
+              name = 'hub062_gwh_prerad_rep2',
+              class.col = c(
+                "#FD6467", # pinkish red
+                         "#5B1A18", #brownish
+                         "#F1BB7B" #orange like
+                         
+                         
+              ))
+
+```
+
+HUB062 baseline rep2
+```{r hub062 prerad rep2 image,  eval = T, echo = F, warning=F}
+knitr::include_graphics("figs/hub062_gwh_prerad_rep2_KRA-028.jpg")
+
+```
+
+```{r HUB062 postrad rep 2 code (NOT RUN), eval = F,echo = T}
+# postrad #
+hub062_biological_postrad <- subclone_classes[[8]][grepl(subclone_classes[[8]]$class, pattern = 'postrad'),]
+
+genomeheatmap(selected.files = hub062_biological_postrad$path, 
+              path = paths, 
+              name = 'hub062_gwh_postrad_rep2',
+              classes_daan= hub062_biological_postrad$class, 
+              class.col = c(
+                "#FD6467"
+                
+                
+              )) 
+
+```
+
+HUB062 recurrence rep2
+```{r HUB062 postrad image rep 2,  eval = T, echo = F, warning=F}
+knitr::include_graphics("figs/hub062_gwh_postrad_rep2_KRA-032.jpg")
+
+```
+
+```{r HUB015 prerad code (NOT RUN), eval = F,echo = T}
+# HUB015 #
+######################################################################
+# prerad #
+hub015_prerad <-
+  subclone_classes[[5]][grepl(subclone_classes[[5]]$class, pattern = 'prerad'), ]
+
+genomeheatmap(
+  selected.files = hub015_prerad$path,
+  path = paths,
+  classes_daan = hub015_prerad$class,
+  name = 'hub015_gwh_prerad',
+  class.col = c('#E1AF00',
+                         '#F21A00')
+)
+
+```
+
+HUB015 baseline
+```{r HUB015 prerad image,  eval = T, echo = F, warning=F}
+knitr::include_graphics("figs/hub015_gwh_prerad_KRA-023.jpg")
+
+```
+
+```{r HUB015 postrad code (NOT RUN), eval = F,echo = T}
+# postrad
+hub015_postrad <-
+  subclone_classes[[5]][grepl(subclone_classes[[5]]$class, pattern = 'postrad'), ]
+
+genomeheatmap(
+  selected.files = hub015_postrad$path,
+  path = paths,
+  classes_daan = hub015_postrad$class,
+  name = 'hub015_gwh_postrad',
+  class.col = c('#f5de90',
+                         '#E1AF00',
+                         '#F21A00'))
+
+```
+
+HUB015 recurrence
+```{r HUB015 postrad image,  eval = T, echo = F, warning=F}
+knitr::include_graphics("figs/hub015_gwh_postrad_KRA-022.jpg")
+
+```
+
+
+```{r HUB197 prerad code (NOT RUN), eval = F,echo = T}
+# HUB197 #
+######################################################################
+# prerad #
+hub197_prerad <-
+  subclone_classes[[7]][grepl(subclone_classes[[7]]$class, pattern = 'prerad'), ]
+
+genomeheatmap(
+  selected.files = hub197_prerad$path,
+  path = paths,
+  classes_daan = hub197_prerad$class,
+  name = 'hub197_gwh_prerad',
+  class.col = c("#35274A", # purp
+                         "#E1BD6D", # sand
+                         '#0B775E' # green
+                         )
+) 
+```
+
+HUB197 baseline
+```{r HUB197 prerad image,  eval = T, echo = F, warning=F}
+knitr::include_graphics("figs/hub197_gwh_prerad_KRA-027.jpg")
+
+```
+
+```{r HUB197 postrad code (NOT RUN), eval = F,echo = T}
+# postrad #
+hub197_postrad <-
+  subclone_classes[[7]][grepl(subclone_classes[[7]]$class, pattern = 'postrad'), ]
+
+genomeheatmap(
+  selected.files = hub197_postrad$path,
+  path = paths,
+  name = 'hub197_gwh_postrad',
+  classes_daan = hub197_postrad$class,
+  class.col = c("#35274A")
+)
+```
+
+HUB197 recurrence
+```{r HUB197 postrad image,  eval = T, echo = F, warning=F}
+knitr::include_graphics("figs/hub197_gwh_postrad_KRA-026.jpg")
+
+```
+
+## Fisher's test
+```{r Fisher, eval = T, echo = T, warning= F, message = F}
+########
+# Data #
+########
+load('../cna_analysis/rda/subclonal_dynamics/subclone_classes.rda')
+
+#######
+# Run #
+#######
+# For HUB183, Fisher's test will produces an error, because HUB183 has only 1 subclone before and after treatment
+
+# Computing Fisher's exact test to compare HUB005 prerad versus postrad 
+HUB005 <- perform_fisher(
+  subclone_classes[[2]],
+  population1 = unique(subclone_classes[[2]]$class)[grepl('prerad', unique(subclone_classes[[2]]$class))],
+  population2 = unique(subclone_classes[[2]]$class)[grepl('postrad', unique(subclone_classes[[2]]$class))]
+)
+
+# Computing Fisher's exact test to compare HUB106 prerad versus postrad 
+HUB106 <- perform_fisher(
+  subclone_classes[[3]],
+  population1 = unique(subclone_classes[[3]]$class)[grepl('prerad', unique(subclone_classes[[3]]$class))],
+  population2 = unique(subclone_classes[[3]]$class)[grepl('postrad', unique(subclone_classes[[3]]$class))]
+)
+
+
+# Computing Fisher's exact test to compare HUB062 prerad versus HUB062 postrad cycle 1
+HUB062_cycle1 <- perform_fisher(
+  subclone_classes[[4]],
+  population1 = unique(subclone_classes[[4]]$class)[grepl('prerad', unique(subclone_classes[[4]]$class))],
+  population2 = unique(subclone_classes[[4]]$class)[!grepl('prerad|postrad_c2', unique(subclone_classes[[4]]$class))]
+)
+
+# Computing Fisher's exact test to compare HUB062 postrad cycle 1 versus HUB062 postrad cycle 1
+HUB062_cycle2 <- perform_fisher(
+  subclone_classes[[4]],
+  population1 = unique(subclone_classes[[4]]$class)[!grepl('prerad|postrad_c2', unique(subclone_classes[[4]]$class))],
+  population2 = unique(subclone_classes[[4]]$class)[grepl('postrad_c2', unique(subclone_classes[[4]]$class))]
+)
+
+
+# Computing Fisher's exact test to compare HUB015 prerad versus postrad 
+HUB015 <- perform_fisher(
+  subclone_classes[[5]],
+  population1 = unique(subclone_classes[[5]]$class)[grepl('prerad', unique(subclone_classes[[5]]$class))],
+  population2 = unique(subclone_classes[[5]]$class)[grepl('postrad', unique(subclone_classes[[5]]$class))]
+)
+
+# Computing Fisher's exact test to compare HUB197 prerad versus postrad 
+HUB197 <- perform_fisher(
+  subclone_classes[[7]],
+  population1 = unique(subclone_classes[[7]]$class)[grepl('prerad', unique(subclone_classes[[7]]$class))],
+  population2 = unique(subclone_classes[[7]]$class)[grepl('postrad', unique(subclone_classes[[7]]$class))]
+)
+
+# Computing Fisher's exact test to compare HUB062 prerad versus postrad in biological replicate 2
+HUB062_replicate2 <- perform_fisher(
+  subclone_classes[[7]],
+  population1 = unique(subclone_classes[[7]]$class)[grepl('prerad', unique(subclone_classes[[7]]$class))],
+  population2 = unique(subclone_classes[[7]]$class)[grepl('postrad', unique(subclone_classes[[7]]$class))]
+)
+
+############################
+# Multiple test correction #
+############################
+
+# comparing pre and post rad for all the rest
+p_val_rest <- c(NA, HUB005, HUB106, HUB062_cycle1, HUB062_cycle2, HUB015, HUB197, HUB062_replicate2)
+org_names <- c('HUB183', 'HUB005', 'HUB106', 'HUB062_cycle1', 'HUB062_cycle2', 'HUB015', 'HUB197', 'HUB062_replicate2')
+
+p_val_adjust <-
+  p.adjust(p_val_rest, method = 'bonferroni', n = length(p_val_rest))
+
+names(p_val_adjust) <- org_names
+
+p_val_adjust
+
+#######
+# END #
+#######
+
+```
+
