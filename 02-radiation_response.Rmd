@@ -491,6 +491,149 @@ sd_days_sens
 ```
 
 ### Persisters versus shifters dose-response plots
+```{r persisters vs shifters, echo = T, message=FALSE, warning=FALSE}
+########
+# Data #
+########
+d <- as.data.frame(read_excel("../cna_analysis/data/clinical_and_dr/parental_vs_radiated.xlsx"))
+
+##############
+# Relativize #
+##############
+# split per experiment
+per_exp <- split(d, f = d$expcode, drop = TRUE)
+
+# for radiation
+rel_vector_unrad <- lapply(per_exp, relative, rad = F)
+
+
+# join the dataframes togheter
+d_nonrad = do.call(rbind, rel_vector_unrad)
+
+# for radiation
+rel_vector_rad <- lapply(per_exp, relative, rad = T)
+
+# for radation
+d_rad = do.call(rbind, rel_vector_rad)
+
+# try to bind d_rad and d_nonrad. If d_rad is empty (this is the case when
+# rec_rad does not have ones, make d the same as d_nonrad)
+d <- try(rbind(d_rad, d_nonrad))
+if("try-error" %in% class(d)) d <- d_nonrad
+
+###########
+# Wrangle #
+###########
+# making helper column to extract representative expcodes
+d$cline_expcode <- paste0(d$cline, '_', d$expcode, '_', d$rec_rad)
+
+# subsetting
+cline_expcode_pick <-
+  c('HUB005_cva0026_0',
+    'HUB005_cva0026_1',
+    'HUB183_cva0025_0',
+    'HUB183_cva0025_1',
+    'HUB106_cva0028_0',
+    'HUB106_cva0028_1',
+    'HUB197_cva0117_0',
+    'HUB197_cva0117_1',
+    'HUB062_cva0061_a_0',
+    'HUB062_cva0061_b_1')
+
+d <- subset(d, cline_expcode %in% cline_expcode_pick)
+
+d$persister_group <-
+  ifelse(
+    d$cline %in% c('HUB005', 'HUB183', 'HUB106'),
+    'Persister', 'Shifter')
+
+d$rad <- 
+  ifelse(
+    d$rec_rad == 0, 
+    'Parental', 'Recurrence'
+  )
+
+# new data with doses. Note: lowest dose is not
+# log 0 but log('very small number') because otherwise this will hamper the scaling in ggplot later on.
+d$dose0 <- d$dose
+d$dose0[d$dose0 == 0] <- 0.00000001
+
+###########
+# Wrangle #
+###########
+s <- subset(d, persister_group == 'Shifter')
+
+ggplot(NULL, aes(x = dose0, y = relative_mean, group = interaction(cline,rad), col = rad)) +
+  geom_point(data= s,
+             size =3, aes(shape = cline)) +
+  geom_errorbar(data = s,
+                aes(ymin=relative_mean-relative_sem,ymax=relative_mean+relative_sem),
+                width=0.1) +
+  geom_line(data = s) +
+  coord_trans(#x="log10", 
+    xlim = c(0.00000001, 8), ylim = c(0, 1.2)) +
+  scale_x_continuous(breaks = c(0, 2,4,6,8)) + 
+  scale_y_continuous(expand = c(0,0), breaks = c(0,0.2, 0.4,0.6,0.8,1.0,1.2)) + 
+  theme_cowplot() + 
+  ylab('Normalized viability') + 
+  xlab('Dose (Gy)') + 
+  theme(
+    legend.title = element_blank(),
+    aspect.ratio = 5 / 3) + 
+  scale_shape_manual(values=seq(0,8)) + 
+  labs(title = 'Shifters') + 
+  scale_colour_manual(
+    values = c(
+      Parental = '#999999',
+      Recurrence = "#E69F00"
+    ),
+    guide = guide_legend(override.aes = list(
+      linetype = c(rep("blank", length(
+        unique(d$rad)
+      ))),
+      shape = c(rep(19, length(
+        unique(d$rad)
+      )))
+    ))
+  ) 
+
+p <- subset(d, persister_group == 'Persister')
+
+ggplot(NULL, aes(x = dose0, y = relative_mean, group = interaction(cline,rad), col = rad)) +
+  geom_point(data= p,
+             size =3, aes(shape = cline)) +
+  geom_errorbar(data = p,
+                aes(ymin=relative_mean-relative_sem,ymax=relative_mean+relative_sem),
+                width=0.1) +
+  geom_line(data = p) +
+  coord_trans(#x="log10", 
+    xlim = c(0.00000001, 8), ylim = c(0, 1.2)) +
+  scale_x_continuous(breaks = c(0, 2,4,6,8)) + 
+  scale_y_continuous(expand = c(0,0), breaks = c(0,0.2, 0.4,0.6,0.8,1.0,1.2)) + 
+  theme_cowplot() + 
+  ylab('Normalized viability') + 
+  xlab('Dose (Gy)') + 
+  theme(
+    legend.title = element_blank(),
+    aspect.ratio = 5 / 3) + 
+  scale_shape_manual(values=seq(0,8)) + 
+  labs(title = 'Persisters') + 
+  scale_colour_manual(
+    values = c(
+      Parental = '#999999',
+      Recurrence = "#E69F00"
+    ),
+    guide = guide_legend(override.aes = list(
+      linetype = c(rep("blank", length(
+        unique(d$rad)
+      ))),
+      shape = c(rep(19, length(
+        unique(d$rad)
+      )))
+    ))
+  ) 
+
+```
 
 
 

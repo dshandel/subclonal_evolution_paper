@@ -13,9 +13,9 @@ knitr::opts_chunk$set(echo = F)
 # Introduction
 This book includes all the scripts used to generate the statistics and plots presented in the paper "Pre-existing Radioresistant Subclones Determine Radioresistance in Rectal Cancer Organoids."
 
-The scripts are arranged in a loose chronological order, corresponding to the flow of the paper. The source code referenced within the scripts can be located in the 'R' folder on this Github page and also in the final chapter of the book.
+The scripts are arranged in a loose chronological order, corresponding to the flow of the paper. The source code referenced within the scripts can be located in the 'R' folder on the GitHub page and also in the final chapter of this book.
 
 Paper: https://doi-org.proxy.library.uu.nl/10.1002/bjs.11828
 
-Book: https://github.com/dshandel/subclonal_evolution_paper
+GitHub: https://github.com/dshandel/subclonal_evolution_paper
 
