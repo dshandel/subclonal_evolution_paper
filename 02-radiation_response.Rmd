@@ -399,68 +399,6 @@ ggplot(metrics, aes(x = cline, y = rel_AUC, group = cline)) +
   scale_y_continuous(limits = c(0,1))
 ```
 
-### Flow cytometry-based measurement of (apoptotic) cells with sub-G1 DNA content 
-```{r wrangle and plot sub-G1, echo = T, message=FALSE, warning=FALSE}
-
-###########
-# Wrangle #
-###########
-d <-
-  data.frame(read_excel("../cna_analysis/data/clinical_and_dr/nicoletti_data.xlsx"))
-
-# defining experiment number for referenc
-exp_numb <- unique(d$expcode)
-exp_numb <- paste(unlist(exp_numb), collapse = '')
-
-# defining apoptosis percentage
-d$apop_perc <- d$subg1 / d$singlets * 100
-
-d_zero <- d %>% group_by(cline, expcode) %>% arrange(cline, expcode) %>% filter(dose == 0)
-d_five <- d %>% group_by(cline, expcode) %>% arrange(cline, expcode) %>% filter(dose == 5)
-
-df_fc_apop <- data.frame(
-  cline = d_zero$cline,
-  expcode = d_zero$expcode,
-  fc_apop = d_five$apop_perc / d_zero$apop_perc
-) %>%  group_by(cline) %>% summarize(mean_apop_fc = mean(fc_apop),
-                                     sd_apop_fc = sd(fc_apop))
-
-df_fc_apop$cline <- factor(df_fc_apop$cline, levels = c('HUB005', 'HUB183', 'HUB062', 'HUB106'))
-
-df_fc_apop
-
-
-########
-# Plot #
-########
-ggplot(df_fc_apop, aes(x= cline, y = mean_apop_fc, fill = cline)) + 
-  geom_bar(aes(group = cline), stat = 'identity',
-           position=position_dodge(),
-           col = 'black') + 
-  geom_linerange(aes(ymin=mean_apop_fc, ymax=mean_apop_fc + sd_apop_fc),
-                position=position_dodge(0.65), size = 1, 
-                alpha = 0.8) + 
-  theme_cowplot() + 
-  scale_fill_manual(
-    values = c(HUB181I = "#8491B4FF", 
-               HUB005 = "#E64B35FF", 
-               HUB062 = "#91D1C2FF", 
-               HUB015 = '#FADA5E',
-               HUB106 = "#3C5488FF", 
-               HUB183 = "#F39B7FFF", 
-               HUB175 = "#00A087FF",
-               HUB197 = 'grey')) + 
-  scale_y_continuous(expand = c(0,0,0.01,0)) + 
-  theme_cowplot() + 
-  ylab('Fold change (% apoptotic cells)') + 
-  xlab('') + 
-  guides(fill="none") + 
-  theme(
-    aspect.ratio = 5 / 3,
-    axis.text.x = element_text(angle = 45, hjust=1))
-
-```
-
 ### Recovery statistics after 10 Gy radiation
 ```{r recovery statistics after 10 Gy radiation, echo = T, message=FALSE, warning=FALSE}
 ########
