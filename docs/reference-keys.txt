@@ -4,7 +4,6 @@ progression-free-survival
 in-vitro-dose-response
 dose-response-plot
 rauc-across-multiple-experiments
-flow-cytometry-based-measurement-of-apoptotic-cells-with-sub-g1-dna-content
 recovery-statistics-after-10-gy-radiation
 persisters-versus-shifters-dose-response-plots
 subclonal-dynamics

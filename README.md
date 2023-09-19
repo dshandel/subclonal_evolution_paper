@@ -6,6 +6,6 @@ The source scripts can be found in the folder labeled "R"
 
 For the reproduction of statistics and figures, follow link: https://dshandel.github.io/subclonal_evolution_paper/
 
-The raw datasets have been deposited under [DEPOSITORY_NAME]. If you require access to the processed datasets, kindly get in touch with the corresponding author.
+The raw data have been deposited in the NCBI Sequence Read Archive under accession number PRJNA1015247. If you require access to the processed datasets, kindly get in touch with the lead author.
 
 Paper: [INSERT DOI]
