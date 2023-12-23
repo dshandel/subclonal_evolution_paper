@@ -1693,3 +1693,124 @@ p_val_adjust
 
 ```
 
+## MEDICC2
+
+### Wrangle
+```{r MEDICC2 wrangle,  eval = F, echo = F, warning=F}
+###############
+# Description #
+###############
+# Producing tsv files in MEDICC2 format.
+# Input file should be tsv format and the 
+# following columns: sample_id, chrom, start, end 
+# as well as columns for the copy numbers. 
+# the data all should have equal bins. 
+
+### NOTE #### 
+# This script was rerun for each pre- and post treatment organoid, by changing 
+# each 'kra' number. 
+
+#############
+# Libraries #
+#############
+library(AneuFinder)
+library(tidyverse)
+library(stringr)
+
+########
+# Data #
+########
+load('../cna_analysis/rda/subclonal_dynamics/man_select_files_edivisive.rda' )
+
+#######
+# UC #
+######
+names(man_select_files_edivisive)
+
+kra_003 <-loadFromFiles(man_select_files_edivisive$kra003, check.class = c("aneuHMM", "aneuBiHMM"))
+kra_004 <-loadFromFiles(man_select_files_edivisive$kra004, check.class = c("aneuHMM", "aneuBiHMM"))
+
+
+pick_bin <- function(files){
+  # select binned data
+  gr_range <- files$bins
+  
+  # convert to dataframe
+  gr_df <- as.data.frame(gr_range)
+  
+  # select columns
+  gr_df <- gr_df %>% select('seqnames', 'start', 'end', 'copy.number')
+  
+  # add sample id
+  sample_id <- str_remove(files$ID, 'single.SCC-scKaryo-UMC-') %>% str_remove('.bam')
+  
+  gr_df$sample_id <- sample_id
+  
+  # add 'chrom' to seqnames
+  gr_df$seqnames <- paste0('chrom', gr_df$seqnames)
+  
+  
+  # change colnames
+  colnames(gr_df) <- c('chrom', 'start', 'end', 'cn', 'sample_id')
+  
+  # return
+  return(gr_df)
+  
+
+}
+
+df_003 <- lapply(kra_003, pick_bin)
+df_004 <- lapply(kra_004, pick_bin)
+
+# combined dfs
+df_all_003 <- bind_rows(df_003, .id = "remove_me")
+df_all_004 <- bind_rows(df_004, .id = "remove_me")
+
+# binding
+df_all <- rbind(df_all_003, df_all_004)
+
+# remove column remove me
+df_all <- df_all %>% select(-c('remove_me'))
+
+# saving a tsv file
+write.table(df_all, file='../cna_analysis/rda/medicc2/hub183.tsv', quote=FALSE, sep='\t', row.names = F)
+
+```
+
+
+### MEDICC2 run 
+This for loop (bash) was used to run MEDICC2 on each .tsv filed as produced in the code under MEDICC2 -> Wrangle above.
+The output of this code is not shown, as it comprises many documents and figures. The '...profiles_heatmap.pdf' files were used in figures S1 and S2 of the manuscript.
+
+
+```{bash, engine = 'bash', eval = FALSE, echo = T}
+#!/bin/bash
+
+# Check if the correct number of arguments are provided
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 input_folder"
+    exit 1
+fi
+
+input_folder="$1"
+output_folder="${input_folder}/output"
+
+# Create the output folder if it doesn't exist
+mkdir -p "$output_folder"
+
+# Iterate through each .tsv file in the input folder
+for tsv_file in "${input_folder}"/*.tsv; do
+    # Extract the filename without extension
+    filename=$(basename -- "$tsv_file")
+    filename_without_extension="${filename%.*}"
+
+    # Create a folder with the name of the .tsv file
+    output_subfolder="${output_folder}/${filename_without_extension}"
+    mkdir -p "$output_subfolder"
+
+    # Run the function x (replace this with the actual command you want to run)
+    time medicc2 "$tsv_file" "$output_subfolder" --total-copy-numbers --input-allele-columns cn --events --n-cores 8
+   
+done
+
+```

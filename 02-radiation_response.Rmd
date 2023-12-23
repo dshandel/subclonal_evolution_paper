@@ -21,11 +21,11 @@ library(cowplot)
 # Data #
 ########
 # Loading survival data from time of surgery
-surg_surv <- as.data.frame(read_excel("../cna_analysis/data/clinical_and_dr/data_survival_progression.xlsx", 
+surg_surv <- as.data.frame(read_excel("../cna_analysis/data/clinical_and_dr/data_survival_progression_with_death_as_progression.xlsx", 
                       sheet = "surg_surv"))
 
 # Loading progression data from time of surgery
-surg_prog <- as.data.frame(read_excel("../cna_analysis/data/clinical_and_dr/data_survival_progression.xlsx", 
+surg_prog <- as.data.frame(read_excel("../cna_analysis/data/clinical_and_dr/data_survival_progression_with_death_as_progression.xlsx", 
                         sheet = "surg_prog"))
 
 #######
@@ -52,13 +52,13 @@ surv_median(surg_prog_fit)[1,2]
 ```
 
 ```{r plot Progression-free survival, echo = T, message=FALSE, warning=FALSE}
-########
-# Plot #
-########
-
+#### PROGRESSION ####
 # Constructing a dataframe for annotating labels
 anno_df_prog <- data.frame(label = surg_prog$organoid, 
                            time = surg_prog$time)
+
+# sort by time
+anno_df_prog <- anno_df_prog[order(anno_df_prog$time),]
 
 # make temp df with survival/prob data
 temp_df_prob_prog <- data.frame(time = surg_prog_fit$time,
@@ -67,8 +67,7 @@ temp_df_prob_prog <- data.frame(time = surg_prog_fit$time,
 # join together
 anno_df_prog <- left_join(anno_df_prog, temp_df_prob_prog)
 
-# sort by time
-anno_df_prog <- anno_df_prog[order(anno_df_prog$time),]
+
 
 # Plotting progression free survival
 prog_p <- ggsurvplot(surg_prog_fit, data = surg_prog, conf.int = F, palette = c("#00887d"),
@@ -82,14 +81,13 @@ prog_p <- ggsurvplot(surg_prog_fit, data = surg_prog, conf.int = F, palette = c(
 # adding labels
 prog_p$plot <- prog_p$plot + 
   annotate("text", 
-                x = anno_df_prog$time + c(350, 350, 350, -150,50,250,0,0), 
-           y = anno_df_prog$prob + c(0.1,0.1,0.1, -0.05, 0.05, -0.05, 0.05,-0.05),
+                x = anno_df_prog$time + c(350, 350, 350, -150,50,250,350,0), 
+           y = anno_df_prog$prob + c(0.1,0.1,0.1, -0.05, 0.05, -0.05, 0.28,-0.05),
                 label = anno_df_prog$label) + 
   theme(aspect.ratio = 5/3) + 
   coord_cartesian(clip = 'off')
 
 prog_p 
-
 ```
 
 ## In vitro dose-response 
@@ -218,6 +216,7 @@ metrics_pooled <- metrics %>% group_by(cline) %>% summarise_at(vars(rel_AUC),
 median(metrics$rel_AUC)
 min(metrics$rel_AUC)
 max(metrics$rel_AUC)
+
 ```
 
 ```{r plots for in vitro dose-response, echo = T, message=FALSE, warning=FALSE}
@@ -327,7 +326,6 @@ ggplot(NULL, aes(x = dose0, y = relative_mean, group = cline, col = resistancy_g
     ))
   ) 
 
-
 ```
 
 ### rAUC across multiple experiments
@@ -397,6 +395,46 @@ ggplot(metrics, aes(x = cline, y = rel_AUC, group = cline)) +
   ) +
   coord_cartesian(clip = 'off') + 
   scale_y_continuous(limits = c(0,1))
+
+# statistical test to compare top three radioresistant and radiosensitive organoids
+# note that in the paper, the p-value was added manually. 
+# Make cline a factor and specify order by decreasing AUC mean
+metrics$cline <- factor(
+  metrics$cline,
+  levels = metrics %>% group_by(cline) %>% summarize(mean_auc = mean(rel_AUC)) %>% arrange(-mean_auc) %>% pull(cline)
+)
+
+# add resistancy group for colour coding
+resistant <- c('HUB005', 'HUB183', 'HUB015')
+sensitive <- c('HUB197', 'HUB106', 'HUB062')
+
+metrics$resistancy_group <-
+  ifelse(
+    metrics$cline %in% resistant,
+    'Resistant',
+    ifelse(metrics$cline %in% sensitive, 'Sensitive', 'Intermediate')
+  )
+
+# changing order of resistancy_group
+metrics$resistancy_group <- factor(metrics$resistancy_group, levels = c("Resistant", "Intermediate", "Sensitive"))
+
+#######
+# Run #
+#######
+# t.test (by just taking the average of each biological replicate). 
+t_df <- metrics %>% group_by(cline) %>% summarize(rAUC= mean(rel_AUC), stdev = sd(rel_AUC))
+
+t_df$resistancy_group <-
+  ifelse(
+    t_df$cline %in% resistant,
+    'Resistant',
+    ifelse(t_df$cline %in% sensitive, 'Sensitive', 'Intermediate')
+  )
+
+# Highly significant p-value. 
+t.test(subset(t_df, resistancy_group == 'Resistant')$rAUC, subset(t_df, resistancy_group == 'Sensitive')$rAUC, paired = F)
+
+
 ```
 
 ### Recovery statistics after 10 Gy radiation

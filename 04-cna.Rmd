@@ -607,7 +607,112 @@ hub062_postrad_c2_c <- find_specific_cna_sc(
 
 ```
 
+### CCLE PTPN13 and AFF1 analysis
+```{r CCLE cancer genes, eval = T, echo = T, message=FALSE, warning=FALSE}
+
+### PTPN13 ###
+###############
+# ABSOLUTE DATA GENERATED HERE: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6697103/
+cnv_ccle <- as.data.frame(read_csv("../cna_analysis/data/cna_analysis/Copy_Number_(Absolute).csv"))
+
+load('../cna_analysis/rda/cna_analysis/ccle_rad_data.rda')
 
 
+# exclude regions of interest
+sum(colnames(cnv_ccle) == 'PTPN13') 
+
+t <- subset(cnv_ccle, colnames(cnv_ccle) == 'PTPN13')
+
+t <- cnv_ccle %>% select(c("...1", 'PTPN13'))
+
+colnames(t) <- c('DepMap_ID', 'PTPN13')
+
+testy <- left_join(t, rad_df, by = 'DepMap_ID')
+
+
+
+
+testy <- subset(testy, resistancy_group %in% c('Resistant', 'Sensitive'))
+
+
+# running a logistic regression
+testy$del <- ifelse(testy$PTPN13 < 2, '1', '0')
+
+
+
+# if resistancy group == sensitive -> numeric is reduced, meaning less deletions. 
+# Resistant groups have more deletions. 
+# t <- glm(as.numeric(as.factor(testy$del)) ~ as.factor(testy$resistancy_group))
+#     
+# controlling for primary_tumor, subtype
+# resistancy group: still more deletions in the resistant group.
+t <- glm(as.numeric(as.factor(testy$del)) ~ as.factor(testy$resistancy_group) + as.factor(testy$primary_disease) + 
+           as.factor(testy$subtype_disease))
+
+
+
+tabol <- table(testy$resistancy_group, testy$PTPN13)
+# Percentage deleted resistant
+tabol[1,1] / (tabol[1,1] + tabol[1,2] + tabol[1,3] + tabol[1,4] + tabol[1,5])*100
+
+# Percentage deleted sensitive
+tabol[2,1] / (tabol[2,1] + tabol[2,2] + tabol[2,3] + tabol[2,4] + tabol[2,5])*100
+
+# showing p value for PTPN13. 
+t <- summary(t)
+t <- t$coefficients
+t[2,]
+
+
+### AFF1 ###
+###############
+# exclude regions of interest
+sum(colnames(cnv_ccle) == 'AFF1') 
+
+t <- subset(cnv_ccle, colnames(cnv_ccle) == 'AFF1')
+
+t <- as.data.frame(cnv_ccle) %>% dplyr::select(c("...1", 'AFF1'))
+
+colnames(t) <- c('DepMap_ID', 'AFF1')
+
+testy <- left_join(t, rad_df, by = 'DepMap_ID')
+
+
+
+
+testy <- subset(testy, resistancy_group %in% c('Resistant', 'Sensitive'))
+
+
+# running a logistic regression
+testy$del <- ifelse(testy$AFF1 < 2, '1', '0')
+
+
+
+# if resistancy group == sensitive -> numeric is reduced, meaning less deletions. 
+# Resistant groups have more deletions. 
+# t <- glm(as.numeric(as.factor(testy$del)) ~ as.factor(testy$resistancy_group))
+#     
+# controlling for primary_tumor, subtype
+# resistancy group: still more deletions in the resistant group.
+t <- glm(as.numeric(as.factor(testy$del)) ~ as.factor(testy$resistancy_group) + as.factor(testy$primary_disease) + 
+           as.factor(testy$subtype_disease))
+
+
+tabol <- table(testy$resistancy_group, testy$AFF1)
+# Percentage deleted resistant
+tabol[1,1] / (tabol[1,1] + tabol[1,2] + tabol[1,3] + tabol[1,4] + tabol[1,5])*100
+
+# Percentage deleted sensitive
+tabol[2,1] / (tabol[2,1] + tabol[2,2] + tabol[2,3] + tabol[2,4] + tabol[2,5])*100
+
+# showing p value for AFF1
+t <- summary(t)
+t <- t$coefficients
+
+t[2,]
+
+
+
+```
 
 

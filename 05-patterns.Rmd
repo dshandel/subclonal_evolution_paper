@@ -210,6 +210,209 @@ ggplot(data = df,
         aspect.ratio = 5 / 1.5)
 
 ```
+### MEDICC2 intraclone variability
+
+```{r MEDICC2 intraclone variability, eval = T,echo = T, warning=F, message=F}
+########
+# Data #
+########
+load('../cna_analysis/rda/cin_analysis/aneu_het_score.rda')
+
+################
+### BASELINE ###
+################
+
+###########
+# Wrangle #
+###########
+res_df <-
+  subset(aneu_het_score, unique_id %in% aneu_het_score$unique_id[c(
+    grep('hub005', aneu_het_score$unique_id),
+    grep('hub183', aneu_het_score$unique_id),
+    grep('hub015', aneu_het_score$unique_id),
+    grep('hub062_prerad_a', aneu_het_score$unique_id),
+    grep('hub197_prerad_a', aneu_het_score$unique_id)
+  )]) %>% mutate(resistancy_group = 'Resistant')
+
+sens_df <-
+  subset(aneu_het_score, unique_id %in% aneu_het_score$unique_id[c(
+    grep('hub106', aneu_het_score$unique_id),
+    grep('hub197', aneu_het_score$unique_id),
+    grep('hub062_prerad_b', aneu_het_score$unique_id),
+    grep('hub062_postrad_b', aneu_het_score$unique_id),
+    grep('hub062_prerad_c', aneu_het_score$unique_id),
+    grep('hub062_postrad_c', aneu_het_score$unique_id)
+  )]) %>% mutate(resistancy_group = 'Sensitive') %>%
+  filter(unique_id != 'hub197_prerad_a')
+
+df <- rbind(res_df, sens_df)
+
+# remove postrad except
+df <-
+  df %>% filter(rad != 'postrad') %>% rbind(df %>% filter(unique_id == 'hub062_postrad_a'))
+
+# make sure to have the same subclones to work with
+unique(df$unique_id)
+
+
+########
+# Data #
+########
+
+load('../cna_analysis/rda/subclonal_dynamics/subclone_list.rda')
+
+############
+# Function #
+############
+
+pairwise_mean_subclone <- function(pair_dist_df, list_of_subclone) {
+  samples <- str_match(list_of_subclone, "single.SCC-scKaryo-UMC-\\s*(.*?)\\s*.bam")[,2]
+  df_subset_row <- subset(pair_dist_df, sample_id %in% samples)
+  df_subset_row_col <- df_subset_row[, samples]
+  df_mat <- as.matrix(df_subset_row_col)
+  return(mean(df_mat))
+}
+
+pairwise_mean_subclone_ssdna004 <- function(pair_dist_df, list_of_subclone) {
+  samples <- str_match(list_of_subclone, "method-edivisive/\\s*(.*?)\\s*.bam")[,2]
+  df_subset_row <- subset(pair_dist_df, sample_id %in% samples)
+  df_subset_row_col <- df_subset_row[, samples]
+  df_mat <- as.matrix(df_subset_row_col)
+  return(mean(df_mat))
+}
+
+
+########
+# Runs #
+########
+hub183 <- read_delim("../cna_analysis/rda/medicc2/hub183/hub183_pairwise_distances.tsv", 
+                     delim = "\t", escape_double = FALSE, 
+                     trim_ws = TRUE)
+
+hub183_prerad_a <- pairwise_mean_subclone(hub183, subclone_list$hub183_prerad_a)
+
+hub005 <- read_delim("../cna_analysis/rda/medicc2/hub005/hub005_pairwise_distances.tsv", 
+                     delim = "\t", escape_double = FALSE, 
+                     trim_ws = TRUE)
+
+hub005_prerad_a.a <- pairwise_mean_subclone(hub005, subclone_list$hub005_prerad_a.a)
+hub005_prerad_a.b <- pairwise_mean_subclone(hub005, subclone_list$hub005_prerad_a.b)
+hub005_prerad_b <- pairwise_mean_subclone(hub005, subclone_list$hub005_prerad_b)
+
+hub062 <- read_delim("../cna_analysis/rda/medicc2/hub062/hub062_pairwise_distances.tsv", 
+                     delim = "\t", escape_double = FALSE, 
+                     trim_ws = TRUE)
+
+hub062_prerad_a <- pairwise_mean_subclone(hub062, subclone_list$hub062_prerad_a)
+hub062_prerad_b <- pairwise_mean_subclone(hub062, subclone_list$hub062_prerad_b)
+hub062_prerad_c <- pairwise_mean_subclone(hub062, subclone_list$hub062_prerad_c)
+
+
+hub015 <- read_delim("../cna_analysis/rda/medicc2/hub015/hub015_pairwise_distances.tsv", 
+                     delim = "\t", escape_double = FALSE, 
+                     trim_ws = TRUE)
+
+# thsi is actually a.b but it is called wrong in dataframe df, they correspond to the same 
+# clone though. 
+hub015_prerad_a.a  <- pairwise_mean_subclone_ssdna004(hub015, subclone_list$hub015_prerad_a.b )
+
+
+hub106 <- read_delim("../cna_analysis/rda/medicc2/hub106/hub106_pairwise_distances.tsv", 
+                     delim = "\t", escape_double = FALSE, 
+                     trim_ws = TRUE)
+
+
+hub106_prerad_a  <- pairwise_mean_subclone(hub106, subclone_list$hub106_prerad_a)
+hub106_prerad_b  <- pairwise_mean_subclone(hub106, subclone_list$hub106_prerad_b)
+hub106_prerad_c  <- pairwise_mean_subclone(hub106, subclone_list$hub106_prerad_c)
+
+
+hub197 <- read_delim("../cna_analysis/rda/medicc2/hub197/hub197_pairwise_distances.tsv", 
+                     delim = "\t", escape_double = FALSE, 
+                     trim_ws = TRUE)
+
+
+hub197_prerad_a  <- pairwise_mean_subclone_ssdna004(hub197, subclone_list$hub197_prerad_a)
+hub197_prerad_b  <- pairwise_mean_subclone_ssdna004(hub197, subclone_list$hub197_prerad_b)
+hub197_prerad_c  <- pairwise_mean_subclone_ssdna004(hub197, subclone_list$hub197_prerad_c)
+
+### dataframe
+df_pwd <- data.frame(unique_id = c('hub183_prerad_a', 
+                                     'hub005_prerad_a.a', 
+                                     'hub005_prerad_a.b', 
+                                     'hub005_prerad_b', 
+                                     'hub062_prerad_a',
+                                   'hub062_prerad_b',
+                                   'hub062_prerad_c',
+                                   
+                                     'hub015_prerad_a.a', 
+                                     'hub106_prerad_a',
+                                     'hub106_prerad_b',
+                                     'hub106_prerad_c',
+                                     'hub197_prerad_a',
+                                     'hub197_prerad_b',
+                                     'hub197_prerad_c'),
+  pwd_mean = c(hub183_prerad_a, 
+               hub005_prerad_a.a, 
+               hub005_prerad_a.b, 
+               hub005_prerad_b, 
+               hub062_prerad_a,
+               hub062_prerad_b,
+               hub062_prerad_c,
+               hub015_prerad_a.a, 
+               hub106_prerad_a,
+               hub106_prerad_b,
+               hub106_prerad_c,
+               hub197_prerad_a,
+               hub197_prerad_b,
+               hub197_prerad_c))
+
+df <- left_join(df, df_pwd)
+
+
+# Statistics #
+##############
+mwu_het <- compare_means(
+  pwd_mean ~ resistancy_group,
+  data = df,
+  method = "t.test",
+  paired = F
+)
+
+# make y positon empty vector, and convert p to scientific notation with 1 decimal
+het_y <- 80
+mwu_het <- mwu_het %>%
+  mutate(y.position = c(het_y), empty = ' ') %>%
+  mutate(p = format(p, digits = 2)) %>%
+  mutate(p = as.numeric(p)) %>%
+  mutate(p = format(p, scientific = T)) %>%
+  mutate(p = sub("e", "%.% 10^", p))
+
+
+
+ggplot(data = df,
+       aes(x = as.factor(resistancy_group),
+           y = pwd_mean)) +
+  theme_cowplot() +
+  geom_boxplot(aes(fill = resistancy_group),
+               outlier.shape = NA) +
+  scale_fill_manual(values = c(Resistant = '#DE3163', Sensitive = '#5090CD')) +
+  xlab('') +
+  ylab('Intraclone variability (MEDICC2)') +
+  stat_pvalue_manual(mwu_het, label = 'empty') +
+  annotate(
+    'text',
+    x = 1.5,
+    y = het_y + 3,
+    label = paste0("italic(P)==", mwu_het$p),
+    parse = T
+  ) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust=1),
+    legend.position = "none",
+    aspect.ratio = 5 / 1.5)
+
+```
 
 ### Copy number length analysis
 
@@ -289,7 +492,6 @@ df_scna <- df %>% mutate(scna = ifelse(fraction < 0.3, 'fCNA', ifelse(fraction >
 # Boxplot #
 ###########
 
-#### DISCUSS WITH ONNO WHAT WE WANT TO DO HERE ####
 ### STATISTICS PER CELL ###
 stat <- compare_means(
   n ~ resistancy_group,
@@ -551,6 +753,84 @@ ggplot(subset(df_scna, resistancy_group == 'Sensitive'), aes(x= as.factor(scna),
 
 
 ## CCLE analysis
+### Ploidy and whole genome duplication analysis
+```{r ploidy and wgd, eval = T,echo = T, warning=F, message=F}
+# absolute calls
+df_absolute <- read_excel("../cna_analysis/data/cna_analysis/CCLE_ABSOLUTE_combined_20181227.xlsx", 
+           sheet = "ABSOLUTE_combined.table")
+
+# resistancy data
+load('../cna_analysis/rda/cna_analysis/ccle_rad_data.rda')
+
+
+
+###########
+# PLOIDY #
+###########
+# change column name depMapID in df_absolute to DepMap_ID so it matches the column 
+# in rad_df
+names(df_absolute)[names(df_absolute) == 'depMapID'] <- 'DepMap_ID'
+
+# bring two dataframes together
+comb_df <- left_join(rad_df, df_absolute, by = 'DepMap_ID')
+
+# only resistant and sensitive groups
+comb_df <- subset(comb_df, resistancy_group != 'Intermediate')
+
+# add a wgd_status column
+comb_df$wgd_status <- ifelse(comb_df$Genome.doublings == 0, '0', '1')
+
+comb_df <- comb_df[!is.na(comb_df$wgd_status),]
+
+comb_df <- comb_df[!is.na(comb_df$primary_disease),]
+
+comb_df <- comb_df[!is.na(comb_df$subtype_disease),]
+
+comb_df %>% group_by(resistancy_group) %>% summarize(mean_ploidy = mean(ploidy))
+
+
+t <- lm(as.numeric(comb_df$ploidy) ~ as.factor(comb_df$resistancy_group) + as.factor(comb_df$primary_disease) + 
+          as.factor(comb_df$subtype_disease))
+
+
+t <- summary(t) 
+
+t_cof <- t$coefficients
+
+# p value resistancy class
+t_cof[2,]
+
+#######
+# WGD #
+#######
+
+tabol <- table(comb_df$resistancy_group,comb_df$wgd_status)
+
+#radioresistant percentage with WGD
+tabol[1,2] / (tabol[1,1] + tabol[1,2])*100
+
+#radiosensitive percentage with WGD
+tabol[2,2] / (tabol[2,1] + tabol[2,2])*100
+
+# removing NAs
+comb_df <- comb_df[!is.na(comb_df$wgd_status) | is.na(comb_df$primary_disease) | is.na(comb_df$subtype_disease),]
+
+t_wgd <- glm(as.numeric(as.factor(comb_df$wgd_status)) ~ as.factor(comb_df$resistancy_group) + as.factor(comb_df$primary_disease) + 
+           as.factor(comb_df$subtype_disease))
+
+
+t_wgd <- summary(t_wgd) 
+
+t_wgd_cof <- t_wgd$coefficients
+
+# p value whole genome status. class
+t_wgd_cof[2,]
+
+```
+
+
+
+
 ### Run CIN signature
 ```{r run signature score, eval = T,echo = T, warning=F, message=F}
 ########
