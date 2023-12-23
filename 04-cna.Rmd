@@ -609,17 +609,15 @@ hub062_postrad_c2_c <- find_specific_cna_sc(
 
 ### CCLE PTPN13 and AFF1 analysis
 ```{r CCLE cancer genes, eval = T, echo = T, message=FALSE, warning=FALSE}
-
+library(tidyverse)
 ### PTPN13 ###
 ###############
 # ABSOLUTE DATA GENERATED HERE: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6697103/
-cnv_ccle <- as.data.frame(read_csv("../cna_analysis/data/cna_analysis/Copy_Number_(Absolute).csv"))
+cnv_ccle <- as.data.frame(readr::read_csv("../cna_analysis/data/cna_analysis/Copy_Number_(Absolute).csv"))
 
 load('../cna_analysis/rda/cna_analysis/ccle_rad_data.rda')
 
 
-# exclude regions of interest
-sum(colnames(cnv_ccle) == 'PTPN13') 
 
 t <- subset(cnv_ccle, colnames(cnv_ccle) == 'PTPN13')
 
@@ -667,7 +665,7 @@ t[2,]
 ### AFF1 ###
 ###############
 # exclude regions of interest
-sum(colnames(cnv_ccle) == 'AFF1') 
+
 
 t <- subset(cnv_ccle, colnames(cnv_ccle) == 'AFF1')
 

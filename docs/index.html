@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-
 <html lang="" xml:lang="">
-  
-  
 <head>
 
   <meta charset="utf-8" />
@@ -26,7 +23,7 @@
 <meta name="author" content="Daan Andel" />
 
 
-<meta name="date" content="2023-09-06" />
+<meta name="date" content="2023-12-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -176,6 +173,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#single-cell-copy-number-heatmap-plots"><i class="fa fa-check"></i><b>3.6</b> Single cell copy number heatmap plots</a></li>
 <li class="chapter" data-level="3.7" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#fishers-exact-test"><i class="fa fa-check"></i><b>3.7</b> Fisher’s exact test</a></li>
+<li class="chapter" data-level="3.8" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#medicc2"><i class="fa fa-check"></i><b>3.8</b> MEDICC2</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#wrangle"><i class="fa fa-check"></i><b>3.8.1</b> Wrangle</a></li>
+<li class="chapter" data-level="3.8.2" data-path="subclonal-dynamics.html"><a href="subclonal-dynamics.html#medicc2-run"><i class="fa fa-check"></i><b>3.8.2</b> MEDICC2 run</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html"><i class="fa fa-check"></i><b>4</b> Copy number analyses</a>
 <ul>
@@ -185,6 +187,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.1" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html#copy-number-alterations-specific-to-hub062a"><i class="fa fa-check"></i><b>4.2.1</b> Copy number alterations specific to HUB062A</a></li>
 <li class="chapter" data-level="4.2.2" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html#copy-number-alterations-specific-to-resistant-subclones"><i class="fa fa-check"></i><b>4.2.2</b> Copy number alterations specific to resistant subclones</a></li>
 <li class="chapter" data-level="4.2.3" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html#newly-acquired-copy-number-alterations"><i class="fa fa-check"></i><b>4.2.3</b> Newly acquired copy number alterations</a></li>
+<li class="chapter" data-level="4.2.4" data-path="copy-number-analyses.html"><a href="copy-number-analyses.html#ccle-ptpn13-and-aff1-analysis"><i class="fa fa-check"></i><b>4.2.4</b> CCLE PTPN13 and AFF1 analysis</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html"><i class="fa fa-check"></i><b>5</b> Copy number pattern analyses</a>
@@ -196,9 +199,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html#ccle-analysis"><i class="fa fa-check"></i><b>5.2</b> CCLE analysis</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html#run-cin-signature"><i class="fa fa-check"></i><b>5.2.1</b> Run CIN signature</a></li>
-<li class="chapter" data-level="5.2.2" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html#statistics-cin-signature"><i class="fa fa-check"></i><b>5.2.2</b> Statistics CIN signature</a></li>
-<li class="chapter" data-level="5.2.3" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html#plot-cx1-cin-signature"><i class="fa fa-check"></i><b>5.2.3</b> Plot CX1 CIN signature</a></li>
+<li class="chapter" data-level="5.2.1" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html#ploidy-and-whole-genome-duplication-analysis"><i class="fa fa-check"></i><b>5.2.1</b> Ploidy and whole genome duplication analysis</a></li>
+<li class="chapter" data-level="5.2.2" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html#run-cin-signature"><i class="fa fa-check"></i><b>5.2.2</b> Run CIN signature</a></li>
+<li class="chapter" data-level="5.2.3" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html#statistics-cin-signature"><i class="fa fa-check"></i><b>5.2.3</b> Statistics CIN signature</a></li>
+<li class="chapter" data-level="5.2.4" data-path="copy-number-pattern-analyses.html"><a href="copy-number-pattern-analyses.html#plot-cx1-cin-signature"><i class="fa fa-check"></i><b>5.2.4</b> Plot CX1 CIN signature</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="source-code.html"><a href="source-code.html"><i class="fa fa-check"></i><b>6</b> Source code</a>
@@ -244,7 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Pre-existing Radioresistant Subclones Determine Radioresistance in Rectal Cancer Organoids</h1>
 <p class="author"><em>Daan Andel</em></p>
-<p class="date"><em>2023-09-06</em></p>
+<p class="date"><em>2023-12-23</em></p>
 </div>
 <div id="introduction" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">1</span> Introduction<a href="index.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
