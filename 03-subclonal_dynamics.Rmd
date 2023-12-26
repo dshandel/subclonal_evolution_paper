@@ -1696,6 +1696,7 @@ p_val_adjust
 ## MEDICC2
 
 ### Wrangle
+
 ```{r MEDICC2 wrangle,  eval = F, echo = T, warning=F}
 ###############
 # Description #
