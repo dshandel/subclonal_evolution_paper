@@ -29,6 +29,7 @@ ccle-ptpn13-and-aff1-analysis
 copy-number-pattern-analyses
 single-cell-analyses
 heterogeneity-score
+medicc2-intraclone-variability
 copy-number-length-analysis
 ccle-analysis
 ploidy-and-whole-genome-duplication-analysis
@@ -54,4 +55,3 @@ shifters-script-create_cn_matrix-and-cluster_and_shift_transitions-functions
 calculate_heterogeneity_score-script-calculate_heterogeneity_score-function
 cna_profiler-script-cna_profiler-function
 cin_signature_ccle-script-run_cin_ccle-function
-medicc2-intraclone-variability
