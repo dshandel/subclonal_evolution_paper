@@ -8,4 +8,4 @@ For the reproduction of statistics and figures, follow link: https://dshandel.gi
 
 The raw data have been deposited in the NCBI Sequence Read Archive under accession number PRJNA1015247. If you require access to the processed datasets, kindly get in touch with the lead author.
 
-Paper: [INSERT DOI]
+Paper: https://doi.org/10.1016/j.celrep.2024.113735
